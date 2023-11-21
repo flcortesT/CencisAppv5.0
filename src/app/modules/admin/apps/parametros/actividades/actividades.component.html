@@ -1,0 +1,75 @@
+<div class="flex flex-col flex-auto min-w-0" *transloco="let t">
+    <!-- Cabecera del formulario -->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500">{{t('AMedicamento-Header')}}</a>
+                </div>
+                <div class="flex items-center ml-1 whitespace-nowrap">
+                    <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+                    <a class="ml-1 text-primary-500">{{t('Company-Home-Title')}}</a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    {{t('AMedicamento-Header')}}
+                </h2>
+            </div>
+
+            <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-card">
+                <button class="px-6 ml-3" mat-flat-button [color]="'primary'">
+                    {{t('Save')}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <!--Cuerpo del formulario-->
+    <div class="flex-auto p-6 sm:p-5">
+        <fuse-card class="flex flex-col max-w-280 w-full mt-8 bg-card" #expandableCard02="fuseCard">
+            <form class="p-4 bg-card shadow rounded overflow-hidden" [formGroup]="actividadForm"
+                (ngSubmit)="submitFormActividad()">
+                <mat-vertical-stepper [linear]="true" #verticalStepper>
+                    <mat-step [formGroupName]="'step1'" [stepControl]="actividadForm.get('step1')"
+                        #verticalStepperStep1>
+                        <ng-template matStepLabel>{{t('Actividad-Header')}}</ng-template>
+                        <mat-divider class="mt-6 mb-10"></mat-divider>
+                        <div class="flex">
+                            <div class="flex-1 w-64">
+                                <mat-form-field class="flex-auto gt-xs:pr-15 w-120">
+                                    <mat-label>{{t('Actividad-Title')}}</mat-label>
+                                    <mat-select [formControlName]="'detalleActividad'"
+                                        [placeholder]="t('Actividad-Header')">
+                                        <mat-option value="actividad-1">{{t('Msg-None')}}</mat-option>
+                                        <mat-option *ngFor="let pdetalleActividad of selectDetalleActividad"
+                                            [value]="pdetalleActividad">{{pdetalleActividad.detalleActividad}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix
+                                        [svgIcon]="'heroicons_outline:cube-transparent'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="flex-1 w-130">
+                                <mat-form-field class="flex-auto gt-xs:pr-15 w-120">
+                                    <mat-label>{{t('Actividad-Acciones')}}</mat-label>
+                                    <mat-select [formControlName]="'detalleActividad'"
+                                        [placeholder]="t('Actividad-Acciones')">
+                                        <mat-option value="eventos-1">{{t('Msg-None')}}</mat-option>
+                                        <mat-option *ngFor="let pEventos of selectEventos"
+                                            [value]="pEventos">{{pEventos.nombreAccion}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix
+                                        [svgIcon]="'heroicons_solid:building-office'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </mat-step>
+                </mat-vertical-stepper>
+
+            </form>
+        </fuse-card>
+    </div>
+</div>
