@@ -374,7 +374,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         id: 'pages.authentication.sign-in',
                         title: 'Sign in',
                         type: 'basic',
-                        icon: 'heroicons_outline:login',
+                        icon: 'heroicons_outline:lock-open',
                         link: '/pages/authentication/sign-in/modern'
                     },
                     {
@@ -388,7 +388,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         id: 'pages.authentication.sign-out',
                         title: 'Sign out',
                         type: 'basic',
-                        icon: 'heroicons_outline:logout',
+                        icon: 'heroicons_outline:lock-closed',
                         link: '/pages/authentication/sign-out/modern'
                     },
                     {
@@ -1684,7 +1684,7 @@ export const compactNavigation: FuseNavigationItem[] = [
                         id: 'pages.authentication.sign-in',
                         title: 'Sign in',
                         type: 'basic',
-                        icon: 'heroicons_outline:login',
+                        icon: 'heroicons_outline:lock-open',
                         link: '/pages/authentication/sign-in/modern'
                     },
                     {
@@ -1698,7 +1698,7 @@ export const compactNavigation: FuseNavigationItem[] = [
                         id: 'pages.authentication.sign-out',
                         title: 'Sign out',
                         type: 'basic',
-                        icon: 'heroicons_outline:logout',
+                        icon: 'heroicons_outline:lock-closed',
                         link: '/pages/authentication/sign-out/modern'
                     },
                     {
@@ -2990,7 +2990,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
                         id: 'pages.authentication.sign-in',
                         title: 'Sign in',
                         type: 'basic',
-                        icon: 'heroicons_outline:login',
+                        icon: 'heroicons_outline:lock-open',
                         link: '/pages/authentication/sign-in/modern'
                     },
                     {
@@ -3004,7 +3004,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
                         id: 'pages.authentication.sign-out',
                         title: 'Sign out',
                         type: 'basic',
-                        icon: 'heroicons_outline:logout',
+                        icon: 'heroicons_outline:lock-closed',
                         link: '/pages/authentication/sign-out/modern'
                     },
                     {
@@ -4296,7 +4296,7 @@ export const horizontalNavigation: FuseNavigationItem[] = [
                         id: 'pages.authentication.sign-in',
                         title: 'Sign in',
                         type: 'basic',
-                        icon: 'heroicons_outline:login',
+                        icon: 'heroicons_outline:lock-open',
                         link: '/pages/authentication/sign-in/modern'
                     },
                     {
@@ -4310,7 +4310,7 @@ export const horizontalNavigation: FuseNavigationItem[] = [
                         id: 'pages.authentication.sign-out',
                         title: 'Sign out',
                         type: 'basic',
-                        icon: 'heroicons_outline:logout',
+                        icon: 'heroicons_outline:lock-closed',
                         link: '/pages/authentication/sign-out/modern'
                     },
                     {
