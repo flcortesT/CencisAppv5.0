@@ -33,6 +33,17 @@
                     class="mt-8"
                     [formGroup]="signUpForm">
 
+                    <mat-form-field class="w-full">
+                        <mat-label>Usuario</mat-label>
+                        <input
+                            id="name"
+                            matInput
+                            [formControlName]="'name'">
+                        <mat-error *ngIf="signUpForm.get('name').hasError('required')">
+                            Full name is required
+                        </mat-error>
+                    </mat-form-field>
+
                     <!-- Name field -->
                     <mat-form-field class="w-full">
                         <mat-label>Full name</mat-label>
@@ -47,7 +58,7 @@
 
                     <!-- Email field -->
                     <mat-form-field class="w-full">
-                        <mat-label>Email address</mat-label>
+                        <mat-label>{{t('Email-Address')}}</mat-label>
                         <input
                             id="email"
                             matInput
@@ -62,7 +73,7 @@
 
                     <!-- Password field -->
                     <mat-form-field class="w-full">
-                        <mat-label>Password</mat-label>
+                        <mat-label>{{t('Password-Header')}}</mat-label>
                         <input
                             id="password"
                             matInput
