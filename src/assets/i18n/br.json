@@ -185,7 +185,7 @@
     "Account-Active": "Empresa Activa?",
     "Account-Description": "Descripciòn de detalle de la empresa",
     "Company-Home": "Tabla Maestra",
-    "Company-Home-Title": "Empresas de TeraQ",
+    "Company-Home-Title": "Cencis Salud",
     "Company-Header": "Tabla maestra de empresas",
     "Company-Basic": "Informaciòn Bàsica",
     "Company-Basic-Title": "Información básica de la compañía que incluye los datos necesarios para abrir una cuenta",
@@ -378,7 +378,7 @@
     "Plan-Description": "Descripciòn",
     "Plan-Price": "Precio del servicio",
     "Plan-Tenant": "Tenant",
-    "Bank-Header": "Tabla maestra de bancos",
+    "Inscripcion-Header": "Inscrição de pacientes",
     "Bank-Description": "Nombre Banco",
     "Bank-AccountNro": "Nro Cuenta",
     "Bank-Country": "Paìs",
@@ -454,5 +454,9 @@
     "Profile-Online":"On-line",
     "Profile-Away":"Ausente",
     "Profile-Busy":"ocupado",
-    "Profile-Invisible":"Invisible"
+    "Profile-Invisible":"Invisible",
+    "Register-Information-Data":"Dados pacientes",
+    "Register-Information-Prescription":"Prescrição de informações",
+    "Register-Reporting-Information":"Informação reportante",
+    "Register-Observations":"Observações"
 }

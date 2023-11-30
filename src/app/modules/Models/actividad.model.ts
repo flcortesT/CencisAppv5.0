@@ -1,6 +1,6 @@
-import { Perfiles } from "./caracteristicas.model";
-import { Estados } from "./ejecuciones.model";
-import { City, State, Country } from "./location.model";
+import { Medicamentos, Perfiles, Zonas } from './caracteristicas.model';
+import { Estados } from './ejecuciones.model';
+import { City, State, Country } from './location.model';
 
 export class AccionActual {
     id?: number;
@@ -30,7 +30,6 @@ export class ActividadComplementaria {
     active?: boolean;
 }
 
-
 export class PeriodoConvulsiones {
     nombrePeriodoConvulsiones?: string;
     active?: boolean;
@@ -51,11 +50,13 @@ export class Regimen {
 }
 
 export class Paciente {
-    id?: number;
+    country: Country;
+    state?: State;
+    city?: City;
+    zona?: Zonas;
     tipoIdentificacion?: TipoIdentificacion;
     nroIdentificacion?: string;
     nombres?: string;
-    apellidos?: string;
     sexo: Sexo;
     fechaNacimiento: string;
     edad?: number;
@@ -65,9 +66,19 @@ export class Paciente {
     direccion1?: string;
     direccion2?: string;
     email?: string;
-    regimen: Regimen;
-    City: City;
-    Country: Country;
+    regimen?: Regimen;
+    medicamentos?: Medicamentos;
+    aseguradora?: string;
+    fechaformula: string;
+    medicotratante?: string;
+    zonaenfermera?: string; 
+    diagnosticopaciente?: string;
+    fechaprogramacion: string;
+    causalnoingreso?: string;
+    puntoentrega?: string;
+    nombrereportante?: string;
+    emailreportante?: string;
+    observaciones?: string;
     usuario: Usuario;
 }
 
@@ -130,8 +141,7 @@ export class AplicacionSeguimiento {
     active?: boolean;
 }
 
-
-export class AplicacionSeguimientoVitales{
+export class AplicacionSeguimientoVitales {
     id?: number;
     aplicacionSeguimiento: AplicacionSeguimiento;
     fechaCitaMedica?: string;
@@ -163,7 +173,7 @@ export class EsquemaAplicacion {
     active?: boolean;
 }
 
-export class AsignacionPerfil{
+export class AsignacionPerfil {
     asignacionPerfil?: number;
     perfiles?: Perfiles;
     ciudad?: City;
@@ -184,5 +194,3 @@ export class MaestraCaracteristicas {
     DetalleCaracteristicas?: string;
     active?: boolean;
 }
-
-

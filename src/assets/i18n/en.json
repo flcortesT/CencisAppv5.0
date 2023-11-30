@@ -386,7 +386,7 @@
     "Plan-Description": "Description",
     "Plan-Price": "Price Service",
     "Plan-Tenant": "Tenant",
-    "Bank-Header": "Banks Master Table",
+    "Inscripcion-Header": "Enrollmend Patiences Master Table",
     "Bank-Description": "Bank Name",
     "Bank-AccountNro": "Account Number",
     "Bank-Country": "Country",
@@ -462,6 +462,10 @@
     "Profile-Online":"Online",
     "Profile-Away":"Away",
     "Profile-Busy":"Busy",
-    "Profile-Invisible":"Invisible"
+    "Profile-Invisible":"Invisible",
+    "Register-Information-Data": "Patience data",
+    "Register-Information-Prescription": "Information prescription",
+    "Register-Reporting-Information": "Reporting Information",
+    "Register-Observations": "Observations"
 }
 

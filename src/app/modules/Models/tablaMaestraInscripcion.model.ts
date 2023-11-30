@@ -2,8 +2,8 @@
 import { Distritos, Laboratorios, Medicamentos } from "./caracteristicas.model";
 import { Estados } from "./ejecuciones.model";
 
+/// Tabla de inscripción inicial de pacientes el cual va cambiando al flujo de registro.
 export class Inscripcion {
-    id?: number;
     cupatra?: number;
     medicamentos: Medicamentos;
     laboratorios: Laboratorios;
@@ -30,5 +30,5 @@ export class Inscripcion {
     motivoNoAdherencia?: string;
     ultimaAplicacion?: string;
     periocidad?: string;
-    puntoEntrada?: string;
+    puntoEntrega?: string;
 }
