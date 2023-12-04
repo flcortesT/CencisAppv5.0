@@ -1,0 +1,11 @@
+{
+    "/api/*": {
+        "target": "http://api.cencisapp.com",
+        "secure": false,
+        "pathRewrite":{
+            "^/api":""
+        },
+        "changeOrigin": false,
+        "loglevel":"debug"
+    }
+}

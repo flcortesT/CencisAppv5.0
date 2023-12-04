@@ -38,6 +38,45 @@
                         <hr class="w-full border-t my-6" />
                         <ng-template matStepLabel>{{t('Register-Information-Data')}}</ng-template>
                         <div class="flex">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <mat-select [formControlName]="'countryId'" [placeholder]="t('Bank-Country')"
+                                    (selectionChange)="onCountrySelected($event.value)">
+                                    <mat-option value="country-1">{{t('Msg-None')}}</mat-option>
+                                    <mat-option *ngFor="let pCountry of selectCountries"
+                                        [value]="pCountry">{{pCountry.nombrePais}}</mat-option>
+                                </mat-select>
+                                <mat-icon class="icon-size-5" matPrefix
+                                    [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <mat-select [formControlName]="'departamento'" [placeholder]="t('Location-State')" required>
+                                    <mat-option value="country-1">{{t('Msg-None')}}</mat-option>
+                                    <mat-option *ngFor="let pStates of selectState" [value]="pStates">{{pStates.nombreDepartamento}}</mat-option>
+                                </mat-select>
+                                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <mat-select [formControlName]="'ciudad'" [placeholder]="t('Location-City')" required>
+                                    <mat-option value="country-1">{{t('Msg-None')}}</mat-option>
+                                    <mat-option *ngFor="let pStates of selectCity" [value]="pStates">{{pStates.nombreCiudad}}</mat-option>
+                                </mat-select>
+                                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <mat-select [formControlName]="'zona'" [placeholder]="t('Location-Region')" required>
+                                    <mat-option value="country-1">{{t('Msg-None')}}</mat-option>
+                                    <mat-option *ngFor="let pStates of selectRegion" [value]="pStates">{{pStates.nombreRegion}}</mat-option>
+                                </mat-select>
+                                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
                             <mat-form-field class="flex-auto">
                                 <input
                                     matInput

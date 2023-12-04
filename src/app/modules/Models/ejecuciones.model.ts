@@ -1,12 +1,12 @@
 import { CaracteristicasVivienda, Medicamentos } from './caracteristicas.model';
 import { Usuario } from "./actividad.model";
-import { City, Country } from "./location.model";
+import { Ciudad, Country } from "./location.model";
 import { Desenlace } from './tablaMaestra.model';
 
 export class EjecucionGestionAC_GestionAdministrativa{
     id?: number;
     gestionACAsignados: GestionACAsignados;
-    City: City;
+    City: Ciudad;
     fecha?: string;
     visitado?: string;
     especialidad?: string;

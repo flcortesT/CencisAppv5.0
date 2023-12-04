@@ -1,5 +1,4 @@
 export class Country{
-    id?: number;
     nombrePais?: string;
     codigoISO?: string;
     codigoAlpha2?: string;
@@ -9,15 +8,13 @@ export class Country{
 }
 
 export class State{
-    id?: number;
     nombreDepartamento?: string;
     pais?: Country;
     codigo?: string;
     active?: boolean;
 }
 
-export class City {
-    id?: number;
+export class Ciudad {
     nombreCiudad?: string;
     codigo?: string;
     departamentoId?: State;
@@ -25,10 +22,9 @@ export class City {
     active?: boolean;
 }
 
-export class Region {
-    id?: number;
+export class Zonas {
     nombreRegion?: string;
     states?: State;
-    ciudad?: City;
+    ciudad?: Ciudad;
     active?: boolean;
 }

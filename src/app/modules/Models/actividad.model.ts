@@ -1,6 +1,6 @@
 import { Medicamentos, Perfiles, Zonas } from './caracteristicas.model';
 import { Estados } from './ejecuciones.model';
-import { City, State, Country } from './location.model';
+import { Ciudad, State, Country } from './location.model';
 
 export class AccionActual {
     id?: number;
@@ -52,7 +52,7 @@ export class Regimen {
 export class Paciente {
     country: Country;
     state?: State;
-    city?: City;
+    Ciudad?: Ciudad;
     zona?: Zonas;
     tipoIdentificacion?: TipoIdentificacion;
     nroIdentificacion?: string;
@@ -119,7 +119,7 @@ export class AplicacionSeguimiento {
     usuario: Usuario;
     Country: Country;
     State: State;
-    City: City;
+    Ciudad: Ciudad;
     ips: IPS;
     fechaAplicacion?: string;
     escalaDolor: EscalaDolor;
@@ -176,7 +176,7 @@ export class EsquemaAplicacion {
 export class AsignacionPerfil {
     asignacionPerfil?: number;
     perfiles?: Perfiles;
-    ciudad?: City;
+    ciudad?: Ciudad;
     Enfermera?: boolean;
 }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, RequiredValidator, UntypedFormBuilder, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule,  Validators } from '@angular/forms';
 import { MatLuxonDateModule } from '@angular/material-luxon-adapter';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -19,6 +19,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseCardComponent } from '@fuse/components/card';
 import { FuseMasonryComponent } from '@fuse/components/masonry';
 import { TranslocoModule } from '@ngneat/transloco';
+import { Country } from '../contacts/contacts.types';
+import { Ciudad, State } from 'app/modules/Models/location.model';
+import { LocationService } from 'app/modules/services/location.service';
+import { Zonas } from 'app/modules/Models/caracteristicas.model';
+import { NgFor, NgForOf } from '@angular/common';
 
 @Component({
     selector: 'app-registros',
@@ -27,6 +32,8 @@ import { TranslocoModule } from '@ngneat/transloco';
     standalone: true,
     imports: [
         FormsModule,
+        NgFor,
+        NgForOf,
         ReactiveFormsModule,
         MatStepperModule,
         MatSlideToggleModule,
@@ -50,16 +57,29 @@ import { TranslocoModule } from '@ngneat/transloco';
     ],
 })
 export class RegistrosComponent implements OnInit {
-   
     verticalStepperForm: FormGroup;
     step1: FormGroup;
     step2: FormGroup;
 
-    constructor(private _formBuilder: UntypedFormBuilder) {}
+    // variables de trabajo para cargar select de localizacion
+    countries: Country[];
+    departamentos: State[];
+    selectCity: any[];
+    cities: Ciudad[];
+    regiones: Zonas[];
+    selectRegion: any[];
+    selectCountries: any[];
+    selectState: any[];
+
+    constructor(
+        private _http: LocationService,
+        public _formBuilder: FormBuilder
+    ) {}
 
     ngOnInit(): void {
         this.verticalStepperForm = this._formBuilder.group({
             step1: this._formBuilder.group({
+                countryId: 0,
                 pais: ['', Validators.required],
                 departamento: [''],
                 ciudad: [''],
@@ -90,5 +110,114 @@ export class RegistrosComponent implements OnInit {
                 observaciones: [''],
             }),
         });
+
+        // Carga la tabla de pais en su arranque.
+        this.cargarPaises();
+        this.cargarEstados(1);
+        this.cargaCiudad(1);
+        this.cargaZona();
+    }
+
+    /// Consultan los datos relacionados a Pais
+    cargarPaises() {
+        this._http.getAllCountry().subscribe({
+            next: (response) => {
+                this.countries = Object.keys(response).map(
+                    (key) => response[key]
+                );
+                this.selectCountries = Object.values(this.countries[1]);
+            },
+            error: (error) => {
+                console.error(error);
+            },
+            complete: () => {
+                console.log('La petición para cargar países se ha completado.');
+            },
+        });
+    }
+
+    /// Consulta los departamentos existentes.
+    cargarEstados(paisId: number): void {
+        const valorState = 0;
+
+        this._http.getAllStateOrCountries(paisId, valorState).subscribe({
+            next: (response) => {
+                this.departamentos = Object.keys(response).map(
+                    (key) => response[key]
+                );
+                this.selectState = Object.values(this.departamentos[1]);
+            },
+            error: (error) => {
+                console.error(error);
+            },
+            complete: () => {
+                console.log(
+                    `La petición para cargar estados del país ${paisId} se ha completado.`
+                );
+            },
+        });
+    }
+
+    // Consulta las ciudades existentes
+    cargaCiudad(StateId: number): void {
+        const valorCountry = 0;
+        this._http.getAllCityById(StateId).subscribe({
+            next: (response) => {
+                this.cities = Object.keys(response).map((key) => response[key]);
+                this.selectCity = Object.values(this.cities[1]);
+            },
+            error: (error) => {
+                console.error(error);
+            },
+            complete: () => {
+                console.log(
+                    `La petición para cargar ciudades se ha completado.`
+                );
+            },
+        });
+    }
+
+    // Consulta las ciudades existentes
+    cargaZona(): void {
+        this._http.getAllRegion().subscribe({
+            next: (response) => {
+                this.regiones = Object.keys(response).map((key) => response[key]);
+                this.selectRegion = Object.values(this.regiones[1]);
+                console.log(this.selectRegion);
+            },
+            error: (error) => {
+                console.error(error);
+            },
+            complete: () => {
+                console.log(
+                    `La petición para cargar regiones se ha completado.`
+                );
+            },
+        });
+    }
+
+    // funcion que permite seleccioanr el pais como llave primaria.
+    onCountrySelected(pais: number): void {
+        const valorCity = 0;
+        const valorState = 0;
+        const valorPais = Object.values(pais)[0];
+        this._http
+            .getCityByCountry(valorPais, valorCity, valorState)
+            .subscribe({
+                next: (response) => {
+                    this.cities = Object.keys(response).map(
+                        (key) => response[key]
+                    );
+                    this.selectCity = Object.values(this.cities[1]);
+                },
+                error: (error: any) => {
+                    console.error(error);
+                },
+                complete: () => {
+                    console.log(
+                        'La petición para cargar paises se ha completado.'
+                    );
+                },
+            });
     }
 }
