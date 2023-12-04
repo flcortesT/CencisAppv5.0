@@ -1,6 +1,6 @@
 import { CaracteristicasVivienda, Medicamentos } from './caracteristicas.model';
 import { Usuario } from "./actividad.model";
-import { Ciudad, Country } from "./location.model";
+import { Ciudad, Paises } from "./location.model";
 import { Desenlace } from './tablaMaestra.model';
 
 export class EjecucionGestionAC_GestionAdministrativa{
@@ -205,7 +205,7 @@ export class EntidadesMedicamento {
 
 export class EPS {
     nombreEps?: string;
-    Country: Country;
+    Country: Paises;
     active?: boolean; 
 }
 

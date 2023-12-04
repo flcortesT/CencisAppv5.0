@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Ciudad, State, Country, Zonas } from '../Models/location.model';
+import { Ciudad, Departamento, Paises, Zonas } from '../Models/location.model';
 import { environment } from 'environments/environment';
 import { Observable, retry, catchError, throwError } from 'rxjs';
 
@@ -20,15 +20,15 @@ export class LocationService {
     };
 
     // Consulta de registros de accion actual.
-    getAllCountry(): Observable<Country> {
+    getAllCountry(): Observable<Paises> {
         return this.http
-            .get<Country>(environment.baseUrl + 'Paises', this.httpOptions)
+            .get<Paises>(environment.baseUrl + 'Paises', this.httpOptions)
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
     getAllStateOrCountries(paisId: number, valorState: number) {
         return this.http
-            .get<State>(environment.baseUrl + 'Departamento', this.httpOptions)
+            .get<Departamento>(environment.baseUrl + 'Departamento', this.httpOptions)
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
@@ -52,9 +52,9 @@ export class LocationService {
     }
 
     // Consulta de registros de accion actual.
-    getAllState(): Observable<State> {
+    getAllState(): Observable<Departamento> {
         return this.http
-            .get<State>(environment.baseUrl + 'Departamento', this.httpOptions)
+            .get<Departamento>(environment.baseUrl + 'Departamento', this.httpOptions)
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
@@ -73,9 +73,9 @@ export class LocationService {
     }
 
     // Consulta de registros de areas con parametros
-    getAllCountryById(id: number): Observable<Country> {
+    getAllCountryById(id: number): Observable<Paises> {
         return this.http
-            .get<Country>(
+            .get<Paises>(
                 environment.baseUrl + 'Paises/' + id,
                 this.httpOptions
             )
@@ -83,9 +83,9 @@ export class LocationService {
     }
 
     // Consulta de registros de areas con parametros
-    getAllStateById(id: number): Observable<State> {
+    getAllStateById(id: number): Observable<Departamento> {
         return this.http
-            .get<State>((environment.baseUrl + 'Departamento/' + id),this.httpOptions)
+            .get<Departamento>((environment.baseUrl + 'Departamento/' + id),this.httpOptions)
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
@@ -104,9 +104,9 @@ export class LocationService {
     }
 
     // Creación de un nuevo registro en la tabla accion actual.
-    crearCountry(data: any): Observable<Country> {
+    crearCountry(data: any): Observable<Paises> {
         return this.http
-            .post<Country>(
+            .post<Paises>(
                 environment.baseUrl + 'Paises',
                 JSON.stringify(data),
                 this.httpOptions
@@ -115,9 +115,9 @@ export class LocationService {
     }
 
     // Creación de un nuevo registro en la tabla accion actual.
-    crearState(data: any): Observable<State> {
+    crearState(data: any): Observable<Departamento> {
         return this.http
-            .post<State>(
+            .post<Departamento>(
                 environment.baseUrl + 'Departamento',
                 JSON.stringify(data),
                 this.httpOptions
@@ -148,9 +148,9 @@ export class LocationService {
     }
 
     // Edición de registros existentes.
-    updateCountry(id: number, data: any): Observable<Country> {
+    updateCountry(id: number, data: any): Observable<Paises> {
         return this.http
-            .put<Country>(
+            .put<Paises>(
                 environment.baseUrl + 'Paises/' + id,
                 JSON.stringify(data),
                 this.httpOptions
@@ -159,9 +159,9 @@ export class LocationService {
     }
 
     // Edición de registros existentes.
-    updateState(id: number, data: any): Observable<State> {
+    updateState(id: number, data: any): Observable<Departamento> {
         return this.http
-            .put<State>(
+            .put<Departamento>(
                 environment.baseUrl + 'Departamento/' + id,
                 JSON.stringify(data),
                 this.httpOptions
@@ -192,9 +192,9 @@ export class LocationService {
     }
 
     // Eliminar registro de la tabla City
-    deleteCountryById(id: number): Observable<Country> {
+    deleteCountryById(id: number): Observable<Paises> {
         return this.http
-            .delete<Country>(
+            .delete<Paises>(
                 environment.baseUrl + 'Paises/' + id,
                 this.httpOptions
             )
@@ -202,9 +202,9 @@ export class LocationService {
     }
 
     // Eliminar registro de la tabla City
-    deleteStateById(id: number): Observable<Country> {
+    deleteStateById(id: number): Observable<Paises> {
         return this.http
-            .delete<Country>(
+            .delete<Paises>(
                 environment.baseUrl + 'Departamento/' + id,
                 this.httpOptions
             )
@@ -212,9 +212,9 @@ export class LocationService {
     }
 
     // Eliminar registro de la tabla City
-    deleteCityById(id: number): Observable<Country> {
+    deleteCityById(id: number): Observable<Paises> {
         return this.http
-            .delete<Country>(
+            .delete<Paises>(
                 environment.baseUrl + 'Ciudad/' + id,
                 this.httpOptions
             )
@@ -222,9 +222,9 @@ export class LocationService {
     }
 
     // Eliminar registro de la tabla City
-    deleteRegionById(id: number): Observable<Country> {
+    deleteRegionById(id: number): Observable<Paises> {
         return this.http
-            .delete<Country>(
+            .delete<Paises>(
                 environment.baseUrl + 'Region/' + id,
                 this.httpOptions
             )

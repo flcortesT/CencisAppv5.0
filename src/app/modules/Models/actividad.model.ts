@@ -1,6 +1,6 @@
 import { Medicamentos, Perfiles, Zonas } from './caracteristicas.model';
 import { Estados } from './ejecuciones.model';
-import { Ciudad, State, Country } from './location.model';
+import { Ciudad, Departamento, Paises } from './location.model';
 
 export class AccionActual {
     id?: number;
@@ -50,8 +50,8 @@ export class Regimen {
 }
 
 export class Paciente {
-    country: Country;
-    state?: State;
+    country: Paises;
+    state?: Departamento;
     Ciudad?: Ciudad;
     zona?: Zonas;
     tipoIdentificacion?: TipoIdentificacion;
@@ -83,7 +83,6 @@ export class Paciente {
 }
 
 export class TipoIdentificacion {
-    id?: number;
     nombreTiposIdentificacion?: string;
     abreviatura?: string;
     homologacion?: string;
@@ -117,8 +116,8 @@ export class AplicacionSeguimiento {
     cupatra?: number;
     fechaRegistro?: string;
     usuario: Usuario;
-    Country: Country;
-    State: State;
+    Country: Paises;
+    State: Departamento;
     Ciudad: Ciudad;
     ips: IPS;
     fechaAplicacion?: string;
@@ -153,7 +152,7 @@ export class AplicacionSeguimientoVitales {
 
 export class Farmacia {
     nombreFarmacia?: string;
-    Country: Country;
+    Country: Paises;
     active?: boolean;
 }
 

@@ -1,4 +1,4 @@
-export class Country{
+export class Paises{
     nombrePais?: string;
     codigoISO?: string;
     codigoAlpha2?: string;
@@ -7,9 +7,9 @@ export class Country{
     active?: boolean;
 }
 
-export class State{
+export class Departamento{
     nombreDepartamento?: string;
-    pais?: Country;
+    pais?: Paises;
     codigo?: string;
     active?: boolean;
 }
@@ -17,14 +17,14 @@ export class State{
 export class Ciudad {
     nombreCiudad?: string;
     codigo?: string;
-    departamentoId?: State;
+    departamentoId?: Departamento;
     homologar?: string;
     active?: boolean;
 }
 
 export class Zonas {
     nombreRegion?: string;
-    states?: State;
+    Departamentos?: Departamento;
     ciudad?: Ciudad;
     active?: boolean;
 }

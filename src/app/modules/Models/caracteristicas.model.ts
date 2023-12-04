@@ -1,5 +1,5 @@
 import { Sexo, Usuario } from "./actividad.model";
-import { Country } from "./location.model";
+import { Paises } from "./location.model";
 
 export class CaracteristicasVivienda {
     id?: number;
@@ -81,7 +81,7 @@ export class ConsentimientoGS{
 export class Zonas{
     id?: number;
     nombreZona?: string;
-    pais: Country;
+    pais: Paises;
     active?: boolean;
 }
 export class Perfiles {

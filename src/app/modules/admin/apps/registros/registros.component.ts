@@ -19,11 +19,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseCardComponent } from '@fuse/components/card';
 import { FuseMasonryComponent } from '@fuse/components/masonry';
 import { TranslocoModule } from '@ngneat/transloco';
-import { Country } from '../contacts/contacts.types';
-import { Ciudad, State } from 'app/modules/Models/location.model';
+import { Ciudad, Paises, Departamento } from 'app/modules/Models/location.model';
 import { LocationService } from 'app/modules/services/location.service';
 import { Zonas } from 'app/modules/Models/caracteristicas.model';
 import { NgFor, NgForOf } from '@angular/common';
+import { TipoIdentificacion } from 'app/modules/Models/actividad.model';
+import { ActividadesService } from 'app/modules/services/actividades.service';
 
 @Component({
     selector: 'app-registros',
@@ -58,21 +59,22 @@ import { NgFor, NgForOf } from '@angular/common';
 })
 export class RegistrosComponent implements OnInit {
     verticalStepperForm: FormGroup;
-    step1: FormGroup;
-    step2: FormGroup;
-
+   
     // variables de trabajo para cargar select de localizacion
-    countries: Country[];
-    departamentos: State[];
+    countries: Paises[];
+    departamentos: Departamento[];
     selectCity: any[];
     cities: Ciudad[];
     regiones: Zonas[];
+    tipoIdentificacion: TipoIdentificacion[];
+    selectTipoIdentificacion: any[];
     selectRegion: any[];
     selectCountries: any[];
     selectState: any[];
 
     constructor(
         private _http: LocationService,
+        private _httpservice: ActividadesService,
         public _formBuilder: FormBuilder
     ) {}
 
@@ -116,6 +118,8 @@ export class RegistrosComponent implements OnInit {
         this.cargarEstados(1);
         this.cargaCiudad(1);
         this.cargaZona();
+        this.cargaTipoIdentificacion();
+        
     }
 
     /// Consultan los datos relacionados a Pais
@@ -161,7 +165,7 @@ export class RegistrosComponent implements OnInit {
     // Consulta las ciudades existentes
     cargaCiudad(StateId: number): void {
         const valorCountry = 0;
-        this._http.getAllCityById(StateId).subscribe({
+        this._http.getAllCity().subscribe({
             next: (response) => {
                 this.cities = Object.keys(response).map((key) => response[key]);
                 this.selectCity = Object.values(this.cities[1]);
@@ -181,9 +185,10 @@ export class RegistrosComponent implements OnInit {
     cargaZona(): void {
         this._http.getAllRegion().subscribe({
             next: (response) => {
-                this.regiones = Object.keys(response).map((key) => response[key]);
+                this.regiones = Object.keys(response).map(
+                    (key) => response[key]
+                );
                 this.selectRegion = Object.values(this.regiones[1]);
-                console.log(this.selectRegion);
             },
             error: (error) => {
                 console.error(error);
@@ -191,6 +196,26 @@ export class RegistrosComponent implements OnInit {
             complete: () => {
                 console.log(
                     `La petición para cargar regiones se ha completado.`
+                );
+            },
+        });
+    }
+
+    // Consulta de tipos de identificacion existentes
+    cargaTipoIdentificacion(): void {
+        this._httpservice.getAllTipoIdentificacion().subscribe({
+            next: (response) => {
+                this.tipoIdentificacion = Object.keys(response).map(
+                    (key) => response[key]
+                );
+                this.selectTipoIdentificacion = Object.values(this.tipoIdentificacion[1]);
+            },
+            error: (error) => {
+                console.error(error);
+            },
+            complete: () => {
+                console.log(
+                    `La petición para cargar tipos de identificación se ha completado.`
                 );
             },
         });

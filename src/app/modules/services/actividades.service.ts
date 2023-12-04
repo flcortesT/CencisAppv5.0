@@ -76,8 +76,8 @@ export class ActividadesService {
   // Consulta de registros de acciones.
   getAllTipoIdentificacion(): Observable<TipoIdentificacion> {
     return this.http
-      .get<TipoIdentificacion>(environment.baseUrl + 'TipoIdentificacion')
-      .pipe(retry(1), catchError(this.errorHandl));
+        .get<TipoIdentificacion>(environment.baseUrl + 'TiposIdentificacion')
+        .pipe(retry(1), catchError(this.errorHandl));
   }
 
   // Consulta de registros de acciones.
@@ -216,7 +216,7 @@ export class ActividadesService {
   // Consulta de registros de areas con parametros
   getAllTipoIdentificacionById(id: number): Observable<TipoIdentificacion> {
     return this.http
-      .get<TipoIdentificacion>(environment.baseUrl + 'TipoIdentificacion/' + id)
+      .get<TipoIdentificacion>(environment.baseUrl + 'TiposIdentificacion/' + id)
       .pipe(retry(1), catchError(this.errorHandl));
   }
 
@@ -374,7 +374,7 @@ export class ActividadesService {
   crearTipoIdentificacion(data: any): Observable<TipoIdentificacion> {
     return this.http
       .post<TipoIdentificacion>(
-        environment.baseUrl + 'TipoIdentificacion',
+        environment.baseUrl + 'TiposIdentificacion',
         JSON.stringify(data),
         this.httpOptions
       )
@@ -583,7 +583,7 @@ export class ActividadesService {
   updateTipoIdentificacion(id: number, data: any): Observable<TipoIdentificacion> {
     return this.http
       .put<TipoIdentificacion>(
-        environment.baseUrl + 'TipoIdentificacion/' + id,
+        environment.baseUrl + 'TiposIdentificacion/' + id,
         JSON.stringify(data),
         this.httpOptions
       )
@@ -773,7 +773,7 @@ export class ActividadesService {
   deleteTipoIdentificacionById(id: number): Observable<TipoIdentificacion> {
     return this.http
       .delete<TipoIdentificacion>(
-        environment.baseUrl + 'TipoIdentificacion/' + id,
+        environment.baseUrl + 'TiposIdentificacion/' + id,
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.errorHandl));
