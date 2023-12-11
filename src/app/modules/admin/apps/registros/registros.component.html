@@ -145,7 +145,7 @@
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
                                     <mat-select [formControlName]="'medicamento'" [placeholder]="t('Location-Medical')" required>
                                         <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pRegion of selectRegion" [value]="pRegion">{{pRegion.nombreZona}}</mat-option>
+                                        <mat-option *ngFor="let pMedicamento of selectMedicamentos" [value]="pMedicamento">{{pMedicamento.nombreMedicamento}}</mat-option>
                                     </mat-select>
                                     <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
@@ -155,7 +155,7 @@
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
                                     <mat-select [formControlName]="'asegurador'" [placeholder]="t('Location-Asegurador')" required>
                                         <mat-option value="asegurador-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pRegion of selectRegion" [value]="pRegion">{{pRegion.nombreZona}}</mat-option>
+                                        <mat-option *ngFor="let pAseguradora of selectAseguradora" [value]="pAseguradora">{{pAseguradora.nombreAseguradora}}</mat-option>
                                     </mat-select>
                                     <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
@@ -262,9 +262,9 @@
                         </p>
                         <div class="mt-12 grid grid-cols-3 gap-2 gap-y-2 sm:grid-cols-2">
                             <div class="sm:col-span-2">
-                                <label for="nombres" class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-Names") }}</label>
+                                <label for="nombrescompletos" class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-Names") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
-                                    <input matInput [formControlName]="'nombres'" id="nombres" [placeholder]="t('Location-Names')"  required/>
+                                    <input matInput [formControlName]="'nombrescompletos'" id="nombrescompletos" [placeholder]="t('Location-Names')"  required/>
                                     <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:users'"></mat-icon>
                                 </mat-form-field>
                             </div>
@@ -272,7 +272,7 @@
                                 <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{ t("Email-Address") }}</label>
                                 <mat-form-field
                                     class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
-                                    <input matInput [formControlName]="'email'" id="email" [placeholder]="'Email Address'" required/>
+                                    <input matInput [formControlName]="'emailreportado'" id="emailreportado" [placeholder]="'Email Address'" required/>
                                     <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
                                 </mat-form-field>
                            </div>
@@ -297,7 +297,8 @@
                         </div>
                     </mat-step>
 
-                    <mat-step>
+                    <mat-step [formGroupName]="'step4'"
+                        [stepControl]="horizontalStepperForm.get('step4')">
                         <ng-template matStepLabel>{{t("Register-Observations")}}</ng-template>
                         <p class="my-6 font-medium">
                               {{t("Location-Title-Comentarios") }}

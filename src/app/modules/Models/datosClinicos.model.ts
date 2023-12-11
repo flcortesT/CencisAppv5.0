@@ -1,4 +1,5 @@
 import { AplicacionSeguimiento, Usuario } from "./actividad.model";
+import { Paises } from "./location.model";
 
 export class DatosClinicos {
     id?: number;
@@ -180,5 +181,11 @@ export class PeriodoConvulsionesDia {
 
 export class TratamientoAntiespastico {
     nombreTratamientoAntipastico?: string;
+    active?: boolean;
+}
+
+export class Medico {
+    nombreMedico?: string;
+    paisid: Paises;
     active?: boolean;
 }

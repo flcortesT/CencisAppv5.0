@@ -1,6 +1,6 @@
 import { Usuario } from "./actividad.model";
 import { Medicamentos } from "./caracteristicas.model";
-import { Country } from "./location.model";
+import { Paises } from "./location.model";
 
 export class MedicamentosConcomitantes {
     id?: number;
@@ -45,7 +45,7 @@ export class MedicamentosxMedico{
 export class Medico {
     id?: number;
     nombreMedico?: string;
-    Country: Country;
+    Country: Paises;
     active?: boolean;
 }
 

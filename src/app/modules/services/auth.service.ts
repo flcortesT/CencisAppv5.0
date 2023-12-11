@@ -7,29 +7,45 @@ import { Roles } from "../Models/Auth/roles.model";
 @Injectable({
     providedIn: 'root',
 })
-export class authServices
-{
-    constructor(public http: HttpClient) { }
+export class authServices {
+    constructor(public http: HttpClient) {}
 
     httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': 'true',
         }),
     };
 
     /// Login del sistema a traves de la api de .net 7 llamada TeraQ Data Manager.
-    login({ userName, email, password }: { userName: string; email: string; password: string; }): Observable<any>{
-        return this.http.post(environment.baseUrl + 'Auth/Login', {
-            userName,
-            email,
-            password
-        },
-            this.httpOptions);
+    login({
+        userName,
+        email,
+        password,
+    }: {
+        userName: string;
+        email: string;
+        password: string;
+    }): Observable<any> {
+        return this.http.post(
+            environment.baseUrl + 'Auth/Login',
+            {
+                userName,
+                email,
+                password,
+            },
+            this.httpOptions
+        );
     }
 
     /// creacion de roles en el sistema.
-    createRoles({ nameRole }: { nameRole: string }): Observable<any>{
-        return this.http.post(environment.baseUrl + 'Authentication/CreateRoles', nameRole, this.httpOptions);
+    createRoles({ nameRole }: { nameRole: string }): Observable<any> {
+        return this.http.post(
+            environment.baseUrl + 'Authentication/CreateRoles',
+            nameRole,
+            this.httpOptions
+        );
     }
 
     // Consulta de registros de accion actual.
@@ -39,50 +55,90 @@ export class authServices
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
-
     /// Register new user
-    register({ username, fullName, company, password, confirmPassword, phoneNumber, role, fechaCreacion, isSuperAdmin, Active }:
-        {
-            username: string; fullName: string; company: string; password: string; confirmPassword: string; phoneNumber: string;
-            role: string; fechaCreacion: string; isSuperAdmin: boolean; Active: boolean
-        }): Observable<any> {
-        return this.http.post(environment.baseUrl + 'Auth/Register', {
-            username,
-            fullName,
-            company,
-            password,
-            confirmPassword,
-            phoneNumber,
-            role,
-            fechaCreacion,
-            isSuperAdmin,
-            Active
-        }, this.httpOptions);
-        
+    register({
+        username,
+        fullName,
+        company,
+        password,
+        confirmPassword,
+        phoneNumber,
+        role,
+        fechaCreacion,
+        isSuperAdmin,
+        Active,
+    }: {
+        username: string;
+        fullName: string;
+        company: string;
+        password: string;
+        confirmPassword: string;
+        phoneNumber: string;
+        role: string;
+        fechaCreacion: string;
+        isSuperAdmin: boolean;
+        Active: boolean;
+    }): Observable<any> {
+        return this.http.post(
+            environment.baseUrl + 'Auth/Register',
+            {
+                username,
+                fullName,
+                company,
+                password,
+                confirmPassword,
+                phoneNumber,
+                role,
+                fechaCreacion,
+                isSuperAdmin,
+                Active,
+            },
+            this.httpOptions
+        );
     }
 
     /// Reseteo  de password
-    reset({ email, token, newPassword, confirmPassword }: { email: string; token: string; newPassword: string; confirmPassword: string }): Observable<any> {
-        return this.http.post(environment.baseUrl + 'Auth/ResetPassword', {
-            email,
-            token,
-            newPassword,
-            confirmPassword
-        }, this.httpOptions);
-        
+    reset({
+        email,
+        token,
+        newPassword,
+        confirmPassword,
+    }: {
+        email: string;
+        token: string;
+        newPassword: string;
+        confirmPassword: string;
+    }): Observable<any> {
+        return this.http.post(
+            environment.baseUrl + 'Auth/ResetPassword',
+            {
+                email,
+                token,
+                newPassword,
+                confirmPassword,
+            },
+            this.httpOptions
+        );
     }
 
     /// Envio de token por olvido de password donde alli le permite recobrar la clave.
     forgetpassword({ email }: { email: string }): Observable<any> {
-        return this.http.post(environment.baseUrl + 'Auth/ForgetPassword', {
-            email
-        }, this.httpOptions);
-        
+        return this.http.post(
+            environment.baseUrl + 'Auth/ForgetPassword',
+            {
+                email,
+            },
+            this.httpOptions
+        );
     }
 
     /// Logout system
     logout(): Observable<any> {
-        return this.http.post(environment.baseUrl + 'Auth/logout', {}, this.httpOptions);
+        return this.http.post(
+            environment.baseUrl + 'Auth/logout',
+            {},
+            this.httpOptions
+        );
     }
 
     // Control de errores
@@ -104,6 +160,5 @@ export class authServices
             return errorMessage;
         });
     }
-
 }
 

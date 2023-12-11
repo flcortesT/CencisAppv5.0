@@ -102,7 +102,6 @@ export class Distritos{
     active?: boolean;
 }
 export class Medicamentos{
-    id?: number;
     nombreMedicamento?: string;
     laboratorios: Laboratorios;
     diasReinicio?: string;

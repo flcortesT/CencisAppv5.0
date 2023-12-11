@@ -1,5 +1,5 @@
 import { Zonas } from "./caracteristicas.model";
-import { City } from "./location.model";
+import { Ciudad } from "./location.model";
 
 export class TipoActividad {
     id?: number;
@@ -118,7 +118,7 @@ export class ViasReport{
 export class ZonasCity{
     id?: number;
     zonas: Zonas;
-    City: City;
+    City: Ciudad;
     active?: boolean;
 }
 
