@@ -1,65 +1,76 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule,  Validators } from '@angular/forms';
-import { MatLuxonDateModule } from '@angular/material-luxon-adapter';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {FormsModule,ReactiveFormsModule,UntypedFormBuilder, UntypedFormGroup,Validators} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRippleModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDividerModule } from '@angular/material/divider';
+import { MAT_DATE_FORMATS, MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { FuseCardComponent } from '@fuse/components/card';
-import { FuseMasonryComponent } from '@fuse/components/masonry';
 import { TranslocoModule } from '@ngneat/transloco';
-import { Ciudad, Paises, Departamento } from 'app/modules/Models/location.model';
+import {
+    Ciudad,
+    Paises,
+    Departamento,
+} from 'app/modules/Models/location.model';
 import { LocationService } from 'app/modules/services/location.service';
 import { Zonas } from 'app/modules/Models/caracteristicas.model';
 import { NgFor, NgForOf } from '@angular/common';
 import { TipoIdentificacion } from 'app/modules/Models/actividad.model';
 import { ActividadesService } from 'app/modules/services/actividades.service';
+import { FuseCardComponent } from '@fuse/components/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
     selector: 'app-registros',
     templateUrl: './registros.component.html',
     styleUrls: ['./registros.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    providers: [
+         { provide: MAT_DATE_FORMATS, useValue: MAT_DATE_FORMATS }
+     ],
     standalone: true,
     imports: [
+        MatIconModule,
         FormsModule,
-        NgFor,
-        NgForOf,
         ReactiveFormsModule,
         MatStepperModule,
-        MatSlideToggleModule,
-        TranslocoModule,
-        MatButtonModule,
-        FuseCardComponent,
-        MatCheckboxModule,
-        MatSelectModule,
-        MatDialogModule,
-        MatDividerModule,
-        MatTooltipModule,
         MatFormFieldModule,
-        MatIconModule,
         MatInputModule,
-        MatMenuModule,
-        MatRippleModule,
-        MatSidenavModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        TranslocoModule,
+        FuseCardComponent,
         MatDatepickerModule,
-        MatLuxonDateModule,
-        FuseMasonryComponent,
+        NgFor,
+        NgForOf,
     ],
 })
 export class RegistrosComponent implements OnInit {
-    verticalStepperForm: FormGroup;
-   
+    horizontalStepperForm: UntypedFormGroup;
+    verticalStepperForm: UntypedFormGroup;
+
+    // Constante de fechas
+    MY_DATE_FORMATS = {
+        parse: {
+            dateInput: 'DD/MM/YYYY',
+        },
+
+        display: {
+            dateInput: 'DD/MM/YYYY',
+
+            monthYearLabel: 'MMMM YYYY',
+
+            dateA11yLabel: 'LL',
+
+            monthYearA11yLabel: 'MMMM YYYY',
+        },
+    };
     // variables de trabajo para cargar select de localizacion
     countries: Paises[];
     departamentos: Departamento[];
@@ -72,16 +83,26 @@ export class RegistrosComponent implements OnInit {
     selectCountries: any[];
     selectState: any[];
 
+    /**
+     * Constructor
+     */
     constructor(
+        private _formBuilder: UntypedFormBuilder,
         private _http: LocationService,
-        private _httpservice: ActividadesService,
-        public _formBuilder: FormBuilder
+        private _httpservice: ActividadesService
     ) {}
 
+    // -----------------------------------------------------------------------------------------------------
+    // @ Lifecycle hooks
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     * On init
+     */
     ngOnInit(): void {
-        this.verticalStepperForm = this._formBuilder.group({
+        // Horizontal stepper form
+        this.horizontalStepperForm = this._formBuilder.group({
             step1: this._formBuilder.group({
-                countryId: 0,
                 pais: ['', Validators.required],
                 departamento: [''],
                 ciudad: [''],
@@ -91,7 +112,7 @@ export class RegistrosComponent implements OnInit {
                 nombres: ['', Validators.required],
                 telefono1: ['', Validators.required],
                 telefono2: [''],
-                email: [''],
+                email: ['', [Validators.required, Validators.email]],
             }),
             step2: this._formBuilder.group({
                 medicamento: ['', Validators.required],
@@ -105,144 +126,36 @@ export class RegistrosComponent implements OnInit {
                 puntosentrega: [''],
             }),
             step3: this._formBuilder.group({
-                nombrereportante: [''],
-                emailreportante: [''],
+                byEmail: this._formBuilder.group({
+                    companyNews: [true],
+                    featuredProducts: [false],
+                    messages: [true],
+                }),
+                pushNotifications: ['everything', Validators.required],
             }),
-            step4: this._formBuilder.group({
-                observaciones: [''],
+        });
+
+        // Vertical stepper form
+        this.verticalStepperForm = this._formBuilder.group({
+            step1: this._formBuilder.group({
+                email: ['', [Validators.required, Validators.email]],
+                country: ['', Validators.required],
+                language: ['', Validators.required],
+            }),
+            step2: this._formBuilder.group({
+                firstName: ['', Validators.required],
+                lastName: ['', Validators.required],
+                userName: ['', Validators.required],
+                about: [''],
+            }),
+            step3: this._formBuilder.group({
+                byEmail: this._formBuilder.group({
+                    companyNews: [true],
+                    featuredProducts: [false],
+                    messages: [true],
+                }),
+                pushNotifications: ['everything', Validators.required],
             }),
         });
-
-        // Carga la tabla de pais en su arranque.
-        this.cargarPaises();
-        this.cargarEstados(1);
-        this.cargaCiudad(1);
-        this.cargaZona();
-        this.cargaTipoIdentificacion();
-        
-    }
-
-    /// Consultan los datos relacionados a Pais
-    cargarPaises() {
-        this._http.getAllCountry().subscribe({
-            next: (response) => {
-                this.countries = Object.keys(response).map(
-                    (key) => response[key]
-                );
-                this.selectCountries = Object.values(this.countries[1]);
-            },
-            error: (error) => {
-                console.error(error);
-            },
-            complete: () => {
-                console.log('La petición para cargar países se ha completado.');
-            },
-        });
-    }
-
-    /// Consulta los departamentos existentes.
-    cargarEstados(paisId: number): void {
-        const valorState = 0;
-
-        this._http.getAllStateOrCountries(paisId, valorState).subscribe({
-            next: (response) => {
-                this.departamentos = Object.keys(response).map(
-                    (key) => response[key]
-                );
-                this.selectState = Object.values(this.departamentos[1]);
-            },
-            error: (error) => {
-                console.error(error);
-            },
-            complete: () => {
-                console.log(
-                    `La petición para cargar estados del país ${paisId} se ha completado.`
-                );
-            },
-        });
-    }
-
-    // Consulta las ciudades existentes
-    cargaCiudad(StateId: number): void {
-        const valorCountry = 0;
-        this._http.getAllCity().subscribe({
-            next: (response) => {
-                this.cities = Object.keys(response).map((key) => response[key]);
-                this.selectCity = Object.values(this.cities[1]);
-            },
-            error: (error) => {
-                console.error(error);
-            },
-            complete: () => {
-                console.log(
-                    `La petición para cargar ciudades se ha completado.`
-                );
-            },
-        });
-    }
-
-    // Consulta las ciudades existentes
-    cargaZona(): void {
-        this._http.getAllRegion().subscribe({
-            next: (response) => {
-                this.regiones = Object.keys(response).map(
-                    (key) => response[key]
-                );
-                this.selectRegion = Object.values(this.regiones[1]);
-            },
-            error: (error) => {
-                console.error(error);
-            },
-            complete: () => {
-                console.log(
-                    `La petición para cargar regiones se ha completado.`
-                );
-            },
-        });
-    }
-
-    // Consulta de tipos de identificacion existentes
-    cargaTipoIdentificacion(): void {
-        this._httpservice.getAllTipoIdentificacion().subscribe({
-            next: (response) => {
-                this.tipoIdentificacion = Object.keys(response).map(
-                    (key) => response[key]
-                );
-                this.selectTipoIdentificacion = Object.values(this.tipoIdentificacion[1]);
-            },
-            error: (error) => {
-                console.error(error);
-            },
-            complete: () => {
-                console.log(
-                    `La petición para cargar tipos de identificación se ha completado.`
-                );
-            },
-        });
-    }
-
-    // funcion que permite seleccioanr el pais como llave primaria.
-    onCountrySelected(pais: number): void {
-        const valorCity = 0;
-        const valorState = 0;
-        const valorPais = Object.values(pais)[0];
-        this._http
-            .getCityByCountry(valorPais, valorCity, valorState)
-            .subscribe({
-                next: (response) => {
-                    this.cities = Object.keys(response).map(
-                        (key) => response[key]
-                    );
-                    this.selectCity = Object.values(this.cities[1]);
-                },
-                error: (error: any) => {
-                    console.error(error);
-                },
-                complete: () => {
-                    console.log(
-                        'La petición para cargar paises se ha completado.'
-                    );
-                },
-            });
     }
 }

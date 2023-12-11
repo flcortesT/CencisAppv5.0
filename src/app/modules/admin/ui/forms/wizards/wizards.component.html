@@ -300,16 +300,9 @@
             <!-- Vertical stepper -->
             <div class="mt-16 mb-8 text-3xl font-bold">Vertical Stepper</div>
 
-            <form
-                class="p-4 bg-card shadow rounded overflow-hidden"
-                [formGroup]="verticalStepperForm">
-                <mat-vertical-stepper
-                    [linear]="true"
-                    #verticalStepper>
-                    <mat-step
-                        [formGroupName]="'step1'"
-                        [stepControl]="verticalStepperForm.get('step1')"
-                        #verticalStepperStep1>
+            <form class="p-4 bg-card shadow rounded overflow-hidden" [formGroup]="verticalStepperForm">
+                <mat-vertical-stepper [linear]="true" #verticalStepper>
+                    <mat-step [formGroupName]="'step1'" [stepControl]="verticalStepperForm.get('step1')" #verticalStepperStep1>
                         <ng-template matStepLabel>Basic information</ng-template>
                         <p class="my-6 font-medium">
                             Fill in your basic information to let us know your preferences
@@ -370,10 +363,7 @@
                         </div>
                     </mat-step>
 
-                    <mat-step
-                        [formGroupName]="'step2'"
-                        [stepControl]="verticalStepperForm.get('step2')"
-                        #verticalStepperStep2>
+                    <mat-step [formGroupName]="'step2'" [stepControl]="verticalStepperForm.get('step2')" #verticalStepperStep2>
                         <ng-template matStepLabel>Profile</ng-template>
                         <p class="my-6 font-medium">
                             People here will get to know you with this information
@@ -446,9 +436,7 @@
                         </div>
                     </mat-step>
 
-                    <mat-step
-                        [formGroupName]="'step3'"
-                        [stepControl]="verticalStepperForm.get('step3')">
+                    <mat-step [formGroupName]="'step3'" [stepControl]="verticalStepperForm.get('step3')">
                         <ng-template matStepLabel>Notifications</ng-template>
                         <p class="my-6 font-medium">
                             We'll always let you know about important changes, but you pick what else you want to hear about.

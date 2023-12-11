@@ -1,241 +1,345 @@
-<div class="flex flex-col flex-auto min-w-0" *transloco="let t">
-    <div
-        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent"
-    >
+<div class="flex flex-col flex-auto min-w-0"  *transloco="let t">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
         <div class="flex-1 min-w-0">
             <!-- Breadcrumbs -->
             <div class="flex flex-wrap items-center font-medium">
                 <div>
-                    <a class="whitespace-nowrap text-primary-500">{{
-                        t("Inscripcion-Header")
-                    }}</a>
+                    <a class="whitespace-nowrap text-primary-500">{{t("Inscripcion-Header")}}</a>
                 </div>
                 <div class="flex items-center ml-1 whitespace-nowrap">
-                    <mat-icon
-                        class="icon-size-5 text-secondary"
-                        [svgIcon]="'heroicons_solid:chevron-right'"
-                    ></mat-icon>
-                    <a class="ml-1 text-primary-500">{{
-                        t("Company-Home-Title")
-                    }}</a>
+                    <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>
+                    <a class="ml-1 text-primary-500">{{t("Company-Home-Title")}}</a>
                 </div>
             </div>
             <!-- Title -->
             <div class="mt-2">
-                <h2
-                    class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
-                >
-                    {{ t("Inscripcion-Header") }}
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                     {{t("Inscripcion-Header") }}
                 </h2>
             </div>
         </div>
     </div>
+
+    <!-- Main -->
     <div class="flex-auto p-6 sm:p-10">
+
         <fuse-card class="flex flex-col max-w-280 w-full mt-8" #expandableCard02="fuseCard">
-            <form class="p-4 bg-card shadow rounded overflow-hidden" [formGroup]="verticalStepperForm" (ngSubmit)="submitFormInscripcion()" novalidate>
-                <mat-vertical-stepper [linear]="true" #verticalStepper>
-                    <mat-step [formGroupName]="'step1'" [stepControl]="verticalStepperForm.get('step1')" #verticalStepperStep1>
-                        <hr class="w-full border-t my-6" />
-                        <ng-template matStepLabel>{{t('Register-Information-Data')}}</ng-template>
-                        <div class="mt-12 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                             <div class="sm:col-span-2">
-                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-6">
-                                    <mat-select [formControlName]="'countryId'" [placeholder]="t('Bank-Country')"
-                                        (selectionChange)="onCountrySelected($event.value)">
-                                        <mat-option value="country-1">{{t('Msg-None')}}</mat-option>
-                                        <mat-option *ngFor="let pCountry of selectCountries"
-                                            [value]="pCountry">{{pCountry.nombrePais}}</mat-option>
-                                    </mat-select>
-                                    <mat-icon class="icon-size-5" matPrefix
-                                        [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
-                                </mat-form-field>
-                            </div>
-                             <div class="sm:col-span-2">
-                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-6">
-                                    <mat-select [formControlName]="'departamento'" [placeholder]="t('Location-State')" required>
-                                        <mat-option value="country-1">{{t('Msg-None')}}</mat-option>
-                                        <mat-option *ngFor="let pStates of selectState" [value]="pStates">{{pStates.nombreDepartamento}}</mat-option>
-                                    </mat-select>
-                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
-                                </mat-form-field>
-                            </div>
-                             <div class="sm:col-span-2">
-                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-6">
-                                    <mat-select [formControlName]="'ciudad'" [placeholder]="t('Location-City')" required>
-                                        <mat-option value="country-1">{{t('Msg-None')}}</mat-option>
-                                        <mat-option *ngFor="let pStates of selectCity" [value]="pStates">{{pStates.nombreCiudad}}</mat-option>
+            <!-- Datos pacientes -->
+            <form class="p-4 bg-card shadow rounded overflow-hidden" [formGroup]="horizontalStepperForm">
+                <mat-horizontal-stepper [linear]="true" #horizontalStepper>
+                    <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')" #horizontalStepperStep1>
+                        <ng-template matStepLabel>{{t("Register-Information-Data")}}</ng-template>
+                        <p class="my-6 font-medium">
+                            {{t("Location-SubTitle")}}
+                        </p>
+                          <div class="mt-12 grid grid-cols-3 gap-4 gap-y-2 sm:grid-cols-8">
+                              <div class="sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Bank-Country") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <mat-select [formControlName]="'pais'" [placeholder]="t('Bank-Country')" (selectionChange)="onCountrySelected($event.value)">
+                                        <mat-option value="country-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pCountry of selectCountries" [value]="pCountry">{{ pCountry.nombrePais}}</mat-option>
                                     </mat-select>
                                     <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
                             <div class="sm:col-span-2">
-                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-6">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-State") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <mat-select [formControlName]="'departamento'" [placeholder]="t('Location-State')" 
+                                        required><mat-option value="departamento-1">{{ t("Msg-None") }}</mat-option>
+                                        <mat-option *ngFor="let pStates of selectState" [value]="pStates">{{pStates.nombreDepartamento}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-City") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <mat-select [formControlName]="'ciudad'" [placeholder]="t('Location-City')" required>
+                                        <mat-option value="ciudad-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pStates of selectCity" [value]="pStates">{{pStates.nombreCiudad}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-Region") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
                                     <mat-select [formControlName]="'zona'" [placeholder]="t('Location-Region')" required>
-                                        <mat-option value="country-1">{{t('Msg-None')}}</mat-option>
+                                        <mat-option value="zona-1">{{t("Msg-None")}}</mat-option>
                                         <mat-option *ngFor="let pRegion of selectRegion" [value]="pRegion">{{pRegion.nombreZona}}</mat-option>
                                     </mat-select>
                                     <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
                             <div class="sm:col-span-2">
-                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-6">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-ID") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
                                     <mat-select [formControlName]="'tipoidentificacion'" [placeholder]="t('Location-ID')" required>
-                                        <mat-option value="country-1">{{t('Msg-None')}}</mat-option>
+                                        <mat-option value="country-1">{{t("Msg-None")}}</mat-option>
                                         <mat-option *ngFor="let pTipo of selectTipoIdentificacion" [value]="pTipo">{{pTipo.nombreTiposIdentificacion}}</mat-option>
                                     </mat-select>
                                     <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:identification'"></mat-icon>
                                 </mat-form-field>
                             </div>
-                             <div class="sm:col-span-2">
-                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-6">
-                                    <input
-                                        matInput
-                                        [formControlName]="'numeroidenticacion'"
-                                        [placeholder]="'Número identificación'"
-                                        required>
-                                    <mat-icon
-                                        class="icon-size-5"
-                                        matPrefix
-                                        [svgIcon]="'heroicons_solid:identification'"></mat-icon>
+                            <div class="sm:col-span-2">
+                                <label for="numeroidentificacion" class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-NroId") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'numeroidenticacion'" id="numeroidentificacion" [placeholder]="'Número identificación'" required/>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:identification'"></mat-icon>
                                 </mat-form-field>
                             </div>
                             <div class="sm:col-span-2">
-                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-6">
-                                    <input
-                                        matInput
-                                        [formControlName]="'nombres'"
-                                        [placeholder]="'Nombre paciente'"
-                                        required>
-                                    <mat-icon
-                                        class="icon-size-5"
-                                        matPrefix
-                                        [svgIcon]="'heroicons_solid:users'"></mat-icon>
+                                <label for="nombres" class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-Names") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'nombres'" id="nombres" [placeholder]="t('Location-Names')"  required/>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:users'"></mat-icon>
                                 </mat-form-field>
                             </div>
-                             <div class="sm:col-span-2">
-                            <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-6">
-                                <input
-                                    matInput
-                                    [formControlName]="'telefono1'"
-                                    [placeholder]="'Teléfono contacto'"
-                                    required>
-                                <mat-icon
-                                    class="icon-size-5"
-                                    matPrefix
-                                    [svgIcon]="'heroicons_solid:phone'"></mat-icon>
-                            </mat-form-field>
-                          </div>
-                           <div class="sm:col-span-2">
-                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-6">
-                                    <input
-                                        matInput
-                                        [formControlName]="'telefono2'"
-                                        [placeholder]="'Teléfono contacto'"
-                                        required>
-                                    <mat-icon
-                                        class="icon-size-5"
-                                        matPrefix
-                                        [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                            <div class="sm:col-span-2">
+                                <label for="telefono1" class="block text-sm font-medium leading-6 text-gray-900">{{ t("Sign-Up-PhoneNumber") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'telefono1'" id="telefono1" [placeholder]="t('Location-ContactPhone')" required/>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label for="telefono2" class="block text-sm font-medium leading-6 text-gray-900">{{ t("Sign-Up-PhoneNumber") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'telefono2'" id="telefono2" [placeholder]="t('Location-ContactPhone')"/>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="sm:col-span-2 ">
+                                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{ t("Email-Address") }}</label>
+                                <mat-form-field
+                                    class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
+                                    <input matInput [formControlName]="'email'" id="email" [placeholder]="'Email Address'" required/>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
                                 </mat-form-field>
                            </div>
-                        </div>
-                       
-                        <div class="flex">
-                            <mat-form-field class="flex-auto">
-                                <input
-                                    matInput
-                                    [formControlName]="'email'"
-                                    [placeholder]="'Email Address'"
-                                    required>
-                                <mat-icon
-                                    class="icon-size-5"
-                                    matPrefix
-                                    [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
-                            </mat-form-field>
-                        </div>
+                          </div>
                         <div class="flex justify-end">
                             <button
                                 class="px-8"
                                 mat-flat-button
                                 [color]="'primary'"
-                                [disabled]="verticalStepperStep1.stepControl.pristine || verticalStepperStep1.stepControl.invalid"
+                                [disabled]="horizontalStepperStep1.stepControl.pristine || horizontalStepperStep1.stepControl.invalid"
                                 type="button"
                                 matStepperNext>
-                                Next
+                                {{ t("Attention-Next") }}
                             </button>
                         </div>
                     </mat-step>
-                     <mat-step [formGroupName]="'step2'" [stepControl]="verticalStepperForm.get('step2')" #verticalStepperStep2>
-                         <hr class="w-full border-t my-6" />
-                        <ng-template matStepLabel>{{t('Register-Information-Prescription')}}</ng-template>>
+
+                    <mat-step [formGroupName]="'step2'" [stepControl]="horizontalStepperForm.get('step2')" #horizontalStepperStep2>
+                        <ng-template matStepLabel>{{t("Register-Information-Prescription")}}</ng-template>
+                        <p class="my-6 font-medium">
+                             {{t("Location-Prescripcion") }}
+                        </p>
+                        <div class="mt-12 grid grid-cols-3 gap-4 gap-y-2 sm:grid-cols-8">
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-Medical") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
+                                    <mat-select [formControlName]="'medicamento'" [placeholder]="t('Location-Medical')" required>
+                                        <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pRegion of selectRegion" [value]="pRegion">{{pRegion.nombreZona}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Location-Asegurador") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
+                                    <mat-select [formControlName]="'asegurador'" [placeholder]="t('Location-Asegurador')" required>
+                                        <mat-option value="asegurador-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pRegion of selectRegion" [value]="pRegion">{{pRegion.nombreZona}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-FechaFormula") }}</label>
+                                <mat-form-field
+                                    [ngClass]="formFieldHelpers"
+                                    class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
+                                        <input matInput [matDatepicker]="picker" [placeholder]="t('Location-FechaFormula')">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-Medicotratante") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
+                                    <mat-select [formControlName]="'medicotratante'" [placeholder]="t('Location-Medicotratante')" required>
+                                        <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pRegion of selectRegion" [value]="pRegion">{{pRegion.nombreZona}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-Enfermeratratante") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
+                                    <mat-select [formControlName]="'enfermerazona'" [placeholder]="t('Location-Enfermeratratante')" required>
+                                        <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pRegion of selectRegion" [value]="pRegion">{{pRegion.nombreZona}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-DiagnosticoPaciente") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
+                                    <mat-select [formControlName]="'diagnosticopaciente'" [placeholder]="t('Location-DiagnosticoPaciente')" required>
+                                        <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pRegion of selectRegion" [value]="pRegion">{{pRegion.nombreZona}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-FechaProgramacion") }}</label>
+                                <mat-form-field
+                                    [ngClass]="formFieldHelpers"
+                                    class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
+                                        <input matInput [matDatepicker]="picker" [placeholder]="t('Location-FechaProgramacion')">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-CausalNoIngreso") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
+                                    <mat-select [formControlName]="'causalnoingreso'" [placeholder]="t('Location-CausalNoIngreso')" required>
+                                        <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pRegion of selectRegion" [value]="pRegion">{{pRegion.nombreZona}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-Puntoentrega") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
+                                    <mat-select [formControlName]="'puntosentrega'" [placeholder]="t('Location-Puntoentrega')" required>
+                                        <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pRegion of selectRegion" [value]="pRegion">{{pRegion.nombreZona}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                        </div>
                         
-                         <div class="flex justify-end">
+                        <div class="flex justify-end">
                             <button
                                 class="px-8 mr-2"
                                 mat-flat-button
                                 [color]="'accent'"
                                 type="button"
                                 matStepperPrevious>
-                                Back
+                                 {{ t("Attention-Back") }}
                             </button>
                             <button
                                 class="px-8"
                                 mat-flat-button
                                 [color]="'primary'"
-                                [disabled]="verticalStepperStep2.stepControl.pristine || verticalStepperStep2.stepControl.invalid"
+                                [disabled]="horizontalStepperStep2.stepControl.pristine || horizontalStepperStep2.stepControl.invalid"
                                 type="button"
                                 matStepperNext>
-                                Next
+                                 {{ t("Attention-Next") }}
                             </button>
                         </div>
                     </mat-step>
-                     <mat-step [formGroupName]="'step3'" [stepControl]="verticalStepperForm.get('step3')" #verticalStepperStep3>
-                        <hr class="w-full border-t my-6" />
-                        <ng-template matStepLabel>{{t('Register-Reporting-Information')}}</ng-template>
-                         <div class="flex justify-end">
+
+                    <mat-step
+                        [formGroupName]="'step3'"
+                        [stepControl]="horizontalStepperForm.get('step3')">
+                        <ng-template matStepLabel>{{t("Register-Reporting-Information")}}</ng-template>
+                        <p class="my-6 font-medium">
+                            {{t("Location-Reportante") }}
+                        </p>
+                        <div class="mt-12 grid grid-cols-3 gap-2 gap-y-2 sm:grid-cols-2">
+                            <div class="sm:col-span-2">
+                                <label for="nombres" class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-Names") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'nombres'" id="nombres" [placeholder]="t('Location-Names')"  required/>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:users'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="sm:col-span-2 ">
+                                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{ t("Email-Address") }}</label>
+                                <mat-form-field
+                                    class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-10">
+                                    <input matInput [formControlName]="'email'" id="email" [placeholder]="'Email Address'" required/>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
+                                </mat-form-field>
+                           </div>
+                        </div>
+                        <div class="flex justify-end mt-8">
                             <button
                                 class="px-8 mr-2"
                                 mat-flat-button
                                 [color]="'accent'"
                                 type="button"
                                 matStepperPrevious>
-                                Back
+                                 {{ t("Attention-Back") }}
                             </button>
                             <button
                                 class="px-8"
                                 mat-flat-button
                                 [color]="'primary'"
-                                [disabled]="verticalStepperStep2.stepControl.pristine || verticalStepperStep2.stepControl.invalid"
                                 type="button"
                                 matStepperNext>
-                                Next
+                                 {{ t("Attention-Next") }}
                             </button>
                         </div>
                     </mat-step>
-                     <mat-step [formGroupName]="'step4'" [stepControl]="verticalStepperForm.get('step4')" #verticalStepperStep4>
-                         <hr class="w-full border-t my-6" />
-                        <ng-template matStepLabel>{{t('Register-Observations')}}</ng-template>
-                         <div class="flex justify-end mt-8">
+
+                    <mat-step>
+                        <ng-template matStepLabel>{{t("Register-Observations")}}</ng-template>
+                        <p class="my-6 font-medium">
+                              {{t("Location-Title-Comentarios") }}
+                        </p>
+                        <div class="mt-12 grid grid-cols-2 gap-2 gap-y-2 sm:grid-cols-1">
+                          <div class="flex">
+                            <mat-form-field class="flex-auto">
+                                <textarea
+                                    matInput
+                                    [formControlName]="'about'"
+                                    [placeholder]="t('Attention-Comments')"
+                                    [rows]="3"></textarea>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:bars-3-bottom-left'"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                        </div>
+                        <div class="flex justify-end mt-8">
                             <button
                                 class="px-8 mr-2"
                                 mat-flat-button
                                 [color]="'accent'"
                                 type="button"
                                 matStepperPrevious>
-                                Back
+                                {{ t("Save") }}
                             </button>
                             <button
                                 class="px-8"
                                 mat-flat-button
                                 [color]="'primary'"
                                 type="reset"
-                                (click)="verticalStepper.reset();">
-                                Reset
+                                (click)="horizontalStepper.reset();">
+                                 {{ t("Cancel") }}
                             </button>
                         </div>
                     </mat-step>
-                </mat-vertical-stepper>
+                </mat-horizontal-stepper>
             </form>
         </fuse-card>
     </div>
 </div>
+
+
