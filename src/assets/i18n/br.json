@@ -498,5 +498,9 @@
     "Seguimiento-Procesos-Administrativos": "Pacientes com processo administrativo aberto",
     "Consulta-Pacientes":"Consulte os pacientes",
     "Confirmation-Header":"Necessária confirmação",
-    "Confirmation-SendEmail":"Um e-mail de confirmação com instruções foi enviado para seu endereço de e-mail. Siga essas instruções para confirmar seu endereço de e-mail e ativar sua conta."
+    "Confirmation-SendEmail":"Um e-mail de confirmação com instruções foi enviado para seu endereço de e-mail. Siga essas instruções para confirmar seu endereço de e-mail e ativar sua conta.",
+    "Dashboard-EstadisticaGral":"Estatísticas gerais",
+    "Dashboard-Home":"Lar",
+    "Dashboard-Messages":"Você tem novos registros para processar.",
+    "Dashboard-Personal":"Estatísticas pessoais"
 }

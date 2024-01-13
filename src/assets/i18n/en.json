@@ -508,6 +508,10 @@
     "Seguimiento-Procesos-Administrativos":"Patients with open administrative process",
     "Consulta-Pacientes": "Consult patients",
     "Confirmation-Header": "Confirmation required",
-    "Confirmation-SendEmail": "A confirmation mail with instructions has been sent to your email address. Follow those instructions to confirm your email address and activate your account."
+    "Confirmation-SendEmail": "A confirmation mail with instructions has been sent to your email address. Follow those instructions to confirm your email address and activate your account.",
+    "Dashboard-EstadisticaGral": "General statistics",
+    "Dashboard-Home": "Home",
+    "Dashboard-Messages": "You have new Registrations to process.",
+    "Dashboard-Personal": "Personal statistics"
 }
 
