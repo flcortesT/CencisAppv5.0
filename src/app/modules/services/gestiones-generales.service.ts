@@ -319,7 +319,10 @@ export class GestionesGeneralesService {
     // Consulta de registros de accion actual.
     getAllEstadoInscripcion(): Observable<EstadoInscripcion> {
         return this.http
-            .get<EstadoInscripcion>(environment.baseUrl + 'EstadoInscripcion')
+            .get<EstadoInscripcion>(
+                environment.baseUrl + 'EstadoInscripcion',
+                this.httpOptions
+            )
             .pipe(retry(1), catchError(this.errorHandl));
     }
 

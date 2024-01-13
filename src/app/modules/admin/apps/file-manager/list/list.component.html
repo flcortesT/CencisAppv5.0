@@ -56,10 +56,10 @@
                     </div>
                     <!-- Actions -->
                     <div class="mt-4 sm:mt-0">
+                        <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" accept=".pdf, .doc, .docx">
+                        <!-- Solo acepta archivos PDF, DOC y DOCX -->
                         <!-- Upload button -->
-                        <button
-                            mat-flat-button
-                            [color]="'primary'">
+                        <button mat-flat-button [color]="'primary'" (click)="fileInput.click()">
                             <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                             <span class="ml-2 mr-1">{{t('File-Manager-Upload')}}</span>
                         </button>

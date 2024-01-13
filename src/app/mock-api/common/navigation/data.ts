@@ -3,25 +3,25 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 
 export const defaultNavigation: FuseNavigationItem[] = [
     {
-        id      : 'dashboards',
-        title   : 'Dashboards',
+        id: 'dashboards',
+        title: 'Dashboards',
         subtitle: 'Unique dashboard designs',
-        type    : 'group',
-        icon    : 'heroicons_outline:home',
+        type: 'group',
+        icon: 'heroicons_outline:home',
         children: [
             {
-                id   : 'dashboards.project',
+                id: 'dashboards.project',
                 title: 'Project',
-                type : 'basic',
-                icon : 'heroicons_outline:clipboard-document-check',
-                link : '/dashboards/project',
+                type: 'basic',
+                icon: 'heroicons_outline:clipboard-document-check',
+                link: '/dashboards/project',
             },
             {
-                id   : 'dashboards.analytics',
+                id: 'dashboards.analytics',
                 title: 'Analytics',
-                type : 'basic',
-                icon : 'heroicons_outline:chart-pie',
-                link : '/dashboards/analytics',
+                type: 'basic',
+                icon: 'heroicons_outline:chart-pie',
+                link: '/dashboards/analytics',
             },
         ],
     },
@@ -42,28 +42,28 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         id: 'apps.registro',
                         title: 'Registro -Ingreso',
                         type: 'basic',
-                        link: '/apps/registros'
+                        link: '/apps/registros',
                     },
                     {
                         id: 'apps.pacientesReportados',
                         title: 'Pacientes Reportados',
                         type: 'basic',
-                        link: '/apps/pacientesreportados'
+                        link: '/apps/pacientesreportados',
                     },
                     {
                         id: 'apps.noContactados',
                         title: 'No Contactados',
                         type: 'basic',
-                        link: '/apps/pacientesnocontactados'
+                        link: '/apps/pacientesnocontactados',
                     },
-                ]
+                ],
             },
             {
-                id   : 'apps.file-manager',
+                id: 'apps.file-manager',
                 title: 'File Manager',
-                type : 'basic',
-                icon : 'heroicons_outline:cloud',
-                link : '/apps/file-manager',
+                type: 'basic',
+                icon: 'heroicons_outline:cloud',
+                link: '/apps/file-manager',
             },
             {
                 id: 'apps.seguimiento',
@@ -75,63 +75,69 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         id: 'apps.eninscripcion',
                         title: 'En Inscripción',
                         type: 'basic',
-                        link: '/apps/eninscripcion'
+                        link: '/apps/eninscripcion',
                     },
                     {
                         id: 'apps.inscritos',
                         title: 'Inscritos',
                         type: 'basic',
-                        link: '/apps/pacientesinscritos'
+                        link: '/apps/pacientesinscritos',
                     },
                     {
                         id: 'apps.formulados',
                         title: 'Formulados',
                         type: 'basic',
-                        link: '/apps/pacientesformulados'
+                        link: '/apps/pacientesformulados',
                     },
                     {
                         id: 'apps.titulacion',
                         title: 'Titulación',
                         type: 'basic',
-                        link: '/apps/titulacion'
+                        link: '/apps/titulacion',
                     },
                     {
                         id: 'apps.suspendidos',
                         title: 'Suspendidos',
                         type: 'basic',
-                        link: '/apps/suspendidos'
+                        link: '/apps/suspendidos',
                     },
                     {
                         id: 'apps.retirados',
                         title: 'Retirados',
                         type: 'basic',
-                        link: '/apps/retirados'
+                        link: '/apps/retirados',
                     },
                     {
                         id: 'apps.prontaaplicacion',
                         title: 'Con pronta aplicación',
                         type: 'basic',
-                        link: '/apps/prontaaplicacion'
+                        link: '/apps/prontaaplicacion',
+                    },
+                    {
+                        id: 'apps.aplicacionrealizada',
+                        title: 'Con aplicación realizada',
+                        type: 'basic',
+                        link: '/apps/aplicacionrealizada',
                     },
                     {
                         id: 'apps.asignadosac',
                         title: 'Asignados Actividades Complementarias',
                         type: 'basic',
-                        link: '/apps/asignandoactividades'
+                        link: '/apps/asignandoactividades',
                     },
                     {
                         id: 'apps.ejecucionac',
                         title: 'Ejecución Actividades Complementarias',
                         type: 'basic',
-                        link: '/apps/ejecucionesactividades'
+                        link: '/apps/ejecucionesactividades',
                     },
                     {
                         id: 'apps.procesosadmin',
                         title: 'Procesos administrativos',
                         type: 'basic',
-                        link: '/apps/procesosadmin'
+                        link: '/apps/procesosadmin',
                     },
-                ]
+                ],
             },
             {
                 id: 'apps.parameters',
@@ -149,11 +155,10 @@ export const defaultNavigation: FuseNavigationItem[] = [
                                 id: 'apps.adminActividad',
                                 title: 'Admin de actividades',
                                 type: 'basic',
-                                link: '/parametros/actividades'
+                                link: '/parametros/actividades',
                             },
-                            
-                        ]
-                    }, 
+                        ],
+                    },
                     {
                         id: 'apps.caracteristicas',
                         title: 'Características',
@@ -164,9 +169,9 @@ export const defaultNavigation: FuseNavigationItem[] = [
                                 id: 'apps.vivienda',
                                 title: 'Caracteristicas Generales',
                                 type: 'basic',
-                                link: '/parametros/caracteristicas'
+                                link: '/parametros/caracteristicas',
                             },
-                        ]
+                        ],
                     },
                     {
                         id: 'apps.datosclinicos',
@@ -178,9 +183,9 @@ export const defaultNavigation: FuseNavigationItem[] = [
                                 id: 'apps.dosis',
                                 title: 'Tablas relacionadas',
                                 type: 'basic',
-                                link: '/parametros/maestradatosclinicos'
-                            }
-                        ]
+                                link: '/parametros/maestradatosclinicos',
+                            },
+                        ],
                     },
                     {
                         id: 'apps.ejecuciones',
@@ -192,9 +197,9 @@ export const defaultNavigation: FuseNavigationItem[] = [
                                 id: 'apps.gestionadmin',
                                 title: 'Gestión admin',
                                 type: 'basic',
-                                link: '/parametros/gestionejecucion'
-                            }, 
-                        ]
+                                link: '/parametros/gestionejecucion',
+                            },
+                        ],
                     },
                     {
                         id: 'apps.localizacion',
@@ -206,9 +211,9 @@ export const defaultNavigation: FuseNavigationItem[] = [
                                 id: 'apps.paises',
                                 title: 'Paises',
                                 type: 'basic',
-                                link: '/parametros/localizacion'
+                                link: '/parametros/localizacion',
                             },
-                        ]
+                        ],
                     },
                     {
                         id: 'apps.categoria',
@@ -220,9 +225,9 @@ export const defaultNavigation: FuseNavigationItem[] = [
                                 id: 'apps.desenlace',
                                 title: 'Desenlace',
                                 type: 'basic',
-                                link: '/parametros/categorias'
+                                link: '/parametros/categorias',
                             },
-                        ]
+                        ],
                     },
                     {
                         id: 'apps.farmacovigilancia',
@@ -234,15 +239,15 @@ export const defaultNavigation: FuseNavigationItem[] = [
                                 id: 'apps.farmacovigilancia',
                                 title: 'Farmacovigilancia',
                                 type: 'basic',
-                                link: '/parametros/farmacovigilancia'
+                                link: '/parametros/farmacovigilancia',
                             },
                             {
                                 id: 'apps.frecuencia',
                                 title: 'Frecuencia',
                                 type: 'basic',
-                                link: '/parametros/frecuencia'
+                                link: '/parametros/frecuencia',
                             },
-                        ]
+                        ],
                     },
                     {
                         id: 'apps.medicamentos',
@@ -254,11 +259,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
                                 id: 'apps.Medicamentos',
                                 title: 'Medicamentos',
                                 type: 'basic',
-                                link: '/parametros/medicamentos'
+                                link: '/parametros/medicamentos',
                             },
-                        ]
+                        ],
                     },
-                ]
+                ],
             },
             {
                 id: 'apps.reports',
@@ -272,17 +277,16 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         title: 'Reportes',
                         type: 'basic',
                         link: '/reportes/exportarreportes',
-                        exactMatch: true
+                        exactMatch: true,
                     },
                     {
                         id: 'apps.reports.export',
                         title: 'Exportar',
                         type: 'basic',
                         link: '/reportes/exportar',
-                        exactMatch: true
+                        exactMatch: true,
                     },
-                   
-                ]
+                ],
             },
             {
                 id: 'apps.consultas',
@@ -296,9 +300,9 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         title: 'Pacientes',
                         type: 'basic',
                         link: '/reportes/consultapacientes',
-                        exactMatch: true
+                        exactMatch: true,
                     },
-                ]
+                ],
             },
             {
                 id: 'apps.help-center',
@@ -312,48 +316,48 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         title: 'Home',
                         type: 'basic',
                         link: '/apps/help-center',
-                        exactMatch: true
+                        exactMatch: true,
                     },
                     {
                         id: 'apps.help-center.faqs',
                         title: 'FAQs',
                         type: 'basic',
-                        link: '/apps/help-center/faqs'
+                        link: '/apps/help-center/faqs',
                     },
                     {
                         id: 'apps.help-center.guides',
                         title: 'Guides',
                         type: 'basic',
-                        link: '/apps/help-center/guides'
+                        link: '/apps/help-center/guides',
                     },
                     {
                         id: 'apps.help-center.support',
                         title: 'Support',
                         type: 'basic',
-                        link: '/apps/help-center/support'
+                        link: '/apps/help-center/support',
                     },
                     {
                         id: 'apps.academy',
                         title: 'Academy',
                         type: 'basic',
                         icon: 'heroicons_outline:academic-cap',
-                        link: '/apps/academy'
+                        link: '/apps/academy',
                     },
                     {
                         id: 'apps.chat',
                         title: 'Chat',
                         type: 'basic',
                         icon: 'heroicons_outline:chat-alt',
-                        link: '/apps/chat'
+                        link: '/apps/chat',
                     },
                     {
                         id: 'pages.activities',
                         title: 'Activities',
                         type: 'basic',
                         icon: 'heroicons_outline:menu-alt-2',
-                        link: '/pages/activities'
+                        link: '/pages/activities',
                     },
-                ]
+                ],
             },
         ],
     },
@@ -375,58 +379,58 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         title: 'Sign in',
                         type: 'basic',
                         icon: 'heroicons_outline:lock-open',
-                        link: '/pages/authentication/sign-in/modern'
+                        link: '/pages/authentication/sign-in/modern',
                     },
                     {
                         id: 'pages.authentication.sign-up',
                         title: 'Sign up',
                         type: 'basic',
                         icon: 'heroicons_outline:user-circle',
-                        link: '/pages/authentication/sign-up/modern'
+                        link: '/pages/authentication/sign-up/modern',
                     },
                     {
                         id: 'pages.authentication.sign-out',
                         title: 'Sign out',
                         type: 'basic',
                         icon: 'heroicons_outline:lock-closed',
-                        link: '/pages/authentication/sign-out/modern'
+                        link: '/pages/authentication/sign-out/modern',
                     },
                     {
                         id: 'pages.authentication.sign-forgot',
                         title: 'Forgot password',
                         type: 'basic',
                         icon: 'heroicons_outline:key',
-                        link: '/pages/authentication/forgot-password/modern'
+                        link: '/pages/authentication/forgot-password/modern',
                     },
                     {
                         id: 'pages.authentication.sign-reset',
                         title: 'Reset password',
                         type: 'basic',
                         icon: 'heroicons_outline:x-circle',
-                        link: '/pages/authentication/reset-password/modern'
+                        link: '/pages/authentication/reset-password/modern',
                     },
                     {
                         id: 'pages.authentication.sign-unlock',
                         title: 'Unlock session',
                         type: 'basic',
                         icon: 'heroicons_outline:book-open',
-                        link: '/pages/authentication/unlock-session/modern'
+                        link: '/pages/authentication/unlock-session/modern',
                     },
                     {
                         id: 'pages.authentication.sign-confirm',
                         title: 'Lock Screen',
                         type: 'basic',
                         icon: 'heroicons_outline:book-open',
-                        link: '/pages/authentication/confirmation-required/modern'
+                        link: '/pages/authentication/confirmation-required/modern',
                     },
                     {
                         id: 'pages.profile',
                         title: 'Profile',
                         type: 'basic',
                         icon: 'heroicons_outline:user-circle',
-                        link: '/pages/profile'
-                    }
-                ]
+                        link: '/pages/profile',
+                    },
+                ],
             },
 
             {
@@ -434,13 +438,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Settings',
                 type: 'basic',
                 icon: 'heroicons_outline:cog',
-                link: '/pages/settings'
-            }
-        ]
+                link: '/pages/settings',
+            },
+        ],
     },
     {
-        id  : 'divider-1',
-        type: 'divider'
+        id: 'divider-1',
+        type: 'divider',
     },
 ];
 export const compactNavigation: FuseNavigationItem[] = [

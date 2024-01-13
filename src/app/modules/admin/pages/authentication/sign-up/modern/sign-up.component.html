@@ -10,7 +10,7 @@
                 <!-- Title -->
                 <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">{{t('Sign-Up')}}</div>
                 <div class="flex items-baseline mt-0.5 font-medium">
-                    <div>Already have an account?</div>
+                    <div>{{t('Sign-In-Text-1')}}</div>
                     <a
                         class="ml-1 text-primary-500 hover:underline"
                         [routerLink]="['/pages/authentication/sign-in']">{{t('Sign-In')}}
@@ -40,19 +40,19 @@
                             matInput
                             [formControlName]="'name'">
                         <mat-error *ngIf="signUpForm.get('name').hasError('required')">
-                            Full name is required
+                        {{t('FullNme-Text-1')}}
                         </mat-error>
                     </mat-form-field>
 
                     <!-- Name field -->
                     <mat-form-field class="w-full">
-                        <mat-label>Full name</mat-label>
+                        <mat-label>{{t('FullName-Text')}}</mat-label>
                         <input
                             id="name"
                             matInput
                             [formControlName]="'name'">
                         <mat-error *ngIf="signUpForm.get('name').hasError('required')">
-                            Full name is required
+                            {{t('FullName-Text-2')}}
                         </mat-error>
                     </mat-form-field>
 
@@ -64,10 +64,10 @@
                             matInput
                             [formControlName]="'email'">
                         <mat-error *ngIf="signUpForm.get('email').hasError('required')">
-                            Email address is required
+                            {{t('Email-Address-Text-1')}}
                         </mat-error>
                         <mat-error *ngIf="signUpForm.get('email').hasError('email')">
-                            Please enter a valid email address
+                            {{t('Email-Address-Text-2')}}
                         </mat-error>
                     </mat-form-field>
 
@@ -95,13 +95,13 @@
                                 [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
                         </button>
                         <mat-error>
-                            Password is required
+                            {{t('Password-Header-Text-1')}}
                         </mat-error>
                     </mat-form-field>
 
                     <!-- Company field -->
                     <mat-form-field class="w-full">
-                        <mat-label>Company</mat-label>
+                        <mat-label>{{t('Company-Text-1')}}</mat-label>
                         <input
                             id="company-confirm"
                             matInput
@@ -114,15 +114,15 @@
                             class="-ml-2"
                             [color]="'primary'"
                             [formControlName]="'agreements'">
-                            <span>I agree with</span>
+                            <span>{{t('Agree-Text-1')}}</span>
                             <a
                                 class="ml-1 text-primary-500 hover:underline"
-                                [routerLink]="['./']">Terms
+                                [routerLink]="['./']">{{t('Agree-Text-2')}}
                             </a>
-                            <span>and</span>
+                            <span>{{t('Agree-Text-3')}}</span>
                             <a
                                 class="ml-1 text-primary-500 hover:underline"
-                                [routerLink]="['./']">Privacy Policy
+                                [routerLink]="['./']">{{t('Agree-Text-4')}}
                             </a>
                         </mat-checkbox>
                     </div>
@@ -135,7 +135,7 @@
                         [disabled]="signUpForm.disabled"
                         (click)="signUp()">
                         <span *ngIf="!signUpForm.disabled">
-                            Create your free account
+                            {{t('Create-Text')}}
                         </span>
                         <mat-progress-spinner
                             *ngIf="signUpForm.disabled"

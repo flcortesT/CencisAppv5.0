@@ -21,9 +21,9 @@ import { FuseCardComponent } from '@fuse/components/card';
 import { TranslocoModule } from '@ngneat/transloco';
 
 @Component({
-    selector: 'app-seguimientos-pacientesformulados',
-    templateUrl: './seguimientos-pacientesformulados.component.html',
-    styleUrls: ['./seguimientos-pacientesformulados.component.scss'],
+    selector: 'app-seguimiento-aplicacionrealizada',
+    templateUrl: './seguimiento-aplicacionrealizada.component.html',
+    styleUrls: ['./seguimiento-aplicacionrealizada.component.scss'],
     standalone: true,
     imports: [
         MatIconModule,
@@ -45,4 +45,4 @@ import { TranslocoModule } from '@ngneat/transloco';
         NgForOf,
     ],
 })
-export class SeguimientosPacientesformuladosComponent {}
+export class SeguimientoAplicacionrealizadaComponent {}

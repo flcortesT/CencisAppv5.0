@@ -275,7 +275,6 @@ export class EstadoGestionSocial {
 }
 
 export class EstadoInscripcion {
-    id?: number;
     nombreEstadoInscripcion?: string;
     active?: boolean;
 }

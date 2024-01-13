@@ -123,7 +123,7 @@ export class ActividadesService {
     // Consulta de registros de acciones.
     getAllFarmacia(): Observable<Farmacia> {
         return this.http
-            .get<Farmacia>(environment.baseUrl + 'Farmacia')
+            .get<Farmacia>(environment.baseUrl + 'Farmacias')
             .pipe(retry(1), catchError(this.errorHandl));
     }
 

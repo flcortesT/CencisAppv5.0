@@ -65,7 +65,7 @@ export class DatosClinicosService {
     // Consulta de registros de accion actual.
     getAllDiagnosticos(): Observable<Diagnosticos> {
         return this.http
-            .get<Diagnosticos>(environment.baseUrl + 'Diagnosticos')
+            .get<Diagnosticos>(environment.baseUrl + 'Diagnostico')
             .pipe(retry(1), catchError(this.errorHandl));
     }
 

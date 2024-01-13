@@ -164,7 +164,7 @@ export class TablasSecundariasService {
     // Consulta de registros de accion actual.
     getAllZonasEnfermeras(): Observable<ZonasEnfermeras> {
         return this.http
-            .get<ZonasEnfermeras>(environment.baseUrl + 'ZonasEnfermeras/')
+            .get<ZonasEnfermeras>(environment.baseUrl + 'ZonaEnfermeras/')
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
