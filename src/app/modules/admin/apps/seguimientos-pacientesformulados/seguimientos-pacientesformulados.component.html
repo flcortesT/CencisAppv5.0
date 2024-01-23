@@ -33,8 +33,15 @@
             <h2 class="text-sm font-semibold text-gray-700">{{t("Search-Header")}}</h2>
         </div>
         <!-- Input de búsqueda -->
-        <input type="text" id="busqueda" name="busqueda"
-            class="p-2 pl-8 w-full border-gray-200 rounded-md focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-sm bg-gray-200">
+        <!-- Input de búsqueda -->
+        <mat-form-field class="min-w-full" [subscriptSizing]="'dynamic'">
+            <input [autocomplete]="'off'" [formControlName]="'keywords'" matInput>
+        </mat-form-field>
+        <!-- Actions -->
+        <div class="flex items-center justify-end w-full mt-8">
+            <button class="ml-2" (click)="search()" [color]="'primary'" type="button" mat-flat-button>{{t("Search-Header")}}
+            </button>
+        </div>
         <div class="bg-white p-4 rounded-md shadow-md">
             <!-- Aquí iría el contenido de la tabla -->
             <div class="grid grid-cols-3 gap-8">
@@ -43,26 +50,26 @@
                     <h2 class="text-lg font-semibold mb-4 text-gray-700 text-center">{{t("Pacientes-Reciente")}}</h2>
                     <div class="space-y-4">
                         <!-- Tarjeta 1 -->
-                        <div class="bg-green-100 rounded-lg shadow-md p-6 flex flex-col items-center justify-center">
-                            <p class="text-sm">Elemento 1</p>
-                            <p class="text-sm">Elemento 2</p>
-                            <p class="text-sm">Elemento 3</p>
-                            <p class="text-sm">Elemento 4</p>
-                            <p class="text-sm">Elemento 5</p>
-                            <button
-                                class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-sm">
+                        <div class="bg-green-100 rounded-lg shadow-md p-6 flex flex-col items-left justify-center">
+                            <p class="text-sm font-bold">Nombre:</p>
+                            <p class="text-sm font-bold">Medicamento:</p>
+                            <p class="text-sm font-bold">Teléfono:</p>
+                            <p class="text-sm font-bold">Actividad:</p>
+                            <p class="text-sm font-bold">Fecha:</p>
+                            <p class="text-sm font-bold">Hora:</p>
+                            <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-sm">
                                 Ver
                             </button>
                         </div>
                         <!-- Tarjeta 2 -->
-                        <div class="bg-green-100 rounded-lg shadow-md p-6 flex flex-col items-center justify-center">
-                            <p class="text-sm">Elemento 1</p>
-                            <p class="text-sm">Elemento 2</p>
-                            <p class="text-sm">Elemento 3</p>
-                            <p class="text-sm">Elemento 4</p>
-                            <p class="text-sm">Elemento 5</p>
-                            <button
-                                class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-sm">
+                        <div class="bg-green-100 rounded-lg shadow-md p-6 flex flex-col items-left justify-center">
+                            <p class="text-sm font-bold">Nombre:</p>
+                            <p class="text-sm font-bold">Medicamento:</p>
+                            <p class="text-sm font-bold">Teléfono:</p>
+                            <p class="text-sm font-bold">Actividad:</p>
+                            <p class="text-sm font-bold">Fecha:</p>
+                            <p class="text-sm font-bold">Hora:</p>
+                            <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-sm">
                                 Ver
                             </button>
                         </div>
@@ -76,14 +83,14 @@
                     </h2>
                     <div class="space-y-4">
                         <!-- Tarjetas de la columna 2 -->
-                        <div class="bg-yellow-100 rounded-lg shadow-md p-6 flex flex-col items-center justify-center">
-                            <p class="text-sm">Elemento 1</p>
-                            <p class="text-sm">Elemento 2</p>
-                            <p class="text-sm">Elemento 3</p>
-                            <p class="text-sm">Elemento 4</p>
-                            <p class="text-sm">Elemento 5</p>
-                            <button
-                                class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-sm">
+                        <div class="bg-green-100 rounded-lg shadow-md p-6 flex flex-col items-left justify-center">
+                            <p class="text-sm font-bold">Nombre:</p>
+                            <p class="text-sm font-bold">Medicamento:</p>
+                            <p class="text-sm font-bold">Teléfono:</p>
+                            <p class="text-sm font-bold">Actividad:</p>
+                            <p class="text-sm font-bold">Fecha:</p>
+                            <p class="text-sm font-bold">Hora:</p>
+                            <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-sm">
                                 Ver
                             </button>
                         </div>
@@ -96,14 +103,14 @@
                     </h2>
                     <div class="space-y-4">
                         <!-- Tarjetas de la columna 3 -->
-                        <div class="bg-red-100 rounded-lg shadow-md p-6 flex flex-col items-center justify-center">
-                            <p class="text-sm">Elemento A</p>
-                            <p class="text-sm">Elemento B</p>
-                            <p class="text-sm">Elemento C</p>
-                            <p class="text-sm">Elemento D</p>
-                            <p class="text-sm">Elemento E</p>
-                            <button
-                                class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-sm">
+                        <div class="bg-green-100 rounded-lg shadow-md p-6 flex flex-col items-left justify-center">
+                            <p class="text-sm font-bold">Nombre:</p>
+                            <p class="text-sm font-bold">Medicamento:</p>
+                            <p class="text-sm font-bold">Teléfono:</p>
+                            <p class="text-sm font-bold">Actividad:</p>
+                            <p class="text-sm font-bold">Fecha:</p>
+                            <p class="text-sm font-bold">Hora:</p>
+                            <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-sm">
                                 Ver
                             </button>
                         </div>
@@ -111,15 +118,14 @@
 
                             <div class="space-y-4">
                                 <!-- Tarjetas de la columna 3 -->
-                                <div
-                                    class="bg-red-100 rounded-lg shadow-md p-6 flex flex-col items-center justify-center">
-                                    <p class="text-sm">Elemento A</p>
-                                    <p class="text-sm">Elemento B</p>
-                                    <p class="text-sm">Elemento C</p>
-                                    <p class="text-sm">Elemento D</p>
-                                    <p class="text-sm">Elemento E</p>
-                                    <button
-                                        class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-sm">
+                                <div class="bg-green-100 rounded-lg shadow-md p-6 flex flex-col items-left justify-center">
+                                    <p class="text-sm font-bold">Nombre:</p>
+                                    <p class="text-sm font-bold">Medicamento:</p>
+                                    <p class="text-sm font-bold">Teléfono:</p>
+                                    <p class="text-sm font-bold">Actividad:</p>
+                                    <p class="text-sm font-bold">Fecha:</p>
+                                    <p class="text-sm font-bold">Hora:</p>
+                                    <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-sm">
                                         Ver
                                     </button>
                                 </div>

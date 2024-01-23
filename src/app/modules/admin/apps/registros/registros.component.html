@@ -55,8 +55,9 @@
                                 <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-State")
                                     }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-5">
-                                    <mat-select [formControlName]="'departamento'" [placeholder]="t('Location-State')"
-                                        ><mat-option value="departamento-1">{{ t("Msg-None") }}</mat-option>
+                                    <mat-select [formControlName]="'departamento'"
+                                        [placeholder]="t('Location-State')"><mat-option value="departamento-1">{{
+                                            t("Msg-None") }}</mat-option>
                                         <mat-option *ngFor="let pStates of selectState"
                                             [value]="pStates">{{pStates.nombreDepartamento}}</mat-option>
                                     </mat-select>
@@ -68,8 +69,7 @@
                                 <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-City")
                                     }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-5">
-                                    <mat-select [formControlName]="'ciudad'" [placeholder]="t('Location-City')"
-                                        >
+                                    <mat-select [formControlName]="'ciudad'" [placeholder]="t('Location-City')">
                                         <mat-option value="ciudad-1">{{t("Msg-None")}}</mat-option>
                                         <mat-option *ngFor="let pStates of selectCity"
                                             [value]="pStates">{{pStates.nombreCiudad}}</mat-option>
@@ -82,8 +82,7 @@
                                 <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-Region")
                                     }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-5">
-                                    <mat-select [formControlName]="'zona'" [placeholder]="t('Location-Region')"
-                                        >
+                                    <mat-select [formControlName]="'zona'" [placeholder]="t('Location-Region')">
                                         <mat-option value="zona-1">{{t("Msg-None")}}</mat-option>
                                         <mat-option *ngFor="let pRegion of selectRegion"
                                             [value]="pRegion">{{pRegion.nombreZona}}</mat-option>
@@ -132,7 +131,7 @@
                                     t("Sign-Up-PhoneNumber") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
                                     <input matInput [formControlName]="'telefono1'" id="telefono1"
-                                        [placeholder]="t('Location-ContactPhone')"/>
+                                        [placeholder]="t('Location-ContactPhone')" />
                                     <mat-icon class="icon-size-5" matPrefix
                                         [svgIcon]="'heroicons_solid:phone'"></mat-icon>
                                 </mat-form-field>
@@ -147,17 +146,46 @@
                                         [svgIcon]="'heroicons_solid:phone'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!-- Email Address -->
                             <div class="dl sm:col-span-2 ">
-                                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{
-                                    t("Email-Address") }}</label>
+                                <label for="email"
+                                    class="block text-sm font-medium leading-6 text-gray-900">{{t("Email-Address")
+                                    }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
                                     <input matInput [formControlName]="'email'" id="email"
-                                        [placeholder]="'Email Address'"/>
+                                        [placeholder]="t('Email-Address')" />
                                     <mat-icon class="icon-size-5" matPrefix
                                         [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--Reporte web codigo -->
+                            <div class="dl sm:col-span-2 ">
+                                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{
+                                    t("Registro-NroCodigoWeb") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'nroReporteWeb'" id="nroReporteWeb"
+                                        [placeholder]="t('Registro-NroCodigoWeb')" />
+                                    <mat-icon class="icon-size-5" matPrefix
+                                        [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <!-- IPS Atención -->
+                            <div class="dl sm:col-span-2 ">
+                                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{
+                                    t("Registro-IPSAtencion") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <mat-select [formControlName]="'ipsAtencion'"
+                                        [placeholder]="t('Registro-IPSAtencion')">
+                                        <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pIPS of selectIpsAtencion"
+                                            [value]="pIPS">{{pIPS.nombreIps}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix
+                                        [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
                         </div>
+                        <!-- Botón proximo debe grabar parte del registro -->
                         <div class="flex justify-end">
                             <button class="px-8" mat-flat-button [color]="'primary'"
                                 [disabled]="horizontalStepperStep1.stepControl.pristine || horizontalStepperStep1.stepControl.invalid"
@@ -194,7 +222,7 @@
                                     }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
                                     <mat-select [formControlName]="'asegurador'"
-                                        [placeholder]="t('Location-Asegurador')" required>
+                                        [placeholder]="t('Location-Asegurador')">
                                         <mat-option value="asegurador-1">{{t("Msg-None")}}</mat-option>
                                         <mat-option *ngFor="let pAseguradora of selectasegurador"
                                             [value]="pAseguradora">{{pAseguradora.nombreEps}}</mat-option>
@@ -248,7 +276,7 @@
                                     t("Location-DiagnosticoPaciente") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
                                     <mat-select [formControlName]="'diagnosticopaciente'"
-                                        [placeholder]="t('Location-DiagnosticoPaciente')" required>
+                                        [placeholder]="t('Location-DiagnosticoPaciente')">
                                         <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
                                         <mat-option *ngFor="let pDiagnostico of selectDiagnostico"
                                             [value]="pDiagnostico">{{pDiagnostico.nombreDiagnostico}}</mat-option>
@@ -269,20 +297,7 @@
                                     <mat-datepicker #picker2></mat-datepicker>
                                 </mat-form-field>
                             </div>
-                            <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{
-                                    t("Location-CausalNoIngreso") }}</label>
-                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
-                                    <mat-select [formControlName]="'causalnoingreso'"
-                                        [placeholder]="t('Location-CausalNoIngreso')" required>
-                                        <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pCausal of selectCausalnoIngresos"
-                                            [value]="pCausal">{{pCausal.nombreCausalNoIngreso}}</mat-option>
-                                    </mat-select>
-                                    <mat-icon class="icon-size-5" matPrefix
-                                        [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
-                                </mat-form-field>
-                            </div>
+                            
                             <div class="dl sm:col-span-2">
                                 <label class="block text-sm font-medium leading-6 text-gray-900">{{
                                     t("Location-Consentimiento") }}</label>
@@ -403,6 +418,18 @@
                                         [placeholder]="t('Attention-Comments')" [rows]="3"></textarea>
                                     <mat-icon class="icon-size-5" matPrefix
                                         [svgIcon]="'heroicons_solid:bars-3-bottom-left'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{
+                                    t("Location-CausalNoIngreso") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <mat-select [formControlName]="'causalnoingreso'" [placeholder]="t('Location-CausalNoIngreso')" required>
+                                        <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pCausal of selectCausalnoIngresos"
+                                            [value]="pCausal">{{pCausal.nombreCausalNoIngreso}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
                             <div class="dl sm:col-span-2">

@@ -502,5 +502,8 @@
     "Dashboard-EstadisticaGral":"Estatísticas gerais",
     "Dashboard-Home":"Lar",
     "Dashboard-Messages":"Você tem novos registros para processar.",
-    "Dashboard-Personal":"Estatísticas pessoais"
+    "Dashboard-Personal":"Estatísticas pessoais",
+    "Registro-NroCodigoWeb":"Número do relatório da web",
+    "Registro-FechaArchivo":"Data do arquivo",
+    "Registro-IPSAtencion":"Atenção IPS"
 }

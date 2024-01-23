@@ -98,7 +98,7 @@
     "Location-Country": "Country",
     "Location-State": "State",
     "Location-StateName": "State Name",
-    "Location-Region": "Region",
+    "Location-Region": "Zona",
     "Location-RegionName": "Region Name",
     "Location-City": "City",
     "Location-CityName": "City Name",
@@ -512,6 +512,9 @@
     "Dashboard-EstadisticaGral": "General statistics",
     "Dashboard-Home": "Home",
     "Dashboard-Messages": "You have new Registrations to process.",
-    "Dashboard-Personal": "Personal statistics"
+    "Dashboard-Personal": "Personal statistics",
+    "Registro-NroCodigoWeb": "Web report number",
+    "Registro-FechaArchivo": "File Date",
+    "Registro-IPSAtencion": "IPS attention"
 }
 
