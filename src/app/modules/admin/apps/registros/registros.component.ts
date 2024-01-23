@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {FormsModule,ReactiveFormsModule,UntypedFormBuilder, UntypedFormGroup,Validators} from '@angular/forms';
+import { FormsModule,ReactiveFormsModule,UntypedFormBuilder, UntypedFormGroup,Validators} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MAT_DATE_FORMATS, MatNativeDateModule, MatOptionModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -14,7 +14,7 @@ import { Ciudad, Paises, Departamento } from 'app/modules/Models/location.model'
 import { LocationService } from 'app/modules/services/location.service';
 import { CausalNoIngresos, Medicamentos, Zonas } from 'app/modules/Models/caracteristicas.model';
 import { NgFor, NgForOf } from '@angular/common';
-import { Farmacia, TipoIdentificacion } from 'app/modules/Models/actividad.model';
+import { Farmacia, IPS, TipoIdentificacion } from 'app/modules/Models/actividad.model';
 import { ActividadesService } from 'app/modules/services/actividades.service';
 import { FuseCardComponent } from '@fuse/components/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -89,6 +89,8 @@ export class RegistrosComponent implements OnInit {
     selectPuntoEntrega: any[];
     estadoInscripcion: EstadoInscripcion[];
     selectEstadoInscripcion: any[];
+    ipsAtencion: IPS[];
+    selectIpsAtencion: any[];
 
     /**
      * Constructor
@@ -121,9 +123,11 @@ export class RegistrosComponent implements OnInit {
                 tipoidentificacion: [''],
                 numeroidenticacion: [''],
                 nombres: ['', Validators.required],
-                telefono1: [''],
+                telefono1: ['', Validators.required],
                 telefono2: [''],
                 email: [''],
+                nroReporteWeb: ['', Validators.required],
+                ipsAtencion: [''],
             }),
             step2: this._formBuilder.group({
                 medicamento: ['', Validators.required],
@@ -163,6 +167,7 @@ export class RegistrosComponent implements OnInit {
         this.cargaDiagnosticos();
         this.cargaCausalNoIngresos();
         this.cargaPuntoEntrega();
+        this.cargaIPS();
     }
 
     /// Consultan los datos relacionados a Pais
@@ -426,6 +431,26 @@ export class RegistrosComponent implements OnInit {
             complete: () => {
                 console.log(
                     `La petición para cargar estado inscripcion se ha completado.`
+                );
+            },
+        });
+    }
+
+    // Consulta las IPS existentes
+    cargaIPS(): void {
+        this._httpservice.getAllIPS().subscribe({
+            next: (response) => {
+                this.ipsAtencion = Object.keys(response).map(
+                    (key) => response[key]
+                );
+                this.selectIpsAtencion = Object.values(this.ipsAtencion[1]);
+            },
+            error: (error) => {
+                console.error(error);
+            },
+            complete: () => {
+                console.log(
+                    `La petición para cargar IPS se ha completado.`
                 );
             },
         });
