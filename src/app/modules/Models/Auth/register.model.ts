@@ -1,14 +1,14 @@
-export class Register {
+export interface Register {
+    userName: string;
     firstName: string;
     lastName: string;
-    fullName: string;
     email: string;
     password: string;
     confirmPassword: string;
-    company: string;
     phoneNumber: string;
     role: string;
-    isSuperUser: boolean;
-    enfermera: boolean;
-    active: boolean;
+    paisId: number | null;
+    company: string;
+    agreements: boolean;
+    isSuperUser?: boolean;
 }

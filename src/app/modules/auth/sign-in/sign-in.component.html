@@ -29,18 +29,12 @@
                 </fuse-alert>
 
                 <!-- Sign in form -->
-                <form
-                    class="mt-8"
-                    [formGroup]="signInForm"
-                    #signInNgForm="ngForm">
+                <form class="mt-8" [formGroup]="signInForm" #signInNgForm="ngForm">
 
                     <!-- Email-Address-Text-1 -->
                     <mat-form-field class="w-full">
                         <mat-label>{{t('Email-Address')}}</mat-label>
-                        <input
-                            id="email"
-                            matInput
-                            [formControlName]="'email'">
+                        <input id="email" matInput [formControlName]="'email'">
                         <mat-error *ngIf="signInForm.get('email').hasError('required')">
                             {{t('Email-Address-Text-1')}}
                         </mat-error>
@@ -52,12 +46,7 @@
                     <!-- Password field -->
                     <mat-form-field class="w-full">
                         <mat-label>{{t('Password-Header')}}</mat-label>
-                        <input
-                            id="password"
-                            matInput
-                            type="password"
-                            [formControlName]="'password'"
-                            #passwordField>
+                        <input id="password" matInput  type="password" [formControlName]="'password'" #passwordField>
                         <button
                             mat-icon-button
                             type="button"

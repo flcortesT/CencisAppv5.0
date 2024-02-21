@@ -139,6 +139,7 @@
     "Sign-Up-Header-Text-1": "Se requiere Primer nombre",
     "Sign-Up-PhoneNumber": "Número de teléfono",
     "Sign-Up-Role": "Rol",
+    "Sign-Up-Country": "Pais",
     "Sign-Up-Admin": "Es Super Administrador?",
     "Sign-Up-Active": "Activo",
     "Sign-Up-Agree": "estoy de acuerdo con",
@@ -509,5 +510,6 @@
     "Dashboard-EstadisticaGral": "Estatísticas general",
     "Dashboard-Home": "Principal",
     "Dashboard-Messages": "Tienes nuevas Inscripciones por tramitar.",
-    "Dashboard-Personal": "Estadísticas personales"
+    "Dashboard-Personal": "Estadísticas personales",
+    "MultiCountry": "Multipais?"
 }

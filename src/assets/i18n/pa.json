@@ -128,6 +128,7 @@
     "Sign-Up-Role": "Rol",
     "Sign-Up-Admin": "Es Super Administrador?",
     "Sign-Up-Active": "Activo",
+    "Sign-Up-Country": "Pais",
     "Sign-Up-Agree": "estoy de acuerdo con",
     "Sign-Up-Terms": "Términos",
     "Sign-Up-And": "y",
@@ -494,5 +495,6 @@
     "Dashboard-EstadisticaGral": "Estatísticas general",
     "Dashboard-Home": "Principal",
     "Dashboard-Messages": "Tienes nuevas Inscripciones por tramitar.",
-    "Dashboard-Personal": "Estadísticas personales"
+    "Dashboard-Personal": "Estadísticas personales",
+    "MultiCountry": "Multipais?"
 }

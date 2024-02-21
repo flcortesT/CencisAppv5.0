@@ -53,13 +53,21 @@ export class AuthSignUpComponent implements OnInit
     {
         // Create the form
         this.signUpForm = this._formBuilder.group({
-                name      : ['', Validators.required],
-                email     : ['', [Validators.required, Validators.email]],
-                password  : ['', Validators.required],
-                company   : [''],
-                agreements: ['', Validators.requiredTrue],
-            },
-        );
+            userName: ['', Validators.required],
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required, Validators.minLength(6)]],
+            confirmPassword: ['', Validators.required],
+            phoneNumber: ['', Validators.required],
+            role: ['', Validators.required],
+            fechaCreacion: [new Date().toISOString()], // Se maneja en el servidor
+            paisId: [null, Validators.required],
+            company: ['', Validators.required],
+            agreements: [false, Validators.requiredTrue],
+            isSuperUser: [false], // Opcional o manejado en el servidor
+            active: [true], // Opcional o manejado en el servidor
+        });
     }
 
     // -----------------------------------------------------------------------------------------------------

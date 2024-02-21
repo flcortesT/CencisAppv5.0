@@ -140,6 +140,7 @@
     "Sign-Up-Session_Text1": "Apellidos",
     "Sign-Up-Header-Text-1": "First Name is required",
     "Sign-Up-PhoneNumber": "Phone Number",
+    "Sign-Up-Country": "Country",
     "Sign-Up-Role": "Rol",
     "Sign-Up-Admin": "Is a Super Administrator?",
     "Sign-Up-Active": "Active",
@@ -512,6 +513,7 @@
     "Dashboard-EstadisticaGral": "General statistics",
     "Dashboard-Home": "Home",
     "Dashboard-Messages": "You have new Registrations to process.",
-    "Dashboard-Personal": "Personal statistics"
+    "Dashboard-Personal": "Personal statistics",
+    "MultiCountry": "Multi-country?"
 }
 
