@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/modules/Models/Auth/user.model';
@@ -23,7 +24,8 @@ export class AuthService {
      */
     constructor(
         private _httpClient: HttpClient,
-        private _userService: UserService
+        private _userService: UserService,
+        private _router: Router
     ) {}
 
     // -----------------------------------------------------------------------------------------------------
@@ -83,9 +85,9 @@ export class AuthService {
      * @param credentials
      */
     signIn(credentials: {
-        username: string;
-        email: string;
+        emails: string;
         password: string;
+        rememberMe: boolean;
     }): Observable<any> {
         // Throw error, if the user is already logged in
         if (this.isAuthenticated) {
@@ -165,9 +167,10 @@ export class AuthService {
                     // Nota: Si todo el manejo de sesión se basa en cookies HttpOnly, es posible que no necesites
                     // hacer nada en localStorage.
                     localStorage.removeItem('accessToken'); // Esto podría ser innecesario dependiendo de tu implementación específica.
-
+                  
                     // Actualiza el estado de autenticación a no autenticado.
                     this.authenticatedSubject.next(false);
+                     this._router.navigate(['/sign-in']);
                 }),
                 catchError((error) => {
                     // Maneja cualquier error que pueda ocurrir durante el proceso de cierre de sesión

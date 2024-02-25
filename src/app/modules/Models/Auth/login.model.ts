@@ -1,4 +1,5 @@
 export class Login {
-    userName: string;
+    emails: string;
     password: string;
+    remember: boolean;
 }

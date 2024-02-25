@@ -13,6 +13,9 @@ import {
     ReactiveFormsModule,
     UntypedFormBuilder,
     Validators,
+    AbstractControl,
+    ValidatorFn,
+    ValidationErrors,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -21,7 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { RouterLink } from '@angular/router';
+import { Route, Router, RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
 import { TranslocoModule } from '@ngneat/transloco';
@@ -30,6 +33,7 @@ import { Roles } from 'app/modules/Models/Auth/roles.model';
 import { Paises } from 'app/modules/Models/location.model';
 import { LocationService } from 'app/modules/services/location.service';
 import { Subject, finalize, takeUntil, timer } from 'rxjs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
     selector: 'sign-up-modern',
@@ -50,6 +54,7 @@ import { Subject, finalize, takeUntil, timer } from 'rxjs';
         MatIconModule,
         MatCheckboxModule,
         MatSelectModule,
+        MatTooltipModule,
         MatProgressSpinnerModule,
         TranslocoModule,
     ],
@@ -70,6 +75,7 @@ export class SignUpModernComponent implements OnInit, OnDestroy {
     selectRoles: any[] = [];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     isSubmitting: boolean = false;
+  
 
     /**
      * Constructor
@@ -77,8 +83,9 @@ export class SignUpModernComponent implements OnInit, OnDestroy {
     constructor(
         private _authService: AuthService,
         private _httpLocation: LocationService,
-        private _formBuilder: UntypedFormBuilder
-    ) {}
+        private _formBuilder: UntypedFormBuilder,
+        private _route: Router
+    ) { }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
@@ -104,7 +111,14 @@ export class SignUpModernComponent implements OnInit, OnDestroy {
                 firstName: ['', Validators.required],
                 lastName: ['', Validators.required],
                 email: ['', [Validators.required, Validators.email]],
-                password: ['', [Validators.required, Validators.minLength(6)]],
+                password: [
+                    '',
+                    [
+                        Validators.required,
+                        Validators.minLength(8),
+                        this.passwordPolicyValidator(),
+                    ],
+                ],
                 confirmPassword: ['', Validators.required],
                 phoneNumber: ['', Validators.required],
                 role: ['', Validators.required],
@@ -132,6 +146,48 @@ export class SignUpModernComponent implements OnInit, OnDestroy {
             return { mismatch: true };
         }
         return null;
+    }
+
+    /**
+     * 
+     * @returns Validación de la politica de password
+     */
+    passwordPolicyValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+            if (!value) {
+                return null; // No validar si el campo está vacío, usar Validators.required para comprobar si el campo está vacío
+            }
+
+            const errors: ValidationErrors = {};
+
+            // Requiere al menos un dígito
+            if (!/\d/.test(value)) {
+                errors.requireDigit = true;
+            }
+
+            // Requiere al menos una minúscula
+            if (!/[a-z]/.test(value)) {
+                errors.requireLowercase = true;
+            }
+
+            // Requiere al menos una mayúscula
+            if (!/[A-Z]/.test(value)) {
+                errors.requireUppercase = true;
+            }
+
+            // Requiere al menos un caracter no alfanumérico
+            if (!/\W/.test(value)) {
+                errors.requireNonAlphanumeric = true;
+            }
+
+            // Longitud mínima
+            if (value.length < 8) {
+                errors.requiredLength = true;
+            }
+
+            return Object.keys(errors).length === 0 ? null : errors;
+        };
     }
 
     /**
@@ -202,22 +258,51 @@ export class SignUpModernComponent implements OnInit, OnDestroy {
                         message: 'Se ha registrado exitosamente!',
                     };
                     this.showAlert = true;
-                    // Ocultra delete mensaje post 5 seconds
-                    timer(5000).subscribe(() => (this.showAlert = false));
+                    // Ocultra delete mensaje post 10 seconds
+                    timer(10000).subscribe(() => (this.showAlert = false));
+                    //limpia el formulario
+                    this.signUpForm.reset();
                 },
                 error: (error) => {
                     this.alert = {
                         type: 'error',
                         message:
-                            'Hay problemas con el registro. intentalo con el admin del sistema.',
+                            'Registro ya existe en la base de datos. Verifique los datos o contactar al admin del sistema.',
                     };
+                    //limpia el formulario
+                    this.signUpForm.reset();
                     this.showAlert = true;
                     // Implementa el ocultamiento automatico del alerta
-                    timer(5000).subscribe(() => (this.showAlert = false));
+                    timer(10000).subscribe(() => (this.showAlert = false));
                     // Notese la personalización pos error en el area visual podría hacerce more particularizado al error
                 },
                 complete: () => console.log('Registro completo.'),
             });
+    }
+
+    /**
+     * Salida del sistema.
+     */
+    onSignOut() {
+        this._authService.signOut().subscribe({
+            next: () => {
+                console.log('Signed out successfully');
+                this.alert = {
+                    type: 'success',
+                    message:
+                        'Se ha cerrado correctamente el sistema CENCISAPP!',
+                }; // Alerta nativa para éxito
+                // Redireccionamiento o cualquier otra lógica adicional aquí
+                 this._route.navigate(['/sign-in']);
+            },
+            error: (error) => {
+                console.error('Sign out failed', error);
+                this.alert = {
+                    type: 'success',
+                    message: 'No se ha cerrado exitosamente el sistema!',
+                }; // Alerta nativa para error
+            },
+        });
     }
 
     ngOnDestroy(): void {
