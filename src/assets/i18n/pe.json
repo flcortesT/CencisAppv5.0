@@ -497,5 +497,10 @@
     "Dashboard-Home": "Principal",
     "Dashboard-Messages": "Tienes nuevas Inscripciones por tramitar.",
     "Dashboard-Personal": "Estadísticas personales",
-    "MultiCountry": "Multipais?"
+    "MultiCountry": "Multipais?",
+    "Token": "Token:",
+    "Token-Text-1": "El token que recibió en su correo electrónico es obligatorio.",
+    "Password-Confirm": "Confirmación contraseña",
+    "Password-Text-3": "La confirmación de la contraseña es necesaria",
+    "Password-Text-4": "Se requiere confirmación de contraseña"
 }

@@ -504,5 +504,10 @@
     "Dashboard-Home":"Lar",
     "Dashboard-Messages":"Você tem novos registros para processar.",
     "Dashboard-Personal":"Estatísticas pessoais",
-    "MultiCountry": "Multipais?"
+    "MultiCountry": "Multipais?",
+    "Token":"Token:",
+    "Token-Text-1":"O token que você recebeu em seu e-mail é obrigatório.",
+    "Password-Confirm":"Confirmação de senha",
+    "Password-Text-3":"A confirmação da senha é necessária",
+    "Password-Text-4":"É necessária a confirmação das informações"
 }

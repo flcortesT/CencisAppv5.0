@@ -514,6 +514,11 @@
     "Dashboard-Home": "Home",
     "Dashboard-Messages": "You have new Registrations to process.",
     "Dashboard-Personal": "Personal statistics",
-    "MultiCountry": "Multi-country?"
+    "MultiCountry": "Multi-country?",
+    "Token": "Token:",
+    "Token-Text-1": "The token that you received in your email is required.",
+    "Password-Confirm": "Password (Confirm)",
+    "Password-Text-3": "Confirmation of the information is necessary",
+    "Password-Text-4": "Passwords must match"
 }
 

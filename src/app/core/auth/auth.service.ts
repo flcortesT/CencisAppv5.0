@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
+import { ForgetPassword } from 'app/modules/Models/Auth/forgetPassword.model';
 import { User } from 'app/modules/Models/Auth/user.model';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, catchError, Observable, of, retry, switchMap, tap, throwError } from 'rxjs';
@@ -10,12 +11,12 @@ import { BehaviorSubject, catchError, Observable, of, retry, switchMap, tap, thr
 @Injectable({ providedIn: 'root' })
 export class AuthService {
     private authenticatedSubject = new BehaviorSubject<boolean>(false);
-    public isAuthenticated = this.authenticatedSubject.asObservable();
+
     isHandling401Error: any;
 
     httpOptions = {
         headers: new HttpHeaders({
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         }),
     };
 
@@ -43,6 +44,19 @@ export class AuthService {
         return localStorage.getItem('accessToken') ?? '';
     }
 
+    // Chequea Inicialmente la autenticación de los usuarios
+    private checkInitialAuthentication() {
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+            this.accessToken = token;
+            this.authenticatedSubject.next(true);
+        }
+    }
+
+    isAuthenticated(): Observable<boolean> {
+        return this.authenticatedSubject.asObservable();
+    }
+
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
@@ -53,10 +67,15 @@ export class AuthService {
      * @param email
      */
     forgotPassword(email: string): Observable<any> {
-        return this._httpClient.post(
-            environment.baseUrl + 'Authentication/ForgetPassword/',
-            email
-        );
+        const payload = { email: email }; // Asegúrate de que esto es un objeto
+        console.log(payload);
+        return this._httpClient
+            .post(
+                environment.baseUrl + 'Authentication/ForgetPassword',
+                JSON.stringify(payload),
+                this.httpOptions
+            )
+            .pipe(retry(1), catchError(this.errorHandl));
     }
 
     /**
@@ -65,10 +84,13 @@ export class AuthService {
      * @param password
      */
     resetPassword(password: string): Observable<any> {
-        return this._httpClient.post(
-            environment.baseUrl + 'Authentication/reset-password',
-            password
-        );
+        return this._httpClient
+            .post(
+                environment.baseUrl + 'Authentication/reset-password',
+                JSON.stringify(password),
+                this.httpOptions
+            )
+            .pipe(retry(1), catchError(this.errorHandl));
     }
 
     /**
@@ -89,26 +111,23 @@ export class AuthService {
         password: string;
         rememberMe: boolean;
     }): Observable<any> {
-        // Throw error, if the user is already logged in
-        if (this.isAuthenticated) {
+        if (this.authenticatedSubject.value) {
             return throwError(() => new Error('User is already logged in.'));
         }
 
         return this._httpClient
-            .post(environment.baseUrl + 'Authentication/login', credentials)
+            .post(`${environment.baseUrl}Authentication/login`, credentials)
             .pipe(
                 switchMap((response: any) => {
-                    // Store the access token in the local storage
                     this.accessToken = response.accessToken;
-
-                    // Set the authenticated flag to true
+                    localStorage.setItem('accessToken', response.accessToken); // Almacenar el token en localStorage
                     this.authenticatedSubject.next(true);
-
-                    // Store the user on the user service
-                    this._userService.user = response.user;
-
-                    // Return a new observable with the response
+                    this._userService.user = response.user; // Asumiendo que tienes un método para establecer el usuario en UserService
                     return of(response);
+                }),
+                catchError((error) => {
+                    // Manejo opcional de errores
+                    return throwError(() => error);
                 })
             );
     }
@@ -167,10 +186,10 @@ export class AuthService {
                     // Nota: Si todo el manejo de sesión se basa en cookies HttpOnly, es posible que no necesites
                     // hacer nada en localStorage.
                     localStorage.removeItem('accessToken'); // Esto podría ser innecesario dependiendo de tu implementación específica.
-                  
+
                     // Actualiza el estado de autenticación a no autenticado.
                     this.authenticatedSubject.next(false);
-                     this._router.navigate(['/sign-in']);
+                    this._router.navigate(['/sign-in']);
                 }),
                 catchError((error) => {
                     // Maneja cualquier error que pueda ocurrir durante el proceso de cierre de sesión
@@ -204,10 +223,15 @@ export class AuthService {
      * @param credentials
      */
     unlockSession(credentials: { email: string }): Observable<any> {
-        return this._httpClient.post(
-            environment.baseUrl + 'Authentication/UnlockSession',
-            credentials
-        );
+        return this._httpClient
+            .post(
+                environment.baseUrl + 'Authentication/UnlockSession',
+                credentials
+            )
+            .pipe(
+                retry(1), // Reintentar una vez en caso de falla es razonable
+                catchError(this.errorHandl) // Asegúrate de tener una función errorHandl definida
+            );
     }
 
     // Control de errores
@@ -218,16 +242,16 @@ export class AuthService {
     }) {
         let errorMessage = '';
         if (error.error instanceof ErrorEvent) {
-            // Get client-side error
+            // Error del lado del cliente
             errorMessage = error.error.message;
         } else {
-            // Get server-side error
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+            // Error del lado del servidor
+            errorMessage = `Código de Error: ${error.status}\nMensaje: ${
+                error.error.message || error.message
+            }`;
         }
-        console.log(errorMessage);
-        return throwError(() => {
-            return errorMessage;
-        });
+        console.error(errorMessage); // Cambiado a console.error para indicar un error
+        return throwError(() => errorMessage);
     }
 
     /**

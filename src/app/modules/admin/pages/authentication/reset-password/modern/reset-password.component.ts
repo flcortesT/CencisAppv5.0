@@ -62,6 +62,8 @@ export class ResetPasswordModernComponent implements OnInit {
         // Create the form
         this.resetPasswordForm = this._formBuilder.group(
             {
+                email: ['', Validators.required],
+                token: ['', Validators.required],
                 password: ['', Validators.required],
                 passwordConfirm: ['', Validators.required],
             },
