@@ -8,8 +8,9 @@ export class Paises{
 }
 
 export class Departamento{
+    departamentoId: number;
     nombreDepartamento?: string;
-    pais?: Paises;
+    paisId?: number;
     codigo?: string;
     active?: boolean;
 }
@@ -27,4 +28,14 @@ export class Zonas {
     Departamentos?: Departamento;
     ciudad?: Ciudad;
     active?: boolean;
+}
+
+export class ApiResponse {
+    isSuccess: boolean;
+    message: Departamento[];
+}
+
+export class ApiReponseCity {
+    isSuccess: boolean;
+    message: Ciudad[];
 }

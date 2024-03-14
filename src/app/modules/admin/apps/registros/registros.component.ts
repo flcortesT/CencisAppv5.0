@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {FormsModule,ReactiveFormsModule,UntypedFormBuilder, UntypedFormGroup,Validators} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MAT_DATE_FORMATS, MatNativeDateModule, MatOptionModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -12,9 +12,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { TranslocoModule } from '@ngneat/transloco';
 import { Ciudad, Paises, Departamento } from 'app/modules/Models/location.model';
 import { LocationService } from 'app/modules/services/location.service';
-import { CausalNoIngresos, Medicamentos, Zonas } from 'app/modules/Models/caracteristicas.model';
-import { NgFor, NgForOf } from '@angular/common';
-import { Farmacia, TipoIdentificacion } from 'app/modules/Models/actividad.model';
+import { CausalNoIngresos, Medicamentos, MedicosActivos, Zonas } from 'app/modules/Models/caracteristicas.model';
+import { AsyncPipe, DatePipe, NgFor, NgForOf, NgIf, TitleCasePipe } from '@angular/common';
+import { Farmacia, IPS, Regimen, Sexo, TipoIdentificacion } from 'app/modules/Models/actividad.model';
 import { ActividadesService } from 'app/modules/services/actividades.service';
 import { FuseCardComponent } from '@fuse/components/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -26,6 +26,10 @@ import { DatosClinicosService } from 'app/modules/services/datos-clinicos.servic
 import { ZonasEnfermeras } from 'app/modules/Models/tablaMaestraTablasSecundarias.model';
 import { TablasSecundariasService } from 'app/modules/services/tablas-secundarias.service';
 import { Diagnosticos } from 'app/modules/Models/datosClinicos.model';
+import { Observable } from 'rxjs';
+import { ComentariosManager } from 'app/modules/Models/comentariosManager.model';
+import { DateTime } from 'luxon';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-registros',
@@ -51,10 +55,17 @@ import { Diagnosticos } from 'app/modules/Models/datosClinicos.model';
         MatDatepickerModule,
         NgFor,
         NgForOf,
+        NgIf,
+        MatIconModule,
+        RouterLink,
+        AsyncPipe,
+        TitleCasePipe,
+        DatePipe,
     ],
 })
 export class RegistrosComponent implements OnInit {
     horizontalStepperForm: UntypedFormGroup;
+    activities$: Observable<ComentariosManager[]>;
 
     // Constante de fechas
     fechaformula = (d: Date | null): boolean => {
@@ -67,9 +78,15 @@ export class RegistrosComponent implements OnInit {
     departamentos: Departamento[];
     selectCity: any[];
     cities: Ciudad[];
+    sexo: Sexo[];
+    ips: IPS[];
+    regimen: Regimen[];
     regiones: Zonas[];
     tipoIdentificacion: TipoIdentificacion[];
     selectTipoIdentificacion: any[];
+    selectIps: any[];
+    selectSexo: any[];
+    selectRegimen: any[];
     selectRegion: any[];
     selectCountries: any[];
     selectState: any[];
@@ -77,7 +94,7 @@ export class RegistrosComponent implements OnInit {
     selectMedicamentos: any[];
     aseguradoras: EPS[];
     selectasegurador: any[];
-    medicos: Medico[];
+    medicos: MedicosActivos[];
     selectMedico: any[];
     zonaenfermeras: ZonasEnfermeras[];
     selectZonaEnfermeras: any[];
@@ -89,6 +106,8 @@ export class RegistrosComponent implements OnInit {
     selectPuntoEntrega: any[];
     estadoInscripcion: EstadoInscripcion[];
     selectEstadoInscripcion: any[];
+    paisSeleccionado?: number;
+    departamentoSeleccionado?: number;
 
     /**
      * Constructor
@@ -120,10 +139,20 @@ export class RegistrosComponent implements OnInit {
                 zona: [''],
                 tipoidentificacion: [''],
                 numeroidenticacion: [''],
+                sexo: [''],
+                fechaNacimiento: [''],
                 nombres: ['', Validators.required],
+                otrosNombres: [''],
+                primerApellido: ['', Validators.required],
+                segundoApellido: [''],
                 telefono1: [''],
                 telefono2: [''],
+                telefono3: [''],
                 email: [''],
+                emailAlterno: [''],
+                direccionPrincipal: [''],
+                direccionSecundaria: [''],
+                regimen: [''],
             }),
             step2: this._formBuilder.group({
                 medicamento: ['', Validators.required],
@@ -138,12 +167,23 @@ export class RegistrosComponent implements OnInit {
                 formula: [''],
                 hcdiagnostico: [''],
                 ccadres: [''],
+                farmacia: [''],
+                ips: [''],
+                fechaInscripcion: [''],
+                fechaProximaCita: [''],
+                medicoFormulador: [''],
+                medicoActual: [''],
+                referente: [''],
+                distrito: [''],
+                cuidador: [''],
+                parentesco: [''],
             }),
             step3: this._formBuilder.group({
                 nombrescompletos: ['', Validators.required],
                 emailreportado: ['', [Validators.required, Validators.email]],
             }),
-            step4: this._formBuilder.group({
+            step4: this._formBuilder.group({}),
+            step5: this._formBuilder.group({
                 estadoInscripcion: ['', Validators.required],
                 about: [''],
             }),
@@ -152,17 +192,16 @@ export class RegistrosComponent implements OnInit {
         // carga los datos a los select.
         this.cargaEstadoInscripcion();
         this.cargarPaises();
-        this.cargarEstados(1);
-        this.cargaCiudad(1);
         this.cargaZona();
         this.cargaTipoIdentificacion();
         this.cargaMedicamentos();
         this.cargaAseguradora();
-        this.cargaMedico();
         this.cargaZonaEnfermeras();
         this.cargaDiagnosticos();
         this.cargaCausalNoIngresos();
         this.cargaPuntoEntrega();
+        this.cargaSexo();
+        this.cargaRegimen();
     }
 
     /// Consultan los datos relacionados a Pais
@@ -183,46 +222,64 @@ export class RegistrosComponent implements OnInit {
         });
     }
 
-    /// Consulta los departamentos existentes.
-    cargarEstados(paisId: number): void {
-        const valorState = 0;
-        this._http.getAllStateOrCountries(paisId, valorState).subscribe({
+    // Seleccionar pais
+    seleccionarPais(paisId: number) {
+        this.paisSeleccionado = paisId;
+        this.departamentos = [];
+        this.cities = [];
+        this.ips = [];
+        this._http.getAllState(paisId).subscribe({
             next: (response) => {
                 this.departamentos = Object.keys(response).map(
                     (key) => response[key]
                 );
                 this.selectState = Object.values(this.departamentos[1]);
+                this.onIpsSelected(paisId['paisId']);
             },
             error: (error) => {
                 console.error(error);
             },
             complete: () => {
                 console.log(
-                    `La petición para cargar estados del país ${paisId} se ha completado.`
+                    `La petición para cargar estados del país ${paisId['nombrePais']} se ha completado.`
                 );
             },
         });
     }
 
-    // Consulta las ciudades existentes
-    cargaCiudad(StateId: number): void {
-        const valorCountry = 0;
-        this._http.getAllCity().subscribe({
+    // Consulta de la tabla sexo
+    cargaSexo(): void {
+        this._httpservice.getAllSexo().subscribe({
             next: (response) => {
-                this.cities = Object.keys(response).map((key) => response[key]);
-                this.selectCity = Object.values(this.cities[1]);
+                this.sexo = Object.keys(response).map((key) => response[key]);
+                this.selectSexo = Object.values(this.sexo[1]);
             },
             error: (error) => {
                 console.error(error);
             },
             complete: () => {
-                console.log(
-                    `La petición para cargar ciudades se ha completado.`
-                );
+                console.log(`La petición para cargar sexo se ha completado.`);
             },
         });
     }
 
+    // Consulta de la tabla regimen.
+    cargaRegimen(): void {
+        this._httpservice.getAllRegimen().subscribe({
+            next: (response) => {
+                this.regimen = Object.keys(response).map(
+                    (key) => response[key]
+                );
+                this.selectRegimen = Object.values(this.regimen[1]);
+            },
+            error: (error) => {
+                console.error(error);
+            },
+            complete: () => {
+                console.log(`La petición para cargar sexo se ha completado.`);
+            },
+        });
+    }
     // Consulta las ciudades existentes
     cargaZona(): void {
         this._http.getAllRegion().subscribe({
@@ -300,26 +357,6 @@ export class RegistrosComponent implements OnInit {
             complete: () => {
                 console.log(
                     `La petición para cargar aseguradoras se ha completado.`
-                );
-            },
-        });
-    }
-
-    // Medico prestador de servicio
-    cargaMedico(): void {
-        this._httpdatosmedicos.getAllMedicos().subscribe({
-            next: (response) => {
-                this.medicos = Object.keys(response).map(
-                    (key) => response[key]
-                );
-                this.selectMedico = Object.values(this.medicos[1]);
-            },
-            error: (error) => {
-                console.error(error);
-            },
-            complete: () => {
-                console.log(
-                    `La petición para cargar Médicos se ha completado.`
                 );
             },
         });
@@ -431,28 +468,141 @@ export class RegistrosComponent implements OnInit {
         });
     }
 
+    /**
+     * Returns whether the given dates are different days
+     *
+     * @param current
+     * @param compare
+     */
+    isSameDay(current: string, compare: string): boolean {
+        return DateTime.fromISO(current).hasSame(
+            DateTime.fromISO(compare),
+            'day'
+        );
+    }
+
+    /**
+     * Get the relative format of the given date
+     *
+     * @param date
+     */
+    getRelativeFormat(date: string): string {
+        return DateTime.fromISO(date).toRelativeCalendar();
+    }
+
+    /**
+     * Track by function for ngFor loops
+     *
+     * @param index
+     * @param item
+     */
+    trackByFn(index: number, item: any): any {
+        return item.id || index;
+    }
+
+    // Consulta las ciudades existentes
+    onStateSelected(departamentoId: number): void {
+        this._http.getAllCity(departamentoId).subscribe({
+            next: (response) => {
+                if (response.isSuccess && response.message) {
+                    this.cities = response.message;
+                    this.selectCity = this.cities;
+                } else {
+                    console.error(
+                        'No se encontraron Ciudades o la petición no fue exitosa.'
+                    );
+                }
+            },
+            error: (error) => {
+                console.error(error);
+            },
+            complete: () => {
+                console.log(
+                    `La petición para cargar estados del país ${departamentoId['departamentoId']} se ha completado.`
+                );
+            },
+        });
+    }
+
     // funcion que permite seleccioanr el pais como llave primaria.
-    onCountrySelected(pais: number): void {
-        const valorCity = 0;
-        const valorState = 0;
-        const valorPais = Object.values(pais)[0];
-        this._http
-            .getCityByCountry(valorPais, valorCity, valorState)
+    onCountrySelected(paisesId: number): void {
+        this._http.getAllState(paisesId).subscribe({
+            next: (response) => {
+                if (response.isSuccess && response.message) {
+                    this.departamentos = response.message;
+                    this.selectState = this.departamentos;
+                } else {
+                    console.error(
+                        'No se encontraron departamentos o la petición no fue exitosa.'
+                    );
+                }
+            },
+            error: (error) => {
+                console.error(error);
+            },
+            complete: () => {
+                console.log(
+                    `La petición para cargar estados del país ${paisesId['paisesId']} se ha completado.`
+                );
+            },
+        });
+    }
+
+    /**
+     * Maneja la selección de un médico por su ID de medicamentos.
+     * Realiza una llamada HTTP para obtener todos los médicos activos relacionados.
+     * @param medicamentosID El ID de los medicamentos seleccionados.
+     */
+    onMedicoSelected(medicamentosID: number): void {
+        this._httpcaracteristicas
+            .getAllMedicosActivos(medicamentosID['medicamentosID'])
             .subscribe({
                 next: (response) => {
-                    this.cities = Object.keys(response).map(
-                        (key) => response[key]
-                    );
-                    this.selectCity = Object.values(this.cities[1]);
+                    if (response.isSuccess && response.message) {
+                        this.medicos = response.message;
+                        this.selectMedico = this.medicos;
+                    } else {
+                        console.error(
+                            'No se encontraron departamentos o la petición no fue exitosa.'
+                        );
+                    }
                 },
-                error: (error: any) => {
+                error: (error) => {
                     console.error(error);
                 },
                 complete: () => {
                     console.log(
-                        'La petición para cargar paises se ha completado.'
+                        `La petición para cargar estados del país ${medicamentosID['medicamentosID']} se ha completado.`
                     );
                 },
             });
+    }
+
+    /**
+     * Funcion que permite seleccionar todas las IPS por pais
+     * @param paisID 
+     */
+    onIpsSelected(paisID: number): void{
+        console.log(paisID['paisID']);
+        this._httpservice.getAllIPSByCountry(paisID['paisID']).subscribe({
+            next: (response) => {
+                if (response.isSuccess && response.message) {
+                    this.ips = response.message;
+                    this.selectIps = this.ips;
+                } else {
+                    console.error(
+                        'No se encontraron departamentos o la petición no fue exitosa.'
+                    );
+                }
+            },
+            error: (error) => {
+                console.error(error);
+            },
+            complete: () => {
+                console.log(
+                    `La petición para cargar estados del país ${paisID['paisID']} se ha completado.`
+                );
+            },
+        });
     }
 }

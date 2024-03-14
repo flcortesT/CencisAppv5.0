@@ -90,7 +90,6 @@ export class TipoIdentificacion {
 }
 
 export class Sexo {
-    id?: number;
     nombreSexo?: string;
     active?: boolean;
 }
@@ -160,6 +159,13 @@ export class IPS {
     nombreIps?: string;
     active?: boolean;
 }
+
+
+export class ApiReponseIPS {
+    isSuccess: boolean;
+    message: IPS[];
+}
+
 
 export class EscalaDolor {
     id?: number;

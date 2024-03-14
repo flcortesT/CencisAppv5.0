@@ -109,6 +109,20 @@ export class Medicamentos{
     active?: boolean;
 }
 
+export class MedicosActivos{
+    medicoId: number;
+    nombreMedico?: string;
+    medicamentosId: number;
+    nombreMedicamento?: string;
+    active?: boolean;
+}
+
+export class ApiReponseMedicos {
+    isSuccess: boolean;
+    message: MedicosActivos[];
+}
+
+
 export class Laboratorios {
     nombreLaboratorio?: string;
     active?: boolean;

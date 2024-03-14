@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
-import { ForgetPassword } from 'app/modules/Models/Auth/forgetPassword.model';
+import { ResetPassword } from 'app/modules/Models/Auth/resetPassword.model';
 import { User } from 'app/modules/Models/Auth/user.model';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, catchError, Observable, of, retry, switchMap, tap, throwError } from 'rxjs';
@@ -68,7 +68,6 @@ export class AuthService {
      */
     forgotPassword(email: string): Observable<any> {
         const payload = { email: email }; // Asegúrate de que esto es un objeto
-        console.log(payload);
         return this._httpClient
             .post(
                 environment.baseUrl + 'Authentication/ForgetPassword',
@@ -79,15 +78,21 @@ export class AuthService {
     }
 
     /**
-     * Reset password
+     * Solicita el restablecimiento de la contraseña enviando los detalles necesarios al servidor.
      *
-     * @param password
+     * @param resetPassword Objeto que contiene los detalles necesarios para el restablecimiento de la contraseña, incluyendo el email, token, nueva contraseña y la confirmación de la contraseña.
+     * @returns Un Observable que representa el resultado de la operación de restablecimiento de contraseña.
      */
-    resetPassword(password: string): Observable<any> {
+    resetPassword(resetPassword: {
+        email: string;
+        token: string;
+        newPassword: string;
+        confirmPassword: string;
+    }): Observable<ResetPassword> {
         return this._httpClient
-            .post(
-                environment.baseUrl + 'Authentication/reset-password',
-                JSON.stringify(password),
+            .post<ResetPassword>(
+                environment.baseUrl + 'Authentication/ResetPassword',
+                JSON.stringify(resetPassword),
                 this.httpOptions
             )
             .pipe(retry(1), catchError(this.errorHandl));

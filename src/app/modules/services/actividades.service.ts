@@ -1,8 +1,28 @@
 import { environment } from 'environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AccionActual, AccionTomada, Acciones, AccionesxMedicamento, ActividadComplementaria, Afiliacion, AplicacionSeguimiento, AplicacionSeguimientoVitales, EsquemaAplicacion, Farmacia, IPS, MaestraActividad, MaestraDatosClinicos, Paciente, Regimen, Sexo, TipoIdentificacion, Usuario } from '../Models/actividad.model';
-import { Observable, retry, catchError, throwError } from 'rxjs';
+import {
+    AccionActual,
+    AccionTomada,
+    Acciones,
+    AccionesxMedicamento,
+    ActividadComplementaria,
+    Afiliacion,
+    ApiReponseIPS,
+    AplicacionSeguimiento,
+    AplicacionSeguimientoVitales,
+    EsquemaAplicacion,
+    Farmacia,
+    IPS,
+    MaestraActividad,
+    MaestraDatosClinicos,
+    Paciente,
+    Regimen,
+    Sexo,
+    TipoIdentificacion,
+    Usuario,
+} from '../Models/actividad.model';
+import { Observable, retry, catchError, throwError, tap } from 'rxjs';
 import { EscalaDolor } from '../Models/ejecuciones.model';
 
 @Injectable({
@@ -14,8 +34,6 @@ export class ActividadesService {
     httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': 'true',
         }),
     };
 
@@ -91,7 +109,7 @@ export class ActividadesService {
     // Consulta de registros de acciones.
     getAllSexo(): Observable<Sexo> {
         return this.http
-            .get<Sexo>(environment.baseUrl + 'Sexo')
+            .get<Sexo>(`${environment.baseUrl}Sexo`)
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
@@ -130,8 +148,24 @@ export class ActividadesService {
     // Consulta de registros de acciones.
     getAllIPS(): Observable<IPS> {
         return this.http
-            .get<IPS>(environment.baseUrl + 'Ips')
+            .get<IPS>(`${environment.baseUrl}Ips`)
             .pipe(retry(1), catchError(this.errorHandl));
+    }
+
+    // Consulta de todas las IPS por pais
+    getAllIPSByCountry(PaisId: number): Observable<ApiReponseIPS> {
+        return this.http
+            .get<ApiReponseIPS>(
+                `${environment.baseUrl}IPS/IpsByCountry?PaisId=${PaisId}`,
+                this.httpOptions
+            )
+            .pipe(
+                tap((response) =>
+                    console.log('Respuesta del servidor:', response)
+                ), // Esto imprimirá la respuesta
+                retry(1),
+                catchError(this.errorHandl)
+            );
     }
 
     // Consulta de registros de acciones.

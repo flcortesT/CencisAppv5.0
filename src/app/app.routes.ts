@@ -8,18 +8,13 @@ import { LayoutComponent } from 'app/layout/layout.component';
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
-    // Redirect empty path to '/dashboards/project'
+    
     { path: '', pathMatch: 'full', redirectTo: 'dashboards/project' },
 
-    // Redirect signed-in user to the '/dashboards/project'
-    //
-    // After the user signs in, the sign-in page will redirect the user to the 'signed-in-redirect'
-    // path. Below is another redirection for that path to redirect the user to the desired
-    // location. This is a small convenience to keep all main routes together here on this file.
     {
         path: 'signed-in-redirect',
         pathMatch: 'full',
-        redirectTo: 'dashboards/analytics',
+        redirectTo: 'dashboards/project',
     },
 
     // Auth routes for guests
@@ -63,6 +58,10 @@ export const appRoutes: Route[] = [
                 loadChildren: () =>
                     import('app/modules/auth/sign-up/sign-up.routes'),
             },
+            {
+                path: 'grants',
+                loadChildren: ()=> import('app/modules/admin/pages/authentication/grants/grants.routes')
+            }
         ],
     },
 
@@ -368,14 +367,6 @@ export const appRoutes: Route[] = [
             {
                 path: 'pages',
                 children: [
-                    // Activities
-                    {
-                        path: 'activities',
-                        loadChildren: () =>
-                            import(
-                                'app/modules/admin/pages/activities/activities.routes'
-                            ),
-                    },
 
                     // Authentication
                     {

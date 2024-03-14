@@ -87,7 +87,7 @@ export class SignInModernComponent implements OnInit {
 
         const { emails, password, rememberMe } = this.signInForm.value; // Asegúrate de usar 'email' en lugar de 'emails' si ese es el nombre correcto del campo.
         this._authService.signIn({ emails, password, rememberMe }).subscribe({
-            next: (response) => {
+            next: () => {
                 // Configurar mensaje de éxito
                 this.alert = {
                     type: 'success',
@@ -102,7 +102,7 @@ export class SignInModernComponent implements OnInit {
                 // Redireccionar al usuario al dashboard
                 this.router.navigate(['/dashboards/project']);
             },
-            error: (error) => {
+            error: () => {
                 // Configurar mensaje de error
                 this.alert = {
                     type: 'error',

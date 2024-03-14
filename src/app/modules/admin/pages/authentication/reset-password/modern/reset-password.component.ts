@@ -17,6 +17,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
 import { FuseValidators } from '@fuse/validators';
 import { TranslocoModule } from '@ngneat/transloco';
+import { AuthService } from 'app/core/auth/auth.service';
 
 @Component({
     selector: 'reset-password-modern',
@@ -35,9 +36,10 @@ import { TranslocoModule } from '@ngneat/transloco';
         MatIconModule,
         MatProgressSpinnerModule,
         RouterLink,
-        TranslocoModule
+        TranslocoModule,
     ],
 })
+    
 export class ResetPasswordModernComponent implements OnInit {
     alert: { type: FuseAlertType; message: string } = {
         type: 'success',
@@ -49,7 +51,8 @@ export class ResetPasswordModernComponent implements OnInit {
     /**
      * Constructor
      */
-    constructor(private _formBuilder: UntypedFormBuilder) {}
+    constructor(private _formBuilder: UntypedFormBuilder,
+                private _authenticationService: AuthService) { }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
@@ -83,5 +86,38 @@ export class ResetPasswordModernComponent implements OnInit {
     /**
      * Reset password
      */
-    resetPassword(): void {}
+    resetPassword(): void {
+        if (this.resetPasswordForm.invalid) {
+            this.alert = {
+                type: 'error',
+                message: 'Please ensure the form is filled out correctly.',
+            };
+            this.showAlert = true;
+            return;
+        }
+
+        const { email, token, newPassword, confirmPassword } = this.resetPasswordForm.value;
+
+        this._authenticationService
+            .resetPassword({email, token, newPassword, confirmPassword})
+            .subscribe({
+                next: () => {
+                    // Manejo de la respuesta exitosa
+                    this.alert = {
+                        type: 'success',
+                        message: 'Tu password ha sido cambiado exitosamente....',
+                    };
+                    this.showAlert = true;
+                },
+                error: () => {
+                    // Manejo de errores
+                    this.alert = {
+                        type: 'error',
+                        message:
+                            'Un error ha pasado en el proceso de recuperación de tu contraseña',
+                    };
+                    this.showAlert = true;
+                },
+            });
+    }
 }

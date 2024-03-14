@@ -728,6 +728,23 @@ export class LanguagesComponent implements OnInit, OnDestroy
             });
         }
 
+         const authenticationGrantItem = this._fuseNavigationService.getItem(
+             'pages.authentication.grant',
+             navigation
+         );
+         if (authenticationGrantItem) {
+             this._translocoService
+                 .selectTranslate('Pages-Authentication-Grant')
+                 .pipe(take(1))
+                 .subscribe((translation) => {
+                     // Set the title
+                     authenticationGrantItem.title = translation;
+                     // Refresh the navigation component
+                     navComponent.refresh();
+                 });
+         }
+
+
         const authenticationSignOutItem = this._fuseNavigationService.getItem('pages.authentication.sign-out', navigation);
         if (authenticationSignOutItem) {
             this._translocoService.selectTranslate('Pages-Authentication-SignOut').pipe(take(1)).subscribe((translation) => { // Set the title
