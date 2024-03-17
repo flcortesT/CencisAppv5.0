@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ApiReponseCity, ApiResponse, Ciudad, Departamento, Paises, Zonas } from '../Models/location.model';
+import { ApiReponseCity, ApiResponse, ApiResponseZona, Ciudad, Departamento, Paises, Zonas } from '../Models/location.model';
 import { environment } from 'environments/environment';
 import { Observable, retry, catchError, throwError, tap } from 'rxjs';
 
@@ -23,7 +23,11 @@ export class LocationService {
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
-    // Consulta de departamentos de accion actual.
+    /**
+     * Consulta de todos los departamentos por pais
+     * @param paisesId 
+     * @returns 
+     */
     getAllState(paisesId: number): Observable<ApiResponse> {
         return this.http
             .get<ApiResponse>(
@@ -38,7 +42,11 @@ export class LocationService {
             );
     }
 
-    // Consulta de registros de accion actual.
+    /**
+     * Consulta de todas las ciudades por pais
+     * @param departamentoId 
+     * @returns 
+     */
     getAllCity(departamentoId: number): Observable<ApiReponseCity> {
         return this.http
             .get<ApiReponseCity>(
@@ -52,6 +60,26 @@ export class LocationService {
                 retry(1),
                 catchError(this.errorHandl)
             );
+    }
+
+    /**
+     * Consulta de todas las zonas por pais.
+     * @param paisId 
+     * @returns 
+     */
+    getAllZonaByCountry(paisId: number): Observable<ApiResponseZona>{
+         return this.http
+             .get<ApiResponseZona>(
+                 `${environment.baseUrl}Zonas/ZonaByCountry?paisId=${paisId['paisesId']}`,
+                 this.httpOptions
+             )
+             .pipe(
+                 tap((response) =>
+                     console.log('Respuesta del servidor:', response)
+                 ), // Esto imprimirá la respuesta
+                 retry(1),
+                 catchError(this.errorHandl)
+             );
     }
 
     // Consulta de registros de accion actual.

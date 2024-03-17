@@ -1,9 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ApiReponseMedicos, CIE, CaracteristicasVivienda, CausalInterrupcionSueno, CausalNoIngresos, Causalidad, CieMedicamento, Comorbilidad, ConfiguracionUsuarioDistrito, ConfiguracionUsuarioGeneral, ConfiguracionUsuarioZonas, ConsentimientoGS, Distritos, Laboratorios, Medicamentos, MedicosActivos, Perfiles, TipoConfiguracion, Zonas } from '../Models/caracteristicas.model';
+import {
+    ApiReponseMedicos, CIE, CaracteristicasVivienda, CausalInterrupcionSueno, CausalNoIngresos, Causalidad,
+    CieMedicamento, Comorbilidad, ConfiguracionUsuarioDistrito, ConfiguracionUsuarioGeneral, ConfiguracionUsuarioZonas,
+    ConsentimientoGS, Distritos, Laboratorios, Medicamentos, Perfiles, TipoConfiguracion
+} from '../Models/caracteristicas.model';
 import { environment } from 'environments/environment';
 import { Observable, retry, catchError, throwError, tap } from 'rxjs';
 import { MaestraCaracteristicas } from '../Models/actividad.model';
+import { Zonas } from '../Models/location.model';
 
 
 @Injectable({

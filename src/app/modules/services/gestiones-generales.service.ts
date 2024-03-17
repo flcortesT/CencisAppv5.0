@@ -1,10 +1,58 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Acompanante, EPS, EjecucionGestionACApoyo, EjecucionGestionACCapacitacion, EjecucionGestionACClinica, EjecucionGestionACClinicaCaracteristicasVivienda, EjecucionGestionACClinicaEnfermedades, EjecucionGestionACClinicaEventosAdversos, EjecucionGestionACClinicaTemasEducacion, EjecucionGestionACClinicaValidaciones, EjecucionGestionAC_GestionAdministrativa, EjecucionGestionAC_GestionGenerica, Enfermedades, EntidadesMedicamento, EscalaDolor, EspecialidadesxMedicamento, EsquemasAplicacion, Estadio, EstadoActividad, EstadoActual, EstadoAutorizacion, EstadoFinal, EstadoGestionSocial, EstadoInscripcion, EstadoReporte, EstadoReportes, EstadoReportesFV, EstadoSeguimientoFV, Estados, EstadoxEstadio, EstadoxMedicamento, Estatus, EventoAdversoSeguimiento, EventoRelacionado, GestionACAsignados, GestionACGestion, GestionActividadComplementaria, GrupoSanguineo, NivelEscolaridad, Ocupacion, ParentescoAcompanante, Prioridad, TemasEducacion, TipoAccesoVivienda, TipoZonaVivienda, TiposAdversos } from '../Models/ejecuciones.model';
+import {
+    Acompanante,
+    EPS,
+    EjecucionGestionACApoyo,
+    EjecucionGestionACCapacitacion,
+    EjecucionGestionACClinica,
+    EjecucionGestionACClinicaCaracteristicasVivienda,
+    EjecucionGestionACClinicaEnfermedades,
+    EjecucionGestionACClinicaEventosAdversos,
+    EjecucionGestionACClinicaTemasEducacion,
+    EjecucionGestionACClinicaValidaciones,
+    EjecucionGestionAC_GestionAdministrativa,
+    EjecucionGestionAC_GestionGenerica,
+    Enfermedades,
+    EntidadesMedicamento,
+    EscalaDolor,
+    EspecialidadesxMedicamento,
+    EsquemasAplicacion,
+    Estadio,
+    EstadoActividad,
+    EstadoActual,
+    EstadoAutorizacion,
+    EstadoFinal,
+    EstadoGestionSocial,
+    EstadoInscripcion,
+    EstadoReporte,
+    EstadoReportes,
+    EstadoReportesFV,
+    EstadoSeguimientoFV,
+    Estados,
+    EstadoxEstadio,
+    EstadoxMedicamento,
+    Estatus,
+    EventoAdversoSeguimiento,
+    EventoRelacionado,
+    GestionACAsignados,
+    GestionACGestion,
+    GestionActividadComplementaria,
+    GrupoSanguineo,
+    NivelEscolaridad,
+    Ocupacion,
+    Parentesco,
+    Prioridad,
+    TemasEducacion,
+    TipoAccesoVivienda,
+    TipoZonaVivienda,
+    TiposAdversos,
+} from '../Models/ejecuciones.model';
 import { environment } from 'environments/environment';
-import { Observable, retry, catchError, throwError } from 'rxjs';
+import { Observable, retry, catchError, throwError, tap } from 'rxjs';
 import { Especialidades } from '../Models/datosClinicos.model';
 import { MaestraGestion } from '../Models/tablaMaestraGestion.model';
+import { ApiResponseEPS } from '../Models/location.model';
 
 @Injectable({
     providedIn: 'root',
@@ -15,8 +63,6 @@ export class GestionesGeneralesService {
     httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': 'true',
         }),
     };
 
@@ -137,10 +183,10 @@ export class GestionesGeneralesService {
     }
 
     // Consulta de registros de accion actual.
-    getAllParentescoAcompanante(): Observable<ParentescoAcompanante> {
+    getAllParentesco(): Observable<Parentesco> {
         return this.http
-            .get<ParentescoAcompanante>(
-                environment.baseUrl + 'ParentescoAcompanante'
+            .get<Parentesco>(
+                environment.baseUrl + 'Parentesco'
             )
             .pipe(retry(1), catchError(this.errorHandl));
     }
@@ -240,6 +286,24 @@ export class GestionesGeneralesService {
         return this.http
             .get<EPS>(environment.baseUrl + 'EPS')
             .pipe(retry(1), catchError(this.errorHandl));
+    }
+
+    /**
+     * Consulta de IPS filtrada por pais.
+     * @param PaisId
+     * @returns
+     */
+    getAllEPSByCountry(PaisId: number): Observable<ApiResponseEPS> {
+        return this.http
+            .get<ApiResponseEPS>(
+                `${environment.baseUrl}EPS/EPSByCountry?PaisId=${PaisId['paisesId']}`,
+                this.httpOptions
+            )
+            .pipe(
+                tap((response) =>console.log('Respuesta del servidor:', response)), // Esto imprimirá la respuesta
+                retry(1),
+                catchError(this.errorHandl)
+            );
     }
 
     // Consulta de registros de accion actual.
@@ -521,12 +585,12 @@ export class GestionesGeneralesService {
     }
 
     // Consulta de registros de areas con parametros
-    getParentescoAcompananteById(
+    getParentescoById(
         id: number
-    ): Observable<ParentescoAcompanante> {
+    ): Observable<Parentesco> {
         return this.http
-            .get<ParentescoAcompanante>(
-                environment.baseUrl + 'ParentescoAcompanante/' + id
+            .get<Parentesco>(
+                `${environment.baseUrl}Parentesco/${id}`
             )
             .pipe(retry(1), catchError(this.errorHandl));
     }
@@ -988,10 +1052,10 @@ export class GestionesGeneralesService {
     }
 
     // Creación de un nuevo registro en la tabla accion actual.
-    crearParentescoAcompanante(data: any): Observable<ParentescoAcompanante> {
+    crearParentescoAcompanante(data: any): Observable<Parentesco> {
         return this.http
-            .post<ParentescoAcompanante>(
-                environment.baseUrl + 'ParentescoAcompanante',
+            .post<Parentesco>(
+                `${environment.baseUrl}Parentesco`,
                 JSON.stringify(data),
                 this.httpOptions
             )
@@ -1563,13 +1627,13 @@ export class GestionesGeneralesService {
     }
 
     // Edición de registros existentes.
-    updateParentescoAcompanante(
+    updateParentesco(
         id: number,
         data: any
-    ): Observable<ParentescoAcompanante> {
+    ): Observable<Parentesco> {
         return this.http
-            .put<ParentescoAcompanante>(
-                environment.baseUrl + 'ParentescoAcompanante/' + id,
+            .put<Parentesco>(
+                `${environment.baseUrl}Parentesco/${id}`,
                 JSON.stringify(data),
                 this.httpOptions
             )
@@ -2159,12 +2223,12 @@ export class GestionesGeneralesService {
     }
 
     // Eliminar registro de la tabla ciudad
-    deleteParentescoAcompananteById(
+    deleteParentescoById(
         id: number
-    ): Observable<ParentescoAcompanante> {
+    ): Observable<Parentesco> {
         return this.http
-            .delete<ParentescoAcompanante>(
-                environment.baseUrl + 'ParentescoAcompanante/' + id,
+            .delete<Parentesco>(
+                `${environment.baseUrl}Parentesco/${id}`,
                 this.httpOptions
             )
             .pipe(retry(1), catchError(this.errorHandl));

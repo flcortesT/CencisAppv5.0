@@ -1,8 +1,8 @@
 import { AccionActual, AplicacionSeguimiento, Farmacia, Regimen, Usuario } from "./actividad.model";
-import { Distritos, Laboratorios, Medicamentos, Perfiles, Zonas } from "./caracteristicas.model";
+import { Distritos, Laboratorios, Medicamentos, Perfiles} from "./caracteristicas.model";
 import { PresentacionMedicamento } from "./datosClinicos.model";
 import { EstadoAutorizacion, Estados } from "./ejecuciones.model";
-import { Country } from "./location.model";
+import { Paises, Zonas } from "./location.model";
 import { TipoDimension } from "./tablaMaestra.model";
 
 export class Ocupaciones {
@@ -37,7 +37,7 @@ export class OpcionMenu {
 export class CountryesxUsuario {
     id?: string;
     usuario: Usuario;
-    Country: Country;
+    Country: Paises;
     active?: boolean;
 }
 
@@ -133,14 +133,14 @@ export class Reemplazos {
 export class Referente {
     id?: number;
     nombreReferente?: string;
-    Country: Country;
+    Country: Paises;
     active?: boolean;
 }
 
 export class RegimenxCountry {
     id?: number;
     regimen: Regimen;
-    Country: Country;
+    Country: Paises;
     active?: boolean;
 }
 

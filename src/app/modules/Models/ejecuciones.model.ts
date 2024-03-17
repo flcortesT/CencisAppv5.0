@@ -1,9 +1,9 @@
 import { CaracteristicasVivienda, Medicamentos } from './caracteristicas.model';
-import { Usuario } from "./actividad.model";
-import { Ciudad, Paises } from "./location.model";
+import { Usuario } from './actividad.model';
+import { Ciudad, Paises } from './location.model';
 import { Desenlace } from './tablaMaestra.model';
 
-export class EjecucionGestionAC_GestionAdministrativa{
+export class EjecucionGestionAC_GestionAdministrativa {
     id?: number;
     gestionACAsignados: GestionACAsignados;
     City: Ciudad;
@@ -76,7 +76,7 @@ export class EjecucionGestionACClinica {
     nivelEscolaridad: NivelEscolaridad;
     ocupacion: Ocupacion;
     acompanante: Acompanante;
-    ParentescoAcompanante: ParentescoAcompanante;
+    ParentescoAcompanante: Parentesco;
     tipoZonaVivienda: TipoZonaVivienda;
     tipoAccesoVivienda: TipoAccesoVivienda;
     alergias?: string;
@@ -102,7 +102,7 @@ export class GrupoSanguineo {
     active?: boolean;
 }
 
-export class GestionACGestion{
+export class GestionACGestion {
     id?: number;
     nombreGestionACGestion?: string;
     active?: boolean;
@@ -127,9 +127,9 @@ export class Acompanante {
     active?: boolean;
 }
 
-export class ParentescoAcompanante{
+export class Parentesco {
     id?: number;
-    nombreParentescoAcompanante?: string;
+    nombreParentesco?: string;
     active?: boolean;
 }
 
@@ -205,11 +205,11 @@ export class EntidadesMedicamento {
 
 export class EPS {
     nombreEps?: string;
-    Country: Paises;
-    active?: boolean; 
+    paisId: string;
+    active?: boolean;
 }
 
-export class EscalaDolor{
+export class EscalaDolor {
     id?: number;
     nombreEscalaDolor?: string;
     active?: boolean;
@@ -321,8 +321,7 @@ export class Estatus {
     active?: boolean;
 }
 
-export class EventoAdversoSeguimiento
-{
+export class EventoAdversoSeguimiento {
     id?: number;
     farmacoVigilancia?: number;
     nombreEventoAdverso?: string;
@@ -363,4 +362,3 @@ export class EventoRelacionado {
     nombreEventoRelacionado?: string;
     active?: boolean;
 }
-

@@ -1,5 +1,5 @@
-import { Zonas } from "./caracteristicas.model";
-import { Ciudad } from "./location.model";
+
+import { Ciudad, Zonas } from "./location.model";
 
 export class TipoActividad {
     id?: number;

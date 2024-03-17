@@ -24,6 +24,7 @@ import {
 } from '../Models/actividad.model';
 import { Observable, retry, catchError, throwError, tap } from 'rxjs';
 import { EscalaDolor } from '../Models/ejecuciones.model';
+import { ApiResponseFarmacias } from '../Models/location.model';
 
 @Injectable({
     providedIn: 'root',
@@ -152,11 +153,35 @@ export class ActividadesService {
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
-    // Consulta de todas las IPS por pais
+    /**
+     * Consulta de farmacias por pais
+     * @param PaisId 
+     * @returns 
+     */
+    getAllFarmaciasByCountry(PaisId: number): Observable<ApiResponseFarmacias> {
+        return this.http
+            .get<ApiResponseFarmacias>(
+                `${environment.baseUrl}Farmacias/FarmaciasByCountry?PaisId=${PaisId['paisesId']}`,
+                this.httpOptions
+            )
+            .pipe(
+                tap((response) =>
+                    console.log('Respuesta del servidor:', response)
+                ), // Esto imprimirá la respuesta
+                retry(1),
+                catchError(this.errorHandl)
+            );
+    }
+
+    /**
+     * Consulta de IPS filtrada por pais.
+     * @param PaisId
+     * @returns
+     */
     getAllIPSByCountry(PaisId: number): Observable<ApiReponseIPS> {
         return this.http
             .get<ApiReponseIPS>(
-                `${environment.baseUrl}IPS/IpsByCountry?PaisId=${PaisId}`,
+                `${environment.baseUrl}IPS/IpsByCountry?PaisId=${PaisId['paisesId']}`,
                 this.httpOptions
             )
             .pipe(
