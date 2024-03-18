@@ -107,7 +107,6 @@ export class SignUpModernComponent implements OnInit, OnDestroy {
     createSignUpForm(): FormGroup {
         return this._formBuilder.group(
             {
-                userName: ['', Validators.required],
                 firstName: ['', Validators.required],
                 lastName: ['', Validators.required],
                 email: ['', [Validators.required, Validators.email]],
@@ -120,17 +119,8 @@ export class SignUpModernComponent implements OnInit, OnDestroy {
                     ],
                 ],
                 confirmPassword: ['', Validators.required],
-                phoneNumber: ['', Validators.required],
-                role: ['', Validators.required],
-                fechaCreacion: [new Date().toISOString()],
                 avatar: ['vacio'],
-                isSuperUser: [false],
-                nombrePais: ['', Validators.required],
-                company: ['', Validators.required],
-                multiPais: [false],
-                agreements: [true, Validators.requiredTrue],
-                status: ['online'],
-                active: [true],
+                agreements: [true],
             },
             { validator: this.passwordMatchValidator }
         );

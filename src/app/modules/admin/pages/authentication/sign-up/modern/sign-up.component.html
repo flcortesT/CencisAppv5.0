@@ -3,8 +3,8 @@
         <div class="w-full sm:w-auto py-8 px-4 sm:p-12 md:p-16">
             <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
                 <!-- Logo -->
-                <div class="w-24">
-                    <img src="assets/images/logo/logo.png">
+                <div class="w-34">
+                    <img src="assets/images/logo/Logo.png">
                 </div>
 
                 <!-- Title -->
@@ -26,14 +26,6 @@
 
                 <!-- Sign Up form -->
                 <form class="mt-8" [formGroup]="signUpForm">
-                    <mat-form-field class="w-full">
-                        <mat-label>{{t('Module-User')}}</mat-label>
-                        <input id="userName" matInput [formControlName]="'userName'" placeholder="{{t('Module-User')}}">
-                        <mat-error *ngIf="signUpForm.get('userName').hasError('required')">
-                        {{t('Module-User')}}
-                        </mat-error>
-                    </mat-form-field>
-
                     <!-- Name field -->
                     <mat-form-field class="w-full">
                         <mat-label>{{t('Sign-Up-Session')}}</mat-label>
@@ -119,62 +111,6 @@
                         </mat-error>
                     </mat-form-field><!-- Password field -->
 
-                    <!-- Company field -->
-                    <mat-form-field class="w-full">
-                        <mat-label>{{t('Company-Text-1')}}</mat-label>
-                        <input id="company" matInput [formControlName]="'company'">
-                        <mat-error *ngIf="signUpForm.get('company').hasError('required')">
-                            {{t('Company-Warning_1')}}
-                        </mat-error>
-                    </mat-form-field>
-
-                    <!-- Phone number -->
-                    <mat-form-field class="w-full">
-                        <mat-label>{{t('Location-ContactPhone')}}</mat-label>
-                        <input id="phoneNumber" matInput [formControlName]="'phoneNumber'">
-                        <mat-error *ngIf="signUpForm.get('phoneNumber').hasError('required')">
-                            {{t('Location-ContactPhone')}}
-                        </mat-error>
-                    </mat-form-field>
-
-
-                    <!--Roles-->
-                   
-                        <mat-label>{{t("Sign-Up-Role") }}</mat-label>
-                        <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
-                            <mat-select [formControlName]="'role'" [placeholder]="t('Sign-Up-Role')" required>
-                                <mat-option value="rol-1">{{t("Msg-None")}}</mat-option>
-                                <mat-option *ngFor="let pRole of selectRoles"
-                                    [value]="pRole.name">{{pRole.name}}</mat-option>
-                            </mat-select>
-                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:users'"></mat-icon>
-                        </mat-form-field>
-
-                        <!--Country-->
-                        
-                        <mat-label>{{t("Sign-Up-Country") }}</mat-label>
-                        <mat-form-field class="block w-full rounded-md border-0 py-1 sm:text-xs sm:leading-5">
-                            <mat-select [formControlName]="'nombrePais'" [placeholder]="t('Bank-Country')">
-                                <mat-option value="country-1">{{t("Msg-None")}}</mat-option>
-                                <mat-option *ngFor="let pCountry of selectCountries" [value]="pCountry.nombrePais">{{
-                                    pCountry.nombrePais}}</mat-option>
-                            </mat-select>
-                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
-                        </mat-form-field>
-
-                    <!-- SuperAdmin -->
-                    <div class="inline-flex items-end w-full mt-1.5">
-                        <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'isSuperUser'">
-                            <span>{{t('Sign-Up-Admin')}}</span>
-                        </mat-checkbox>
-                    </div>
-
-                    <!--Multipais-->
-                    <div class="inline-flex items-end w-full mt-1.5">
-                        <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'multiPais'">
-                            <span>{{t('MultiCountry')}}</span>
-                        </mat-checkbox>
-                    </div>
                     <!-- ToS and PP -->
                     <div class="inline-flex items-end w-full mt-1.5">
                         <mat-checkbox

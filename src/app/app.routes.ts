@@ -8,7 +8,7 @@ import { LayoutComponent } from 'app/layout/layout.component';
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
-    // Redirect empty path to '/dashboards/project'
+    // Redirect empty path to '/sign-in' login.
     { path: '', pathMatch: 'full', redirectTo: 'dashboards/project' },
 
     // Redirect signed-in user to the '/dashboards/project'
