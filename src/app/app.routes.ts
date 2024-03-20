@@ -145,13 +145,7 @@ export const appRoutes: Route[] = [
             {
                 path: 'apps',
                 children: [
-                    {
-                        path: 'registros',
-                        loadChildren: () =>
-                            import(
-                                'app/modules/admin/apps/registros/registros.route'
-                            ),
-                    },
+                   
                     {
                         path: 'pacientesreportados',
                         loadChildren: () =>
