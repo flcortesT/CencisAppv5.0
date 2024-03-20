@@ -1,3 +1,6 @@
+import { Farmacia } from "./actividad.model";
+import { EPS } from "./ejecuciones.model";
+
 export class Paises{
     nombrePais?: string;
     codigoISO?: string;
@@ -8,8 +11,9 @@ export class Paises{
 }
 
 export class Departamento{
+    departamentoId: number;
     nombreDepartamento?: string;
-    pais?: Paises;
+    paisId?: number;
     codigo?: string;
     active?: boolean;
 }
@@ -24,7 +28,31 @@ export class Ciudad {
 
 export class Zonas {
     nombreRegion?: string;
-    Departamentos?: Departamento;
-    ciudad?: Ciudad;
+    paisId?: number;
     active?: boolean;
+}
+
+export class ApiResponse {
+    isSuccess: boolean;
+    message: Departamento[];
+}
+
+export class ApiReponseCity {
+    isSuccess: boolean;
+    message: Ciudad[];
+}
+
+export class ApiResponseZona {
+    isSuccess: boolean;
+    message: Zonas[];
+}
+
+export class ApiResponseEPS {
+    isSuccess: boolean;
+    message: EPS[];
+}
+
+export class ApiResponseFarmacias {
+    isSuccess: boolean;
+    message: Farmacia[];
 }

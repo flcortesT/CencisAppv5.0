@@ -1,5 +1,5 @@
 import { Sexo, Usuario } from "./actividad.model";
-import { Paises } from "./location.model";
+import { Paises, Zonas } from "./location.model";
 
 export class CaracteristicasVivienda {
     id?: number;
@@ -78,12 +78,6 @@ export class ConsentimientoGS{
     active?: boolean;
 }
 
-export class Zonas{
-    id?: number;
-    nombreZona?: string;
-    pais: Paises;
-    active?: boolean;
-}
 export class Perfiles {
     id?: number;
     nombrePerfiles?: string;
@@ -108,6 +102,20 @@ export class Medicamentos{
     esVitalnoDisponible?: boolean;
     active?: boolean;
 }
+
+export class MedicosActivos{
+    medicoId: number;
+    nombreMedico?: string;
+    medicamentosId: number;
+    nombreMedicamento?: string;
+    active?: boolean;
+}
+
+export class ApiReponseMedicos {
+    isSuccess: boolean;
+    message: MedicosActivos[];
+}
+
 
 export class Laboratorios {
     nombreLaboratorio?: string;

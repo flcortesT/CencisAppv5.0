@@ -1,5 +1,6 @@
 export class ResetPassword {
-    token: string;
     email: string;
+    token: string;
     newPassword: string;
+    confirmPassword: string;
 }

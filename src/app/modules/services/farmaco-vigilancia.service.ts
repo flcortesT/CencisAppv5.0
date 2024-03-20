@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { FarmacoVigilancia } from '../Models/tablasMaestrasFarma.model';
 import { environment } from 'environments/environment';
 import { Observable, retry, catchError, throwError } from 'rxjs';
-import { SeguimientoGestionSocial } from '../Models/tablaMaestraSeguimientos.model';
 import { Frecuencia } from '../Models/datosClinicos.model';
 
 @Injectable({
@@ -14,9 +13,7 @@ export class FarmacoVigilanciaService {
 
     httpOptions = {
         headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': 'true',
+            'Content-Type': 'application/json'
         }),
     };
 

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @Component({
     selector       : 'error-500',
@@ -7,7 +8,7 @@ import { RouterLink } from '@angular/router';
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone     : true,
-    imports        : [RouterLink],
+    imports        : [RouterLink, TranslocoModule],
 })
 export class Error500Component
 {

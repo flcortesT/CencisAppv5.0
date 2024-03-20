@@ -16,7 +16,7 @@
             <!-- Title -->
             <div class="mt-2">
                 <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
-                    {{t("Inscripcion-Header") }}
+                    {{ t("Inscripcion-Header") }}
                 </h2>
             </div>
         </div>
@@ -24,7 +24,6 @@
 
     <!-- Main -->
     <div class="flex-auto p-6 sm:p-10">
-
         <fuse-card class="flex flex-col max-w-280 w-full mt-8" #expandableCard02="fuseCard">
             <!-- Datos pacientes -->
             <form class="p-4 bg-card shadow rounded overflow-hidden" [formGroup]="horizontalStepperForm">
@@ -32,91 +31,116 @@
                     <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')"
                         #horizontalStepperStep1>
                         <ng-template matStepLabel>{{t("Register-Information-Data")}}</ng-template>
-                        <p class="dl my-6 font-medium">
-                            {{t("Location-SubTitle")}}
+                        <p class="dl my-6 font-medium">{{ t("Location-SubTitle") }}
                         </p>
 
                         <div class="mt-12 grid grid-cols-3 gap-4 gap-y-2 sm:grid-cols-8">
                             <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Bank-Country")
-                                    }}</label>
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Bank-Country")}}</label>
+                                <!--Pais-->
                                 <mat-form-field class="block w-full rounded-md border-0 py-1 sm:text-xs sm:leading-5">
                                     <mat-select [formControlName]="'pais'" [placeholder]="t('Bank-Country')"
                                         (selectionChange)="onCountrySelected($event.value)">
-                                        <mat-option value="country-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pCountry of selectCountries" [value]="pCountry">{{
-                                            pCountry.nombrePais}}</mat-option>
+                                        <mat-option *ngFor="let pCountry of selectCountries" [value]="pCountry">{{pCountry.nombrePais}}</mat-option>
                                     </mat-select>
                                     <mat-icon class="icon-size-5" matPrefix
                                         [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
                             <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-State")
-                                    }}</label>
+                                <!--Departamento-->
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-State")}}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-5">
-                                    <mat-select [formControlName]="'departamento'" [placeholder]="t('Location-State')"
-                                        ><mat-option value="departamento-1">{{ t("Msg-None") }}</mat-option>
-                                        <mat-option *ngFor="let pStates of selectState"
-                                            [value]="pStates">{{pStates.nombreDepartamento}}</mat-option>
+                                    <mat-select [formControlName]="'departamento'"
+                                        [placeholder]="t('Location-State')"  (selectionChange)="onStateSelected($event.value)">
+                                        <mat-option *ngFor="let pStates of selectState" [value]="pStates">{{pStates.nombreDepartamento}}</mat-option>
                                     </mat-select>
                                     <mat-icon class="icon-size-5" matPrefix
                                         [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--Ciudades-->
                             <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-City")
-                                    }}</label>
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-City")}}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-5">
-                                    <mat-select [formControlName]="'ciudad'" [placeholder]="t('Location-City')"
-                                        >
+                                    <mat-select [formControlName]="'ciudad'" [placeholder]="t('Location-City')">
                                         <mat-option value="ciudad-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pStates of selectCity"
-                                            [value]="pStates">{{pStates.nombreCiudad}}</mat-option>
+                                        <mat-option *ngFor="let pStates of selectCity" [value]="pStates">{{
+                                            pStates.nombreCiudad
+                                            }}</mat-option>
                                     </mat-select>
                                     <mat-icon class="icon-size-5" matPrefix
                                         [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--Zona region-->
                             <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-Region")
-                                    }}</label>
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-Region")}}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-5">
-                                    <mat-select [formControlName]="'zona'" [placeholder]="t('Location-Region')"
-                                        >
+                                    <mat-select [formControlName]="'zona'" [placeholder]="t('Location-Region')">
                                         <mat-option value="zona-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pRegion of selectRegion"
-                                            [value]="pRegion">{{pRegion.nombreZona}}</mat-option>
+                                        <mat-option *ngFor="let pRegion of selectRegion" [value]="pRegion">{{
+                                            pRegion.nombreZona}}</mat-option>
                                     </mat-select>
                                     <mat-icon class="icon-size-5" matPrefix
                                         [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
                             <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-ID")
-                                    }}</label>
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Member-Sex")}}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <!--Sexo-->
+                                    <mat-select [formControlName]="'sexo'" [placeholder]="t('Member-Sex')">
+                                        <mat-option value="country-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pSexo of selectSexo
+                                         " [value]="pSexo">{{pSexo.nombreSexo}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:identification'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <!--Fecha nacimiento-->
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{
+                                    t("Fecha-Nacimiento") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'fechaNacimiento'" [matDatepickerFilter]="fechaNacimiento"
+                                        [placeholder]="t('Fecha-Nacimiento')" [matDatepicker]="picker" />
+                                    <mat-hint>MM/DD/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-ID")}}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <!--Tipo de Identificacion-->
                                     <mat-select [formControlName]="'tipoidentificacion'"
                                         [placeholder]="t('Location-ID')">
                                         <mat-option value="country-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pTipo of selectTipoIdentificacion"
-                                            [value]="pTipo">{{pTipo.nombreTiposIdentificacion}}</mat-option>
+                                        <mat-option *ngFor="
+                                                let pTipo of selectTipoIdentificacion
+                                            " [value]="pTipo">{{
+                                            pTipo.nombreTiposIdentificacion
+                                            }}</mat-option>
                                     </mat-select>
-                                    <mat-icon class="icon-size-5" matPrefix
-                                        [svgIcon]="'heroicons_solid:identification'"></mat-icon>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="
+                                            'heroicons_solid:identification'
+                                        "></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--Nro Identificacion-->
                             <div class="dl sm:col-span-2">
                                 <label for="numeroidentificacion"
-                                    class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-NroId")
-                                    }}</label>
+                                    class="block text-sm font-medium leading-6 text-gray-900">{{ t("Location-NroId")}}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
                                     <input matInput [formControlName]="'numeroidenticacion'" id="numeroidentificacion"
                                         [placeholder]="'Número identificación'" />
-                                    <mat-icon class="icon-size-5" matPrefix
-                                        [svgIcon]="'heroicons_solid:identification'"></mat-icon>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="
+                                            'heroicons_solid:identification'
+                                        "></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--Nombres-->
                             <div class="dl sm:col-span-2">
                                 <label for="nombres" class="block text-sm font-medium leading-6 text-gray-900">{{
                                     t("Location-Names") }}</label>
@@ -127,168 +151,234 @@
                                         [svgIcon]="'heroicons_solid:users'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--Otros Nombres-->
+                            <div class="dl sm:col-span-2">
+                                <label for="otrosNombres" class="block text-sm font-medium leading-6 text-gray-900">{{
+                                    t("Location-OthersNames") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'otrosNombres'" id="otrosNombres" [placeholder]="t('Location-OthersNames')"/>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:users'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <!--Primer apeliido-->
+                            <div class="dl sm:col-span-2">
+                                <label for="primerApellido" class="block text-sm font-medium leading-6 text-gray-900">{{
+                                    t("Sign-Up-Session_Text1") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'primerApellido'" id="primerApellido" [placeholder]="t('Sign-Up-Session_Text1')" required />
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:users'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <!--Segundo apellido-->
+                            <div class="dl sm:col-span-2">
+                                <label for="segundoApellido" class="block text-sm font-medium leading-6 text-gray-900">{{
+                                    t("Sign-Up-Session_Text2") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'segundoApellido'" id="segundoApellido" [placeholder]="t('Sign-Up-Session_Text2')"/>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:users'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <!--Telefono1-->
                             <div class="dl sm:col-span-2">
                                 <label for="telefono1" class="block text-sm font-medium leading-6 text-gray-900">{{
                                     t("Sign-Up-PhoneNumber") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
-                                    <input matInput [formControlName]="'telefono1'" id="telefono1"
-                                        [placeholder]="t('Location-ContactPhone')"/>
+                                    <input matInput [formControlName]="'telefono1'" id="telefono1" [placeholder]="
+                                            t('Location-ContactPhone')" required />
                                     <mat-icon class="icon-size-5" matPrefix
                                         [svgIcon]="'heroicons_solid:phone'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--telefono2-->
                             <div class="dl sm:col-span-2">
                                 <label for="telefono2" class="block text-sm font-medium leading-6 text-gray-900">{{
                                     t("Sign-Up-PhoneNumber") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
-                                    <input matInput [formControlName]="'telefono2'" id="telefono2"
-                                        [placeholder]="t('Location-ContactPhone')" />
+                                    <input matInput [formControlName]="'telefono2'" id="telefono2" [placeholder]="
+                                            t('Location-ContactPhone')" />
                                     <mat-icon class="icon-size-5" matPrefix
                                         [svgIcon]="'heroicons_solid:phone'"></mat-icon>
                                 </mat-form-field>
                             </div>
-                            <div class="dl sm:col-span-2 ">
+                            <!--telefono3-->
+                            <div class="dl sm:col-span-2">
+                                <label for="telefono2" class="block text-sm font-medium leading-6 text-gray-900">{{
+                                    t("Sign-Up-PhoneNumber") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'telefono2'" id="telefono2" [placeholder]="t('Location-ContactPhone')" />
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <!--Correo electronico-->
+                            <div class="dl sm:col-span-2">
                                 <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{
                                     t("Email-Address") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
                                     <input matInput [formControlName]="'email'" id="email"
-                                        [placeholder]="'Email Address'"/>
+                                       [placeholder]="t('Email-Address')" />
                                     <mat-icon class="icon-size-5" matPrefix
                                         [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--Email alterno-->
+                            <div class="dl sm:col-span-2">
+                                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{t("Email-Address-Text-3") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'emailAlterno'" id="emailAlterno" [placeholder]="t('Email-Address-Text-3')" />
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Regimen")}}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <!--Regimen-->
+                                    <mat-select [formControlName]="'regimen'" [placeholder]="t('Regimen')">
+                                        <mat-option value="country-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pRegimen of selectRegimen
+                                                    " [value]="pRegimen">{{pRegimen.nombreRegimen}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:identification'"></mat-icon>
+                                </mat-form-field>
+                            </div>
                         </div>
+                       
                         <div class="flex justify-end">
-                            <button class="px-8" mat-flat-button [color]="'primary'"
-                                [disabled]="horizontalStepperStep1.stepControl.pristine || horizontalStepperStep1.stepControl.invalid"
-                                type="button" matStepperNext>
+                            <button class="px-8" mat-flat-button [color]="'primary'" [disabled]="
+                                    horizontalStepperStep1.stepControl
+                                        .pristine ||
+                                    horizontalStepperStep1.stepControl.invalid
+                                " type="button" matStepperNext>
                                 {{ t("Attention-Next") }}
                             </button>
                         </div>
                     </mat-step>
-
+                    <!--Información de Prescripcion-->
                     <mat-step [formGroupName]="'step2'" [stepControl]="horizontalStepperForm.get('step2')"
                         #horizontalStepperStep2>
                         <ng-template matStepLabel>{{t("Register-Information-Prescription")}}</ng-template>
-                        <p class="my-6 font-medium">
-                            {{t("Location-Prescripcion") }}
+                        <p class="my-6 font-medium">{{ t("Location-Prescripcion") }}
                         </p>
+                        <!--Medicamento-->
                         <div class="mt-12 grid grid-cols-3 gap-4 gap-y-2 sm:grid-cols-8">
                             <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{
-                                    t("Location-Medical") }}</label>
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Location-Medical") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
                                     <mat-select [formControlName]="'medicamento'" [placeholder]="t('Location-Medical')"
-                                        required>
+                                       (selectionChange)="onMedicoSelected($event.value)" required>
                                         <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pMedicamento of selectMedicamentos"
-                                            [value]="pMedicamento">{{pMedicamento.nombreMedicamento}}</mat-option>
+                                        <mat-option *ngFor="let pMedicamento of selectMedicamentos
+                                            " [value]="pMedicamento">{{ pMedicamento.nombreMedicamento}}</mat-option>
                                     </mat-select>
-                                    <mat-icon class="icon-size-5" matPrefix
-                                        [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--Asegurador-->
                             <div class="dl sm:col-span-2">
-                                <label
-                                    class="block text-sm font-medium leading-6 text-gray-900">{{t("Location-Asegurador")
-                                    }}</label>
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Location-Asegurador") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
                                     <mat-select [formControlName]="'asegurador'"
-                                        [placeholder]="t('Location-Asegurador')" required>
+                                        [placeholder]="t('Location-Asegurador')">
                                         <mat-option value="asegurador-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pAseguradora of selectasegurador"
-                                            [value]="pAseguradora">{{pAseguradora.nombreEps}}</mat-option>
+                                        <mat-option *ngFor="let pAseguradora of selectasegurador
+                                            " [value]="pAseguradora">{{ pAseguradora.nombreEps}}</mat-option>
                                     </mat-select>
-                                    <mat-icon class="icon-size-5" matPrefix
-                                        [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--Fecha Formula-->
                             <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{
-                                    t("Location-Formula") }}</label>
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Location-Formula") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
                                     <input matInput [formControlName]="'fechaformula'"
                                         [matDatepickerFilter]="fechaformula" [placeholder]="t('Location-Formula')"
-                                        [matDatepicker]="picker">
+                                        [matDatepicker]="picker3" />
                                     <mat-hint>MM/DD/YYYY</mat-hint>
-                                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker3></mat-datepicker>
                                 </mat-form-field>
                             </div>
+                            <!--Medico tratante-->
                             <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{
-                                    t("Location-Medicotratante") }}</label>
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Location-Medicotratante") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
-                                    <mat-select [formControlName]="'medicotratante'"
-                                        [placeholder]="t('Location-Medicotratante')" required>
+                                    <mat-select [formControlName]="'medicotratante'" [placeholder]="t('Location-Medicotratante')" required>
                                         <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pMedico of selectMedico"
-                                            [value]="pMedico">{{pMedico.nombreMedico}}</mat-option>
+                                        <mat-option *ngFor="let pMedico of selectMedico" [value]="pMedico">{{ pMedico.nombreMedico}}</mat-option>
                                     </mat-select>
-                                    <mat-icon class="icon-size-5" matPrefix
-                                        [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
+
+                            <!--Medico formulador-->
                             <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{
-                                    t("Location-Enfermeratratante") }}</label>
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Medico-Formulador") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
-                                    <mat-select [formControlName]="'enfermerazona'"
-                                        [placeholder]="t('Location-Enfermeratratante')" required>
+                                    <mat-select [formControlName]="'medicoFormulador'" [placeholder]="t('Medico-Formulador')" required>
                                         <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pZoneNurse of selectZonaEnfermeras"
-                                            [value]="pZoneNurse">{{pZoneNurse.nombreZonaEnfermeras}}</mat-option>
+                                        <mat-option *ngFor="let pMedico of selectMedico" [value]="pMedico">{{ pMedico.nombreMedico}}</mat-option>
                                     </mat-select>
-                                    <mat-icon class="icon-size-5" matPrefix
-                                        [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
+
+                            <!--Medico actual-->
                             <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{
-                                    t("Location-DiagnosticoPaciente") }}</label>
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Medico-Actual") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
-                                    <mat-select [formControlName]="'diagnosticopaciente'"
-                                        [placeholder]="t('Location-DiagnosticoPaciente')" required>
+                                    <mat-select [formControlName]="'medicoActual'" [placeholder]="t('Medico-Actual')" required>
                                         <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pDiagnostico of selectDiagnostico"
-                                            [value]="pDiagnostico">{{pDiagnostico.nombreDiagnostico}}</mat-option>
+                                        <mat-option *ngFor="let pMedico of selectMedico" [value]="pMedico">{{ pMedico.nombreMedico}}</mat-option>
                                     </mat-select>
-                                    <mat-icon class="icon-size-5" matPrefix
-                                        [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            
+                            <!--Diagnostico paciente-->
                             <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{
-                                    t("Location-FechaProgramacion") }}</label>
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Location-DiagnosticoPaciente")}}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <mat-select [formControlName]="'diagnosticopaciente'" [placeholder]="t('Location-DiagnosticoPaciente')" required>
+                                        <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pDiagnostico of selectDiagnostico" [value]="pDiagnostico">{{
+                                            pDiagnostico.nombreDiagnostico}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+
+                            <!--Fecha programacion-->
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Location-FechaProgramacion")}}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
                                     <input matInput [formControlName]="'fechaprogramacion'"
-                                        [matDatepickerFilter]="fechaformula" [placeholder]="t('Location-Formula')"
-                                        [matDatepicker]="picker2">
+                                        [matDatepickerFilter]="fechaProgramacion" [placeholder]="t('Location-Formula')"
+                                        [matDatepicker]="picker2" />
                                     <mat-hint>MM/DD/YYYY</mat-hint>
                                     <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                                     <mat-datepicker #picker2></mat-datepicker>
                                 </mat-form-field>
                             </div>
+
+                            <!--Causal no ingreso-->
                             <div class="dl sm:col-span-2">
-                                <label class="block text-sm font-medium leading-6 text-gray-900">{{
-                                    t("Location-CausalNoIngreso") }}</label>
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Location-CausalNoIngreso") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
-                                    <mat-select [formControlName]="'causalnoingreso'"
-                                        [placeholder]="t('Location-CausalNoIngreso')" required>
+                                    <mat-select [formControlName]="'causalnoingreso'" [placeholder]="t('Location-CausalNoIngreso')" required>
                                         <mat-option value="medicine-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pCausal of selectCausalnoIngresos"
-                                            [value]="pCausal">{{pCausal.nombreCausalNoIngreso}}</mat-option>
+                                        <mat-option *ngFor="let pCausal of selectCausalnoIngresos" [value]="pCausal">{{
+                                            pCausal.nombreCausalNoIngreso}}</mat-option>
                                     </mat-select>
-                                    <mat-icon class="icon-size-5" matPrefix
-                                        [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--Consentimiento-->
                             <div class="dl sm:col-span-2">
                                 <label class="block text-sm font-medium leading-6 text-gray-900">{{
                                     t("Location-Consentimiento") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
-                                    <mat-select [formControlName]="'consentimientoInf'"
-                                        [placeholder]="t('Location-Consentimiento')" required>
+                                    <mat-select [formControlName]="'consentimientoInf'" [placeholder]="
+                                            t('Location-Consentimiento')
+                                        " required>
                                         <mat-option value="1">Recibido Teléfono</mat-option>
                                         <mat-option value="2">Recibidio Doc.</mat-option>
                                         <mat-option value="3">Solicitado</mat-option>
@@ -297,24 +387,25 @@
                                         [svgIcon]="'heroicons_solid:language'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--Formula diagnostica-->
                             <div class="dl sm:col-span-2">
                                 <label class="block text-sm font-medium leading-6 text-gray-900">{{
-                                    t("Location-FormulaDiagnostica") }}</label>
+                                    t("Location-FormulaDiagnostica")
+                                    }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
-                                    <mat-select [formControlName]="'formula'"
-                                        [placeholder]="t('Location-FormulaDiagnostica')" required>
+                                    <mat-select [formControlName]="'formula'" [placeholder]="t('Location-FormulaDiagnostica')" required>
                                         <mat-option value="1">Solicitado</mat-option>
                                         <mat-option value="2">Recibido</mat-option>
                                     </mat-select>
-                                    <mat-icon class="icon-size-5" matPrefix
-                                        [svgIcon]="'heroicons_solid:language'"></mat-icon>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:language'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--HC diagnostico-->
                             <div class="dl sm:col-span-2">
                                 <label class="block text-sm font-medium leading-6 text-gray-900">{{
                                     t("Location-HCDiagnostico") }}</label>
                                 <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
-                                    <mat-select [formControlName]="'hcdiagnostico'" [placeholder]="'HC/Diagnostico'"
+                                    <mat-select [formControlName]="'hcdiagnostico'" [placeholder]="t('Location-HCDiagnostico')"
                                         required>
                                         <mat-option value="1">Solicitado</mat-option>
                                         <mat-option value="2">Recibidio</mat-option>
@@ -323,6 +414,7 @@
                                         [svgIcon]="'heroicons_solid:language'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--CC ADRES-->
                             <div class="dl sm:col-span-2">
                                 <label class="block text-sm font-medium leading-6 text-gray-900">{{
                                     t("Location-CCADRES") }}</label>
@@ -336,25 +428,106 @@
                                         [svgIcon]="'heroicons_solid:language'"></mat-icon>
                                 </mat-form-field>
                             </div>
+                            <!--Fecha Inscripcion-->
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Fecha-Inscripcion") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'fechaInscripcion'" [matDatepickerFilter]="fechaInscripcion"
+                                        [placeholder]="t('Fecha-Inscripcion')" [matDatepicker]="picker4" />
+                                    <mat-hint>MM/DD/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker4></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <!--Fecha Proxima cita-->
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Fecha-ProximaCita") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'fechaProximaCita'" [matDatepickerFilter]="fechaProximaCita"
+                                        [placeholder]="t('Fecha-ProximaCita')" [matDatepicker]="picker5" />
+                                    <mat-hint>MM/DD/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker5"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker5></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <!--IPS-->
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("IPS")}}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <mat-select [formControlName]="'ips'" [placeholder]="t('IPS')">
+                                        <mat-option value="ips-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pIps of selectIps " [value]="pIps">{{ pIps.nombreIps}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <!--Farmacia-->
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{t("Farmacia") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <mat-select [formControlName]="'farmacia'" [placeholder]="t('Farmacia')">
+                                        <mat-option value="ips-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pFarmacia of selectFarmacia
+                                                    " [value]="pFarmacia">{{pFarmacia.nombreFarmacia}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+
+                            <!--Distrito-->
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Distrito")}}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-5">
+                                    <mat-select [formControlName]="'distrito'" [placeholder]="t('Distrito')">
+                                        <mat-option value="zona-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pRegion of selectRegion" [value]="pRegion">{{
+                                            pRegion.nombreZona}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <!--Cuidador-->
+                            <div class="dl sm:col-span-2">
+                                <label for="nombres" class="block text-sm font-medium leading-6 text-gray-900">{{t("Cuidador") }}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-4">
+                                    <input matInput [formControlName]="'cuidador'" id="cuidador" [placeholder]="t('Cuidador')" />
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:users'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <!--Parentesco-->
+                            <div class="dl sm:col-span-2">
+                                <label class="block text-sm font-medium leading-6 text-gray-900">{{ t("Parentesco")}}</label>
+                                <mat-form-field class="block w-full rounded-md border-0 py-1.5 sm:text-sm sm:leading-5">
+                                    <mat-select [formControlName]="'parentesco'" [placeholder]="t('Parentesco')">
+                                        <mat-option value="parentesco-1">{{t("Msg-None")}}</mat-option>
+                                        <mat-option *ngFor="let pParentesco of selectParentesco" [value]="pParentesco">{{
+                                            pParentesco.nombreParentesco}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                </mat-form-field>
+                            </div>
                         </div>
 
+                        <!--Botones de navegación-->
                         <div class="flex justify-end">
-                            <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button"
-                                matStepperPrevious>
+                            <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
                                 {{ t("Attention-Back") }}
                             </button>
-                            <button class="px-8" mat-flat-button [color]="'primary'"
-                                [disabled]="horizontalStepperStep2.stepControl.pristine || horizontalStepperStep2.stepControl.invalid"
-                                type="button" matStepperNext>
+                            <button class="px-8" mat-flat-button [color]="'primary'" [disabled]="
+                                    horizontalStepperStep2.stepControl.pristine ||
+                                    horizontalStepperStep2.stepControl.invalid
+                                " type="button" matStepperNext>
                                 {{ t("Attention-Next") }}
                             </button>
                         </div>
                     </mat-step>
-
+                    <!--Reportante-->
                     <mat-step [formGroupName]="'step3'" [stepControl]="horizontalStepperForm.get('step3')">
-                        <ng-template matStepLabel>{{t("Register-Reporting-Information")}}</ng-template>
+                        <ng-template matStepLabel>{{
+                            t("Register-Reporting-Information")
+                            }}</ng-template>
                         <p class="my-6 font-medium">
-                            {{t("Location-Reportante") }}
+                            {{ t("Location-Reportante") }}
                         </p>
                         <div class="mt-12 grid grid-cols-3 gap-2 gap-y-2 sm:grid-cols-2">
                             <div class="dl sm:col-span-2">
@@ -368,7 +541,7 @@
                                         [svgIcon]="'heroicons_solid:users'"></mat-icon>
                                 </mat-form-field>
                             </div>
-                            <div class="dl sm:col-span-2 ">
+                            <div class="dl sm:col-span-2">
                                 <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{
                                     t("Email-Address") }}</label>
                                 <mat-form-field
@@ -391,18 +564,133 @@
                         </div>
                     </mat-step>
 
+                    <!--Historia comentarios-->
                     <mat-step [formGroupName]="'step4'" [stepControl]="horizontalStepperForm.get('step4')">
-                        <ng-template matStepLabel>{{t("Register-Observations")}}</ng-template>
+                        <ng-template matStepLabel>{{t("History-Comments")}}</ng-template>
+                        <div class="relative flex flex-col flex-auto min-w-0 overflow-hidden">
+                            <div class="flex flex-col flex-auto px-6 py-10 sm:px-16 sm:pt-18 sm:pb-20">
+                                <!-- Activity feed -->
+                                <div class="w-full max-w-3xl">
+                                    <!-- Title -->
+                                    <div class="text-4xl font-extrabold tracking-tight leading-none">
+                                        {{ t("History-Comments-Text-2") }}
+                                    </div>
+                                    <div class="mt-1.5 text-lg text-secondary">
+                                        {{ t("History-Comments-Text-3") }}
+                                    </div>
+                                    <ng-container *ngIf="activities$ | async as activities;else loading">
+                                        <ng-container *ngIf="activities$ | async as activities;else noActivity">
+                                            <div class="mt-8">
+                                                <ol>
+                                                    <!-- Activities -->
+                                                    <ng-container *ngFor="let activity of activities;let i = index;
+                                                                                let first = first;
+                                                                                let last = last;
+                                                                                trackBy: trackByFn">
+                                                        <!-- Date separator -->
+                <ng-container *ngIf="first || !isSameDay(activity.date,activities[i - 1].date)">
+                    <li class="relative flex py-7">
+                        <div class="relative py-2 px-8 text-md font-medium leading-5 rounded-full bg-primary text-on-primary">
+                             {{ getRelativeFormat( activity.date) | titlecase }}
+                        </div>
+                        </li>
+                            </ng-container>
+                                <!-- Activity -->
+                                <li class="relative flex py-7">
+                                <!-- Line -->
+                                <ng-container *ngIf="!last && isSameDay(activity.date, activities[i + 1].date )
+                                                                                    ">
+                    <div class="absolute top-7 left-5 w-0.5 h-full -ml-px bg-gray-300 dark:bg-gray-600">
+                    </div>
+                    </ng-container>
+                        <div class="relative flex flex-auto">
+                            <!-- Icon -->
+                            <ng-container *ngIf="activity.icon && !activity.image">
+                                <div class="flex shrink-0 items-center justify-center w-10 h-10 mr-4 rounded-full bg-gray-400">
+                                    <mat-icon class="icon-size-5 text-white" [svgIcon]="activity.icon"></mat-icon>
+                                </div>
+                                </ng-container>
+                                <!-- Image -->
+                                    <ng-container *ngIf="activity.image
+                                                                                        ">
+                                        <img class="shrink-0 w-10 h-10 mr-4 rounded-full overflow-hidden object-cover object-center"
+                                            [src]="activity.image" [alt]="'Activity image'" />
+                                    </ng-container>
+                                <!-- Content -->
+                                <div class="flex flex-col flex-auto items-start">
+                                    <!-- Description -->
+                                    <ng-container *ngIf="activity.description">
+                                        <div [innerHTML]="activity.description"></div>
+                                    </ng-container>
+                                    <div class="flex flex-col sm:flex-row sm:items-center mt-2 sm:mt-1 sm:space-x-2 text-md leading-5">
+                                    <!-- Date -->
+                                        <div class="text-secondary">
+                                            {{activity.date| date: "MMM dd, h:mm a"}}
+                                        </div>
+                                        <!-- Linked content -->
+                                    <ng-container *ngIf="activity.linkedContent">
+                                        <div class="hidden sm:block">
+                                            &bull;
+                                        </div>
+                                        <!-- Internal link -->
+                                        <ng-container *ngIf="activity.useRouter">
+                                            <a class="cursor-pointer text-primary" [routerLink]="activity.link">
+                                                {{activity.linkedContent}}</a>
+                                        </ng-container>
+                                         <!-- External link -->
+                                        <ng-container *ngIf="!activity.useRouter">
+                                            <a class="cursor-pointer text-primary" [href]="activity.link" target="_blank">
+                                                {{activity.linkedContent}}
+                                            </a>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+                                <!-- Extra content -->
+                                <ng-container *ngIf="activity.extraContent">
+                                    <div class="mt-4 py-4 px-5 rounded-lg bg-gray-200 dark:bg-gray-800"
+                                        [innerHTML]="activity.extraContent"></div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </li>
+                </ng-container>
+             </ol>
+            </div>
+        </ng-container>
+    </ng-container>
+    <!-- Loading template -->
+<ng-template #loading>{{ t("History-Loading") }}</ng-template>
+<!-- No Activity template -->
+<ng-template #noActivity>{{ t("History-NoActivity") }}</ng-template>
+</div>
+</div>
+</div>
+<div class="flex justify-end mt-8">
+     <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
+         {{ t("Attention-Back") }}
+     </button>
+     <button class="px-8" mat-flat-button [color]="'primary'" type="button" matStepperNext>
+         {{ t("Attention-Next") }}
+     </button>
+ </div>
+</mat-step>
+
+<!--Observaciones-->
+<mat-step [formGroupName]="'step5'" [stepControl]="horizontalStepperForm.get('step5')">
+                        <ng-template matStepLabel>{{
+                            t("Register-Observations")
+                            }}</ng-template>
                         <p class="my-6 font-medium">
-                            {{t("Location-Title-Comentarios") }}
+                            {{ t("Location-Title-Comentarios") }}
                         </p>
                         <div class="mt-12 grid grid-cols-2 gap-2 gap-y-2 sm:grid-cols-1">
                             <div class="flex">
                                 <mat-form-field class="flex-auto">
                                     <textarea matInput [formControlName]="'about'"
                                         [placeholder]="t('Attention-Comments')" [rows]="3"></textarea>
-                                    <mat-icon class="icon-size-5" matPrefix
-                                        [svgIcon]="'heroicons_solid:bars-3-bottom-left'"></mat-icon>
+                                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="
+                                            'heroicons_solid:bars-3-bottom-left'
+                                        "></mat-icon>
                                 </mat-form-field>
                             </div>
                             <div class="dl sm:col-span-2">
@@ -411,25 +699,31 @@
                                 <mat-form-field class="block w-full rounded-md border-0 py-1 sm:text-xs sm:leading-5">
                                     <mat-select [formControlName]="'estadoInscripcion'"
                                         [placeholder]="t('Attention-Status')">
-                                        <mat-option value="estado-1">{{t("Msg-None")}}</mat-option>
-                                        <mat-option *ngFor="let pEstado of selectEstadoInscripcion" [value]="pEstado">{{
-                                            pEstado.nombreEstadoInscripcion}}</mat-option>
+                                        <mat-option value="estado-1">{{
+                                            t("Msg-None")
+                                            }}</mat-option>
+                                        <mat-option *ngFor="
+                                                let pEstado of selectEstadoInscripcion
+                                            " [value]="pEstado">{{
+                                            pEstado.nombreEstadoInscripcion
+                                            }}</mat-option>
                                     </mat-select>
                                     <mat-icon class="icon-size-5" matPrefix
                                         [svgIcon]="'heroicons_solid:sparkles'"></mat-icon>
                                 </mat-form-field>
-
                             </div>
                             <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
                                 <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col w-96">
-                                    <h2 class="mb-4 text-xl font-semibold text-gray-800">Carga de Archivos</h2>
+                                    <h2 class="mb-4 text-xl font-semibold text-gray-800">
+                                        Carga de Archivos
+                                    </h2>
                                     <div class="mb-4">
                                         <label for="fileUpload"
                                             class="block text-gray-700 text-sm font-bold mb-2">Seleccionar
                                             archivos</label>
                                         <input id="fileUpload" name="fileUpload" type="file"
                                             accept=".pdf, .jpg, .png, .docx, .xlsx" multiple
-                                            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <button
@@ -442,21 +736,19 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+                       
                         <div class="flex justify-end mt-8">
-                            <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button"
-                                matStepperPrevious>
+                            <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
                                 {{ t("Save") }}
                             </button>
-                            <button class="px-8" mat-flat-button [color]="'primary'" type="reset"
-                                (click)="horizontalStepper.reset();">
+                            <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="horizontalStepper.reset()">
                                 {{ t("Cancel") }}
                             </button>
                         </div>
-                    </mat-step>
-                </mat-horizontal-stepper>
-            </form>
+</mat-step>                  
+</mat-horizontal-stepper>
+</form>
         </fuse-card>
     </div>
 </div>

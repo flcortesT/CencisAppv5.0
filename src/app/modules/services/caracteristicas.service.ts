@@ -1,9 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CIE, CaracteristicasVivienda, CausalInterrupcionSueno, CausalNoIngresos, Causalidad, CieMedicamento, Comorbilidad, ConfiguracionUsuarioDistrito, ConfiguracionUsuarioGeneral, ConfiguracionUsuarioZonas, ConsentimientoGS, Distritos, Laboratorios, Medicamentos, Perfiles, TipoConfiguracion, Zonas } from '../Models/caracteristicas.model';
+import {
+    ApiReponseMedicos, CIE, CaracteristicasVivienda, CausalInterrupcionSueno, CausalNoIngresos, Causalidad,
+    CieMedicamento, Comorbilidad, ConfiguracionUsuarioDistrito, ConfiguracionUsuarioGeneral, ConfiguracionUsuarioZonas,
+    ConsentimientoGS, Distritos, Laboratorios, Medicamentos, Perfiles, TipoConfiguracion
+} from '../Models/caracteristicas.model';
 import { environment } from 'environments/environment';
-import { Observable, retry, catchError, throwError } from 'rxjs';
+import { Observable, retry, catchError, throwError, tap } from 'rxjs';
 import { MaestraCaracteristicas } from '../Models/actividad.model';
+import { Zonas } from '../Models/location.model';
 
 
 @Injectable({
@@ -15,11 +20,9 @@ export class CaracteristicasService {
     httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': 'true',
         }),
     };
-  
+
     // Consulta de registros de accion actual.
     getAllCaracteristicasVivienda(): Observable<CaracteristicasVivienda> {
         return this.http
@@ -144,7 +147,7 @@ export class CaracteristicasService {
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
-    // Consulta de registros de accion actual.
+    // Consulta de registros de todos los medicamentos
     getAllMedicamentos(): Observable<Medicamentos> {
         return this.http
             .get<Medicamentos>(environment.baseUrl + 'Medicamentos')
@@ -267,6 +270,22 @@ export class CaracteristicasService {
         return this.http
             .get<Medicamentos>(environment.baseUrl + 'Medicamentos/' + id)
             .pipe(retry(1), catchError(this.errorHandl));
+    }
+
+    // Consulta de Medicos activos.
+    getAllMedicosActivos(medicamentosID: number): Observable<ApiReponseMedicos> {
+        return this.http
+            .get<ApiReponseMedicos>(
+                `${environment.baseUrl}Medicamentos/MedicineByMedic?medicamentosID=${medicamentosID}`,
+                this.httpOptions
+            )
+            .pipe(
+                tap((response) =>
+                    console.log('Respuesta del servidor:', response)
+                ), // Esto imprimirá la respuesta
+                retry(1),
+                catchError(this.errorHandl)
+            );
     }
 
     // Consulta de registros de areas con parametros

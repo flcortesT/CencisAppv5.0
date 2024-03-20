@@ -226,6 +226,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         link: '/pages/authentication/sign-out/modern',
                     },
                     {
+                        id: 'pages.authentication.grant',
+                        title: 'Grants',
+                        type: 'basic',
+                        icon: 'heroicons_outline:lock-open',
+                        link: '/pages/authentication/grants',
+                    },
+                    {
                         id: 'pages.authentication.sign-forgot',
                         title: 'Forgot password',
                         type: 'basic',

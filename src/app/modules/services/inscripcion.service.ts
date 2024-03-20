@@ -13,48 +13,63 @@ export class InscripcionService {
     httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': 'true',
         }),
     };
 
-    // Consulta de registros de accion actual.
+    /**
+     * Consulta de todos los registos de registro de inscripción
+     * @returns
+     */
     getAllInscripciones(): Observable<Inscripcion> {
         return this.http
-            .get<Inscripcion>(environment.baseUrl + 'Pais')
+            .get<Inscripcion>(`${environment.baseUrl}Pais`)
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
-    // Consulta de registros de areas con parametros
+    /**
+     * Consulta de inscripciones filtrado por ID
+     * @param id
+     * @returns
+     */
     getAllInscripcionesById(id: number): Observable<Inscripcion> {
         return this.http
-            .get<Inscripcion>(environment.baseUrl + 'Inscripcion/' + id)
+            .get<Inscripcion>(`${environment.baseUrl}Inscripcion/${id}`)
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
-    // Creación de un nuevo registro en la tabla accion actual.
-    crearPais(data: any): Observable<Inscripcion> {
+    /**
+     * Permite crear nuevo registro en la base de datos.
+     * @param data
+     * @returns
+     */
+    crearInscripcion(data: any): Observable<Inscripcion> {
         return this.http
             .post<Inscripcion>(
-                environment.baseUrl + 'Inscripcion',
+                `${environment.baseUrl}Inscripcion`,
                 JSON.stringify(data),
                 this.httpOptions
             )
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
-    // Edición de registros existentes.
+    /**
+     * Edición de registros existentes de Inscripciones.
+     */
     updateInscripcion(id: number, data: any): Observable<Inscripcion> {
         return this.http
             .put<Inscripcion>(
-                environment.baseUrl + 'Inscripcion/' + id,
+                `${environment.baseUrl}Inscripcion/${id}`,
                 JSON.stringify(data),
                 this.httpOptions
             )
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
-    // Eliminar registro de la tabla ciudad
+    /**
+     * Permite eliminar un registro de Inscripción solo el administrador lo puede hacer.
+     * @param id 
+     * @returns 
+     */
     deleteInscripcionById(id: number): Observable<Inscripcion> {
         return this.http
             .delete<Inscripcion>(
@@ -64,7 +79,11 @@ export class InscripcionService {
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
-    // Control de errores
+    /**
+     * Control de errores.
+     * @param error 
+     * @returns 
+     */
     errorHandl(error: {
         error: { message: string };
         status: any;

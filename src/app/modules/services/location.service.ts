@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Ciudad, Departamento, Paises, Zonas } from '../Models/location.model';
+import { ApiReponseCity, ApiResponse, ApiResponseZona, Ciudad, Departamento, Paises, Zonas } from '../Models/location.model';
 import { environment } from 'environments/environment';
-import { Observable, retry, catchError, throwError } from 'rxjs';
-
+import { Observable, retry, catchError, throwError, tap } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -14,8 +13,6 @@ export class LocationService {
     httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': 'true',
         }),
     };
 
@@ -26,80 +23,76 @@ export class LocationService {
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
-    getAllStateOrCountries(paisId: number, valorState: number) {
+    /**
+     * Consulta de todos los departamentos por pais
+     * @param paisesId 
+     * @returns 
+     */
+    getAllState(paisesId: number): Observable<ApiResponse> {
         return this.http
-            .get<Departamento>(environment.baseUrl + 'Departamento', this.httpOptions)
-            .pipe(retry(1), catchError(this.errorHandl));
+            .get<ApiResponse>(
+                `${environment.baseUrl}Departamento/FilterByPais?paisesId=${paisesId['paisesId']}`
+            )
+            .pipe(
+                tap((response) =>
+                    console.log('Respuesta del servidor:', response)
+                ), // Esto imprimirá la respuesta
+                retry(1),
+                catchError(this.errorHandl)
+            );
     }
 
-    getAllRegionByState(
-        regionid: number,
-        stateId: number,
-        cityId: number
-    ): Observable<Zonas> {
+    /**
+     * Consulta de todas las ciudades por pais
+     * @param departamentoId 
+     * @returns 
+     */
+    getAllCity(departamentoId: number): Observable<ApiReponseCity> {
         return this.http
-            .get<Zonas>(
-                `${environment.baseUrl}Zonas/${stateId}/${cityId}`,
+            .get<ApiReponseCity>(
+                `${environment.baseUrl}Ciudad/StateByCity?departamentoId=${departamentoId['departamentoId']}`,
                 this.httpOptions
             )
-            .pipe(retry(1), catchError(this.errorHandl));
+            .pipe(
+                tap((response) =>
+                    console.log('Respuesta del servidor:', response)
+                ), // Esto imprimirá la respuesta
+                retry(1),
+                catchError(this.errorHandl)
+            );
     }
 
-    getCityByCountry(valorPais: any, valorCity: number, valorState: number) {
-        return this.http
-            .get<Ciudad>(environment.baseUrl + 'Ciudad', this.httpOptions)
-            .pipe(retry(1), catchError(this.errorHandl));
-    }
-
-    // Consulta de registros de accion actual.
-    getAllState(): Observable<Departamento> {
-        return this.http
-            .get<Departamento>(environment.baseUrl + 'Departamento', this.httpOptions)
-            .pipe(retry(1), catchError(this.errorHandl));
-    }
-
-    // Consulta de registros de accion actual.
-    getAllCity(): Observable<Ciudad> {
-        return this.http
-            .get<Ciudad>(environment.baseUrl + 'Ciudad', this.httpOptions)
-            .pipe(retry(1), catchError(this.errorHandl));
+    /**
+     * Consulta de todas las zonas por pais.
+     * @param paisId 
+     * @returns 
+     */
+    getAllZonaByCountry(paisId: number): Observable<ApiResponseZona>{
+         return this.http
+             .get<ApiResponseZona>(
+                 `${environment.baseUrl}Zonas/ZonaByCountry?paisId=${paisId['paisesId']}`,
+                 this.httpOptions
+             )
+             .pipe(
+                 tap((response) =>
+                     console.log('Respuesta del servidor:', response)
+                 ), // Esto imprimirá la respuesta
+                 retry(1),
+                 catchError(this.errorHandl)
+             );
     }
 
     // Consulta de registros de accion actual.
     getAllRegion(): Observable<Zonas> {
         return this.http
-            .get<Zonas>((environment.baseUrl + 'Zonas'), this.httpOptions)
-            .pipe(retry(1), catchError(this.errorHandl));
-    }
-
-    // Consulta de registros de areas con parametros
-    getAllCountryById(id: number): Observable<Paises> {
-        return this.http
-            .get<Paises>(
-                environment.baseUrl + 'Paises/' + id,
-                this.httpOptions
-            )
-            .pipe(retry(1), catchError(this.errorHandl));
-    }
-
-    // Consulta de registros de areas con parametros
-    getAllStateById(id: number): Observable<Departamento> {
-        return this.http
-            .get<Departamento>((environment.baseUrl + 'Departamento/' + id),this.httpOptions)
-            .pipe(retry(1), catchError(this.errorHandl));
-    }
-
-    // Consulta de registros de areas con parametros
-    getAllCityById(id: number): Observable<Ciudad> {
-        return this.http
-            .get<Ciudad>(environment.baseUrl + 'Ciudad/' + id)
+            .get<Zonas>(environment.baseUrl + 'Zonas', this.httpOptions)
             .pipe(retry(1), catchError(this.errorHandl));
     }
 
     // Consulta de registros de areas con parametros
     getAllRegionById(id: number): Observable<Zonas> {
         return this.http
-            .get<Zonas>((environment.baseUrl + 'Zonas/' + id),this.httpOptions)
+            .get<Zonas>(environment.baseUrl + 'Zonas/' + id, this.httpOptions)
             .pipe(retry(1), catchError(this.errorHandl));
     }
 

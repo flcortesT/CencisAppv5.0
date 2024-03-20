@@ -1,6 +1,6 @@
-import { Medicamentos, Perfiles, Zonas } from './caracteristicas.model';
+import { Medicamentos, Perfiles } from './caracteristicas.model';
 import { Estados } from './ejecuciones.model';
-import { Ciudad, Departamento, Paises } from './location.model';
+import { Ciudad, Departamento, Paises, Zonas } from './location.model';
 
 export class AccionActual {
     id?: number;
@@ -90,7 +90,6 @@ export class TipoIdentificacion {
 }
 
 export class Sexo {
-    id?: number;
     nombreSexo?: string;
     active?: boolean;
 }
@@ -161,6 +160,13 @@ export class IPS {
     active?: boolean;
 }
 
+
+export class ApiReponseIPS {
+    isSuccess: boolean;
+    message: IPS[];
+}
+
+
 export class EscalaDolor {
     id?: number;
     nombreEscalaDolor?: string;
@@ -192,4 +198,16 @@ export class MaestraDatosClinicos {
 export class MaestraCaracteristicas {
     DetalleCaracteristicas?: string;
     active?: boolean;
+}
+
+export class ComentariosManager {
+    id: string;
+    icon?: string;
+    image?: string;
+    description?: string;
+    date: string;
+    extraContent?: string;
+    linkedContent?: string;
+    link?: string;
+    useRouter?: boolean;
 }
